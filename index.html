@@ -8,19 +8,32 @@
   </head>
   <body>
     <div class="vending-machine">
-      <div id="display" class="display">0</div>
-      <div id="buttons" class="buttons">
-        <button class="product">
-          <strong>Cola</strong><br />
-          <p>1234원</p>
-        </button>
+      <div class="left-section">
+        <div id="display-buttons" class="display-buttons">
+          <div id="display" class="display">0</div>
+          <div id="buttons" class="buttons">
+            <button class="product">
+              <strong>Cola</strong><br /><small>1,500원</small>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="input-section">
-        <input type="number" id="money-input" min="1" placeholder="금액 투입" />
-        <button id="insert-money">투입</button>
+      <div class="right-section">
+        <div id="input-log-container" class="input-log-container">
+          <div class="input-section">
+            <input
+              type="number"
+              id="money-input"
+              min="1"
+              placeholder="금액 투입"
+            />
+            <button id="insert-money">투입</button>
+          </div>
+          <div id="log" class="log">123</div>
+        </div>
       </div>
-      <div id="log" class="log"></div>
     </div>
+
     <script type="module" src="main.js"></script>
   </body>
 </html>
