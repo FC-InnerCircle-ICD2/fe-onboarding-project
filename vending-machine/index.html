@@ -1,13 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/vite.svg" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>자판기</title>
+    </head>
+    <body>
+        <div id="app">
+            <div id="container">
+                <div id="calculator">
+                    <!-- 투입금액  -->
+                    <div id="current-coin">
+                        <input
+                            id="count-display"
+                            class="input default-cursor align-center"
+                            readonly />
+                    </div>
+                    <div id="dial-container">
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+                        <button class="button">
+                            <p class="title ellipsis">콜라</p>
+                            <p class="price ellipsis">150000000000원</p>
+                        </button>
+                        <button class="button">
+                            <p class="title ellipsis">콜라콜라콜라콜</p>
+                            <p class="price ellipsis">1500원</p>
+                        </button>
+                    </div>
+                </div>
+                <div id="info">
+                    <div id="operation-container">
+                        <input
+                            id="insert-coin"
+                            class="input" />
+                        <button class="button">투입</button>
+                        <button class="button">반환</button>
+                    </div>
+                    <ul id="log-container">
+                        <li class="log-item">1500원을 투입했습니다.</li>
+                        <li class="log-item">오뎅국물을 구입했습니다.</li>
+                        <li class="log-item">200원을 반환합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script
+            type="module"
+            src="/src/main.ts"></script>
+    </body>
 </html>

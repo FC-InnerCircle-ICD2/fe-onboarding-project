@@ -1,24 +1,14 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+let currentCoin = 0
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const display = document.getElementById('count-display') as HTMLInputElement
+const coinInput = document.getElementById('insert-coin') as HTMLInputElement
+
+if (display) display.value = currentCoin.toLocaleString()
+
+// 입력값이 숫자만 포함하도록 처리하는 이벤트 리스너
+coinInput.addEventListener('input', () => {
+    // 입력값이 정규식에 맞지 않으면 값을 비웁니다.
+    coinInput.value = Number(coinInput.value.replace(/[^0-9]/g, '')).toLocaleString() // 유효하지 않으면 이전 값으로 복원
+})
