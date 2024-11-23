@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vending Machine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="vending-machine">
+      <div id="display" class="display">0</div>
+      <div id="buttons" class="buttons">
+        <button class="product">
+          <strong>Cola</strong><br />
+          <p>1234원</p>
+        </button>
+      </div>
+      <div class="input-section">
+        <input type="number" id="money-input" min="1" placeholder="금액 투입" />
+        <button id="insert-money">투입</button>
+      </div>
+      <div id="log" class="log"></div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
