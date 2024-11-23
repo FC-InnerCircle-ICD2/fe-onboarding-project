@@ -29,21 +29,30 @@
                 <div id="info">
                     <div id="operation-container">
                         <input
-                            id="insert-coin"
+                            id="coin-input"
                             class="input" />
-                        <button class="button">투입</button>
-                        <button class="button">반환</button>
+                        <button
+                            id="insert-coin"
+                            class="button">
+                            투입
+                        </button>
+                        <button
+                            id="return-coin"
+                            class="button">
+                            반환
+                        </button>
                     </div>
                     <ul id="log-container">
-                        <li class="log-item">1500원을 투입했습니다.</li>
-                        <li class="log-item">오뎅국물을 구입했습니다.</li>
-                        <li class="log-item">200원을 반환합니다.</li>
+                        <!-- script를 통해 log 생성 -->
                     </ul>
                 </div>
             </div>
         </div>
         <script
             type="module"
-            src="/src/main.ts"></script>
+            src="/src/init.ts"></script>
+        <script
+            type="module"
+            src="/src/events.ts"></script>
     </body>
 </html>
