@@ -10,4 +10,7 @@ export const printLog = () => {
         .join('')
 
     logContainer.innerHTML = html
+
+    // 맨 아래로 스크롤
+    logContainer.scrollTop = logContainer.scrollHeight
 }

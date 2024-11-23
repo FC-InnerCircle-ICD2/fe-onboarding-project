@@ -17,7 +17,7 @@ coinInput.addEventListener('input', () => {
 // 투입 button event
 // -----------------------------------
 insertCoinButton.addEventListener('click', () => {
-    const coin = Number(coinInput.value.replace(',', ''))
+    const coin = Number(coinInput.value.replace(/,/g, ''))
 
     if (!coin || isNaN(coin)) {
         alert('금액을 입력하세요.')
@@ -50,7 +50,7 @@ returnCoinButton.addEventListener('click', () => {
     }
 
     if (currentCoin - coin < 0) {
-        logs.push(`${currentCoin}을 반환합니다.`)
+        logs.push(`${currentCoin.toLocaleString()}을 반환합니다.`)
         currentCoin = 0
     } else {
         logs.push(`${coin.toLocaleString()}원을 반환합니다.`)
@@ -61,5 +61,58 @@ returnCoinButton.addEventListener('click', () => {
     coinInput.value = ''
 
     printLog()
+})
+// -----------------------------------
+
+// 자판기 button event
+// -----------------------------------
+const buttons = document.querySelectorAll('.dial-button')
+buttons.forEach((btn) => {
+    // mousedown시 상품 금액이 투입된 금액보다 적을 때 노출
+    btn.addEventListener('mousedown', () => {
+        // button active 효과
+        btn.classList.add('button_active')
+
+        setTimeout(() => {
+            btn.classList.remove('button_active')
+        }, 300)
+
+        const name = btn.getAttribute('data-name')
+        const price = Number(btn.getAttribute('data-price'))
+
+        if (!price || isNaN(price)) {
+            alert('data 속성을 변경하지 마세요...')
+            return
+        }
+
+        // 현재 금액이 상품 금액보다 적을 때
+        if (currentCoin < price) {
+            display.classList.add('error-text')
+            display.value = price.toLocaleString()
+        }
+        // 현재 금액이 상품 금액보다 클 때
+        else {
+            logs.push(`${name}(${price.toLocaleString()}원)을 구매했습니다.`)
+            currentCoin -= price
+            display.value = currentCoin.toLocaleString()
+            printLog()
+        }
+    })
+
+    btn.addEventListener('mouseleave', () => {
+        if (display.classList.contains('error-text')) {
+            display.value = currentCoin.toLocaleString()
+            display.classList.remove('error-text')
+        }
+    })
+
+    // mouseup시 error 상태와 display된 금액을 되돌림
+    btn.addEventListener('mouseup', () => {
+        if (display.classList.contains('error-text')) {
+            display.classList.remove('error-text')
+        }
+
+        display.value = currentCoin.toLocaleString()
+    })
 })
 // -----------------------------------

@@ -27,12 +27,12 @@ export const logContainer = document.getElementById('log-container') as HTMLULis
 // -----------------------------------
 const dialHtml = dummyData
     .map((item) => {
-        return `<div class="button">
+        return `<button class="button dial-button" data-name="${item.name}" data-price="${item.price}">
                   <div class="dial-item">
                     <p class="title ellipsis align-center">${item.name}</p>
                     <p class="price ellipsis align-center">${item.price.toLocaleString()}원</p>
                   </div>
-                </div>`
+                </button>`
     })
     .join('')
 

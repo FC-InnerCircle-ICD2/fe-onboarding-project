@@ -48,6 +48,7 @@ body {
             row-gap: 8px;
 
             .dial-item {
+                max-width: 100%;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -113,6 +114,10 @@ body {
     text-align: right;
 }
 
+input.error-text {
+    color: red;
+}
+
 .button {
     position: relative;
     width: 100%;
@@ -130,6 +135,23 @@ body {
 
     &:hover {
         background-color: rgb(98, 200, 241);
+    }
+}
+
+.button_active {
+    animation: buttonActiveAnimation 0.3s ease forwards;
+}
+
+/* 눌렀을 때 애니메이션 정의 */
+@keyframes buttonActiveAnimation {
+    0% {
+        transform: scale(1); /* 초기 크기 */
+    }
+    50% {
+        transform: scale(1.05); /* 버튼이 커지는 효과 */
+    }
+    100% {
+        transform: scale(1); /* 원래 크기로 돌아오는 효과 */
     }
 }
 
