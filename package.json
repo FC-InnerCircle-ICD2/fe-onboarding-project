@@ -1,0 +1,21 @@
+{
+  "name": "fe-onboarding-project",
+  "version": "0.0.1",
+  "description": "온보딩 프로젝트로 바닐라 자바스크립트 버전으로 주어진 명세를 만족하는 자판기를 구현합니다.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "cheolhun",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}
