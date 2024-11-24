@@ -19,6 +19,10 @@ button {
     font-family: 'GeistMonoVF';
 }
 
+p {
+    margin: 0;
+}
+
 div {
     box-sizing: border-box;
 }

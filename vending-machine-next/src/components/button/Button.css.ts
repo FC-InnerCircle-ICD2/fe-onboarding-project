@@ -7,6 +7,7 @@ export const UI_Button = recipe({
         border: '1px solid black',
         borderRadius: 6,
         backgroundColor: 'skyblue',
+        cursor: 'pointer',
         ':hover': {
             backgroundColor: '#3fb6e7',
         },
@@ -19,6 +20,7 @@ export const UI_Button = recipe({
             },
             '60px': {
                 width: '60px',
+                minWidth: '60px',
             },
         },
     },
