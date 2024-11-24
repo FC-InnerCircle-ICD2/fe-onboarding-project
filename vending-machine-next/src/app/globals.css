@@ -17,3 +17,7 @@
 body {
     font-family: 'GeistMonoVF', sans-serif;
 }
+
+div {
+    box-sizing: border-box;
+}

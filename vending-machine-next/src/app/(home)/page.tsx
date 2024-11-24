@@ -1,3 +1,12 @@
+import RootContainer from '@/template/RootContainer'
+import SideContainer from './template/SideContainer'
+import VendingMachine from './template/VendingMachine'
+
 export default function Home() {
-    return <div>vending machine nextjs</div>
+    return (
+        <RootContainer>
+            <VendingMachine />
+            <SideContainer />
+        </RootContainer>
+    )
 }
