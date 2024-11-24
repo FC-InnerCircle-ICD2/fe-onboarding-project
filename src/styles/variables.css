@@ -1,0 +1,64 @@
+:root {
+  /* Global Color Tokens */
+  --color-blue-600: #228be6;
+  --color-blue-700: #1c7ed6;
+  
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #f1f3f5;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #adb5bd;
+  --color-gray-500: #868e96;
+  --color-gray-600: #495057;
+  --color-gray-700: #212529;
+  
+  /* Alias Color Tokens */
+  --color-primary: var(--color-blue-600);
+  --color-primary-dark: var(--color-blue-700);
+  --color-background: var(--color-gray-50);
+  --color-surface: white;
+  --color-border: var(--color-gray-200);
+  --color-text-primary: var(--color-gray-700);
+  --color-text-secondary: var(--color-gray-600);
+  
+  /* Component-Specific Color Tokens */
+  --button-primary-color: var(--color-primary);
+  --button-primary-hover: var(--color-primary-dark);
+  --button-secondary-color: var(--color-border);
+  --button-secondary-hover: var(--color-gray-300);
+  
+  /* Spacing Tokens */
+  --spacing-base: 1rem;    /* 16px */
+  --spacing-xs: calc(var(--spacing-base) * 0.5);     /* 8px */
+  --spacing-sm: calc(var(--spacing-base) * 0.8);     /* 12.8px */
+  --spacing-md: var(--spacing-base);                 /* 16px */
+  --spacing-lg: calc(var(--spacing-base) * 1.5);     /* 24px */
+  --spacing-xl: calc(var(--spacing-base) * 2);       /* 32px */
+  
+  /* Border Radius Tokens */
+  --radius-base: 4px;
+  --radius-sm: calc(var(--radius-base) * 1.5);    /* 6px */
+  --radius-md: calc(var(--radius-base) * 2);      /* 8px */
+  --radius-lg: calc(var(--radius-base) * 3);      /* 12px */
+  
+  /* Typography Scale Tokens */
+  --font-size-base: 1rem;
+  --text-xs: calc(var(--font-size-base) * 0.9);
+  --text-sm: var(--font-size-base);
+  --text-md: calc(var(--font-size-base) * 1.1);
+  --text-lg: calc(var(--font-size-base) * 2);
+  --text-xl: calc(var(--font-size-base) * 2.5);
+  
+  /* Shadow Tokens */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px var(--shadow-color);
+  --shadow-md: 0 4px 6px var(--shadow-color);
+  
+  /* Layout Tokens */
+  --layout-max-width: 1200px;
+  --layout-sidebar: 400px;
+  
+  /* Component Layout Tokens */
+  --container-max-width: var(--layout-max-width);
+  --sidebar-width: var(--layout-sidebar);
+}

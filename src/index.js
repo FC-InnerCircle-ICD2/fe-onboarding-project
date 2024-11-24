@@ -1,3 +1,2 @@
-import "./styles.css";
-
-console.log("Hello World");
+import "./styles/variables.css";
+import "./styles/styles.css";

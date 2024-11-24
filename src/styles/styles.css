@@ -1,0 +1,196 @@
+@import "./variables.css";
+
+/* Reset Tokens */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base Layout */
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, sans-serif;
+  background-color: var(--color-background);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+/* Component: Vending Machine */
+.vending-machine {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: var(--container-max-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* Component: Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+.product-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 100px;
+}
+
+.product-button:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-background);
+}
+
+.product-button:active {
+  background-color: var(--color-surface);
+  transform: scale(0.98);
+}
+
+.product-name {
+  font-size: var(--text-md);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-primary);
+}
+
+.product-price {
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+}
+
+/* Component: Display Section */
+.display-section {
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+}
+
+.price-display {
+  font-size: var(--text-xl);
+  font-weight: bold;
+  text-align: right;
+  color: var(--color-text-primary);
+}
+
+/* Component: Input Section */
+.input-section {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.money-input {
+  flex: 1;
+  padding: var(--spacing-sm);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.money-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Component: Buttons */
+.insert-button,
+.return-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.insert-button {
+  background-color: var(--button-primary-color);
+  color: var(--color-surface);
+}
+
+.insert-button:hover {
+  background-color: var(--button-primary-hover);
+}
+
+.return-button {
+  background-color: var(--button-secondary-color);
+  color: var(--color-text-secondary);
+}
+
+.return-button:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+/* Component: Log Section */
+.log-section {
+  flex: 1;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+.log-container {
+  padding: var(--spacing-md);
+}
+
+.log-container p {
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+}
+
+/* Scrollbar Styling */
+.log-section::-webkit-scrollbar {
+  width: var(--radius-base);
+}
+
+.log-section::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+}
+
+.log-section::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: var(--radius-sm);
+}
+
+.log-section::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/* Responsive Layout */
+@media (min-width: 600px) {
+  .vending-machine {
+    flex-direction: row;
+  }
+
+  .vending-machine__left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+
+  .vending-machine__right {
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+}
