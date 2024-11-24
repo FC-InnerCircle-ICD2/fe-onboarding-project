@@ -14,8 +14,9 @@
     font-style: normal;
 }
 
-body {
-    font-family: 'GeistMonoVF', sans-serif;
+body,
+button {
+    font-family: 'GeistMonoVF';
 }
 
 div {
