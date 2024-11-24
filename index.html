@@ -5,10 +5,36 @@
     <title>지니의 자판기</title>
     <link rel="stylesheet" type="text/css" href="src/style/index.css" />
   </head>
+
   <body>
-    <script type="text/javascript" src="src/js/products.js"></script>
+    <ul class="product-container"></ul>
+
+    <script type="text/javascript" src="src/constants/products.js"></script>
     <script>
-      console.log(products)
+      const createElement = element => {
+        return document.createElement(element)
+      }
+
+      const productContainer = document.querySelector(".product-container")
+
+      products.map(product => {
+        const liElement = createElement("li")
+        liElement.className = "product"
+
+        const productName = createElement("div")
+        productName.className = "product_name"
+        productName.textContent = product.name
+        productName.onClick = () => console.log(product.name)
+        liElement.append(productName)
+
+        const productPrice = createElement("div")
+        productPrice.className = "product_price"
+        productPrice.textContent = product.price
+        productPrice.addEventListener("click", () => console.log(product.price))
+        liElement.append(productPrice)
+
+        productContainer.appendChild(liElement)
+      })
     </script>
   </body>
 </html>

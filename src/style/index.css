@@ -1,0 +1,22 @@
+li {
+  list-style: none;
+}
+
+.product-container {
+  border: 1px solid black;
+  display: flex;
+  padding: 16px;
+}
+
+.product {
+  border: 1px solid black;
+  margin-right: 8px;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
