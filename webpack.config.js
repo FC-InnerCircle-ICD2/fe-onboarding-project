@@ -23,8 +23,10 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: "./dist", // 개발 서버의 정적 파일 제공 디렉토리
+    static: { directory: path.join(__dirname, "dist") }, // 개발 서버의 정적 파일 제공 디렉토리
     port: 3000, // 개발 서버 포트
     open: true, // 브라우저 자동 열기
+    hot: true, // HMR 활성화
+    watchFiles: ["src/**/*", "index.html"], //src 디렉토리의 모든 파일과 index.html의 변경을 감지
   },
 };
