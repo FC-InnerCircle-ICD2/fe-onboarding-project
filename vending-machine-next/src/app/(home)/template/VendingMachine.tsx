@@ -12,12 +12,13 @@ interface Props {
 }
 
 const VendingMachine = ({ items }: Props) => {
-    const { currentCoin } = useContext(GlobalContext)
+    const { currentCoin, errorPrice } = useContext(GlobalContext)
 
     return (
         <div className={S.Container}>
             <Input
-                value={currentCoin.toLocaleString()}
+                value={errorPrice ? errorPrice.toLocaleString() : currentCoin.toLocaleString()}
+                isError={!!errorPrice}
                 align='center'
                 readOnly
             />

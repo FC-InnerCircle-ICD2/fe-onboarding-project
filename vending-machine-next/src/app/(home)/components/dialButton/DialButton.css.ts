@@ -1,8 +1,21 @@
 import { keyframes, style } from '@vanilla-extract/css'
 
 const Container = style({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     maxWidth: '100%',
     boxSizing: 'border-box',
+    padding: '4px 8px',
+    height: 60,
+    border: '1px solid black',
+    borderRadius: 6,
+    backgroundColor: 'skyblue',
+    cursor: 'pointer',
+    ':hover': {
+        backgroundColor: '#3fb6e7',
+    },
 })
 
 const Name = style({

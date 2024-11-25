@@ -5,9 +5,10 @@ import { UI_Input as S } from './Input.css'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
     align?: keyof typeof S.Input.classNames.variants.align
+    isError?: boolean
 }
 
-const Input = ({ align = 'left', ...rest }: InputProps) => {
+const Input = ({ align = 'left', isError = false, ...rest }: InputProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     return (
@@ -16,7 +17,7 @@ const Input = ({ align = 'left', ...rest }: InputProps) => {
             onClick={() => inputRef.current?.focus()}>
             <input
                 ref={inputRef}
-                className={S.Input({ align })}
+                className={S.Input({ align, isError })}
                 {...rest}
             />
         </div>
