@@ -10,6 +10,6 @@ export default class Machine {
 
   on() {
     const inputField = new InputField(this.machine);
-    inputField.init();
+    this.machine.appendChild(inputField.element);
   }
 }
