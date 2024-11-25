@@ -21,6 +21,15 @@ class VendingMachine {
     this.updateLogs();
   }
 
+  // 잔돈 반환 하기
+  returnChange() {
+    if (this.currentMoney === 0) return;
+    this.logs.push(`${this.currentMoney}원을 반환했습니다.`);
+    this.currentMoney = 0;
+    this.updateCurrentMoney();
+    this.updateLogs();
+  }
+
   // 투입 금액 업데이트
   updateCurrentMoney() {
     const currentMoneyEl = this.machineEl.querySelector(
@@ -42,6 +51,13 @@ class VendingMachine {
     const insertButtonEl = this.machineEl.querySelector('[aria-label="투입"]');
     insertButtonEl.addEventListener("click", () => {
       this.insertMoney();
+    });
+
+    // 잔돈 반환 버튼 클릭 이벤트 추가
+    const returnChangeButtonEl =
+      this.machineEl.querySelector('[aria-label="반환"]');
+    returnChangeButtonEl.addEventListener("click", () => {
+      this.returnChange();
     });
   }
 }
