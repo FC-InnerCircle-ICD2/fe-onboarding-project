@@ -1,3 +1,4 @@
+import GlobalProvider from '@/context/GlobalProvider'
 import RootContainer from '@/template/RootContainer'
 import { headers } from 'next/headers'
 import SideContainer from './template/SideContainer'
@@ -16,9 +17,11 @@ export default async function Home() {
     const { data: items } = await response.json()
 
     return (
-        <RootContainer>
-            <VendingMachine items={items} />
-            <SideContainer />
-        </RootContainer>
+        <GlobalProvider>
+            <RootContainer>
+                <VendingMachine items={items} />
+                <SideContainer />
+            </RootContainer>
+        </GlobalProvider>
     )
 }
