@@ -13,46 +13,18 @@
         <div class="row content-wrapper">
             <div class="col s6 vending-machine">
                 <div class="display" id="display">0</div>
-                <div class="row">
-                    <div class="col s4">
-                        <button class="btn product" data-price="1500">콜라<br><span>1,500원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="1700">숙이사이다<br><span>1,700원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="1500">판타지판타<br><span>1,500원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="1800">오덩국물<br><span>1,800원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="800">부장라떼<br><span>800원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="1500">판타지판타<br><span>1,500원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="2500">레드 쌀<br><span>2,500원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="1900">핫세븐<br><span>1,900원</span></button>
-                    </div>
-                    <div class="col s4">
-                        <button class="btn product" data-price="1400">커피우유<br><span>1,400원</span></button>
-                    </div>
-                </div>
+                <div class="row" id="products-list"></div>
             </div>
             <div class="col s6 input-wrapper">
                 <div class="row">
                     <div class="col s8">
-                        <input type="number" id="inputAmount" placeholder="금액 입력" min="1">
+                        <input class="input-amount" type="number" id="inputAmount" placeholder="금액 입력" min="1">
                     </div>
                     <div class="col s2 input-button">
-                        <button class="btn">투입</button>
+                        <button class="btn" onclick="insertAmount()">투입</button>
                     </div>
                     <div class="col s2 input-button">
-                        <button class="btn">반환</button>
+                        <button class="btn" onclick="returnAmount()">반환</button>
                     </div>
                 </div>
                 <div class="log" id="log"></div>
