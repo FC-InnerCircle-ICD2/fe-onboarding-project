@@ -22,3 +22,18 @@ li {
   align-items: center;
   cursor: pointer;
 }
+
+.amount-container {
+  width: fit-content;
+  border: 1px solid black;
+  padding: 16px;
+}
+
+.change-amount {
+  display: flex;
+  align-items: center;
+}
+
+.log-lists {
+  color: red;
+}
