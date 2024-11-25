@@ -14,10 +14,10 @@
     <div class="amount-container">
       <div class="change-amount">
         <form>
-          <input type="number" id="balance" min="0" />
+          <input type="number" id="insert-input" min="0" />
           <button
             type="button"
-            onclick="insertMoney(document.querySelector('#balance').value)"
+            onclick="insertMoney(document.querySelector('#insert-input').value)"
           >
             투입
           </button>
@@ -33,9 +33,11 @@
     <script type="text/javascript" src="src/js/amount.js"></script>
     <!-- 상품 구매 로직 -->
     <script type="text/javascript" src="src/js/purchase.js"></script>
+    <!-- 로그 로직 -->
+    <script type="text/javascript" src="src/js/log.js"></script>
 
     <script>
-      // 잔액 표시 (잔액 0일시에는 누른 상품금액 보임)
+      // 잔액 표시
       let balance = 0
 
       // DOM 요소 생성 함수

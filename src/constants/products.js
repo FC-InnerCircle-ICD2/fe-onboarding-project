@@ -6,7 +6,7 @@ class Product {
 }
 
 const products = [
-  new Product("콜라", 1500),
+  new Product("쿨라", 1500),
   new Product("속이사이다", 1700),
   new Product("판타지판타", 1500),
   new Product("오뎅국물", 1800),
