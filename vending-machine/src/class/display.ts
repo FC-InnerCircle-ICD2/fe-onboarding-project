@@ -30,6 +30,12 @@ class Display {
         this.updateDisplay()
     }
 
+    public returnCoin() {
+        this.currentCoin = 0
+
+        this.updateDisplay()
+    }
+
     public updateDisplay(price?: number) {
         this.display.value = price ? price.toLocaleString() : this.currentCoin.toLocaleString()
     }
