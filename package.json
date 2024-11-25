@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/FC-InnerCircle-ICD2/fe-onboarding-project.git",
-  "author": "devsewoonjin <dev.sewoonjin@gmail.com>",
+  "author": "devsewoonjin <jinsewoon.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "webpack serve --open",
