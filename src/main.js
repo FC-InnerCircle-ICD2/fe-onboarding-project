@@ -20,5 +20,5 @@ logsEl.textContent = vendingMachine1.logs.join("\n");
 insertButtonEl.addEventListener("click", () => {
   vendingMachine1.insertMoney(insertedMoneyInputEl.value);
   currentMoneyEl.textContent = vendingMachine1.currentMoney;
-  logsEl.textContent = vendingMachine1.logs.join("\n");
+  vendingMachine1.updateLogs();
 });
