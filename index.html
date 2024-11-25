@@ -8,19 +8,20 @@
   <body>
     <main id="app">
       <div class="flex gap-5 mx-auto w-[800px]">
-        <div class="bg-blue-50 px-5 py-7 rounded-md w-[450px]">
+        <section class="bg-blue-50 px-5 py-7 rounded-md w-[450px]">
           <div
+            aria-label="현재 잔액"
             class="text-center text-2xl border border-black rounded-md p-3 bg-white"
           >
-            15,000
+            0
           </div>
-        </div>
-        <div>
+        </section>
+        <section>
           <div class="flex items-center gap-2 mb-5">
             <input
               type="number"
               class="text-center text-2xl border border-black rounded-md p-3 max-w-[200px]"
-              value="3000"
+              value="0"
             />
 
             <button
@@ -39,7 +40,7 @@
           >
             로그
           </div>
-        </div>
+        </section>
       </div>
     </main>
     <script type="module" src="/src/main.js"></script>
