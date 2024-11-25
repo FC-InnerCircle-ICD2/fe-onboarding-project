@@ -1,0 +1,6 @@
+import './class/coinInput'
+import './class/dialButtons'
+import './class/display'
+import './class/insertButton'
+import './class/returnButton'
+import './style.css'
