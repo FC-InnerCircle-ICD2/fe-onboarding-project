@@ -7,6 +7,7 @@
   </head>
 
   <body>
+    <p id="left_price">0</p>
     <ul class="product-container"></ul>
 
     <script type="text/javascript" src="src/constants/products.js"></script>
@@ -17,20 +18,26 @@
 
       const productContainer = document.querySelector(".product-container")
 
+      let leftPrice = 0
+
       products.map(product => {
         const liElement = createElement("li")
+        liElement.addEventListener("click", () => {
+          leftPrice = product.price
+          document.querySelector("#left_price").innerHTML =
+            leftPrice.toLocaleString("ko-kr")
+          // TODO: 지금은 가격 표시만 하고 있지만 제품의 배출과도 연동되어야 함
+        })
         liElement.className = "product"
 
         const productName = createElement("div")
         productName.className = "product_name"
         productName.textContent = product.name
-        productName.onClick = () => console.log(product.name)
         liElement.append(productName)
 
         const productPrice = createElement("div")
         productPrice.className = "product_price"
-        productPrice.textContent = product.price
-        productPrice.addEventListener("click", () => console.log(product.price))
+        productPrice.textContent = product.price.toLocaleString("ko-kr")
         liElement.append(productPrice)
 
         productContainer.appendChild(liElement)

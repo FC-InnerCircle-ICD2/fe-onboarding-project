@@ -3,14 +3,16 @@ li {
 }
 
 .product-container {
-  border: 1px solid black;
-  display: flex;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 8px;
   padding: 16px;
+  border: 1px solid black;
 }
 
 .product {
   border: 1px solid black;
-  margin-right: 8px;
   width: 100px;
   height: 100px;
   border-radius: 8px;
