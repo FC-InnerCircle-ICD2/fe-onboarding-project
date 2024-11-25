@@ -17,7 +17,7 @@ const VendingMachine = ({ items }: Props) => {
     return (
         <div className={S.Container}>
             <Input
-                value={currentCoin}
+                value={currentCoin.toLocaleString()}
                 align='center'
                 readOnly
             />
