@@ -67,3 +67,23 @@
 - 웹 표준, 웹 접근성, 코드의 가독성, 효율성을 고려하였는가
 - 상품명과 금액의 변경에 유연하게 대처할 수 있도록 작성되었는가
 - 작성한 코드의 의도를 충분히 잘 설명할 수 있는가
+
+## 폴더 구조
+
+```
+.
+├── index.html
+└── src
+    ├── main.js              # Entry point
+    ├── App.js               # Main application component
+    ├── components
+    │   ├── VendingMachine.js    # 자판기 메인 컴포넌트
+    │   ├── DisplayPanel.js      # 금액 표시 패널
+    │   ├── ProductButton.js     # 상품 버튼 컴포넌트
+    │   ├── MoneyInput.js        # 금액 입력 컴포넌트
+    │   └── LogPanel.js          # 로그 패널 컴포넌트
+    ├── core
+    │   └── Component.js         # 코어 컴포넌트 클래스
+    └── utils
+        └── helpers.js           # 유틸리티 함수들
+```
