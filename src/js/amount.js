@@ -4,8 +4,8 @@ const changeAmount = amount => {
   } else if (amount > 0) {
     balance += parseInt(amount)
   } else {
-    // 특정 금액을 환불할수 있는 기능 확장 고려
-    balance -= parseInt(amount)
+    // 상품 구매시
+    balance += parseInt(amount)
   }
 }
 
