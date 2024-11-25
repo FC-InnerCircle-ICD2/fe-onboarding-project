@@ -1,5 +1,5 @@
 {
-  "name": "fe-onboarding-project",
+  "name": "vending-machine",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.15",
-    "vite": "^5.4.10"
+    "autoprefixer": "^10.4.20",
+    "vite": "^5.0.8"
   }
 }
