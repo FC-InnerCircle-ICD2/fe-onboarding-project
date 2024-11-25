@@ -19,27 +19,29 @@
         <section>
           <div class="flex items-center gap-2 mb-5">
             <input
+              aria-label="투입 금액"
               type="number"
               class="text-center text-2xl border border-black rounded-md p-3 max-w-[200px]"
               value="0"
+              min="0"
             />
 
             <button
-              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0"
+              aria-label="투입"
+              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0 active:scale-95 duration-200"
             >
               투입
             </button>
             <button
-              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0"
+              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0 active:scale-95 duration-200"
             >
               반환
             </button>
           </div>
           <div
-            class="border border-black rounded-md p-3 bg-white max-h-[300px] overflow-y-auto"
-          >
-            로그
-          </div>
+            aria-label="로그"
+            class="border border-black rounded-md p-3 bg-white max-h-[300px] overflow-y-auto whitespace-pre-line h-[200px]"
+          ></div>
         </section>
       </div>
     </main>
