@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 
 const Container = style({
     width: 340,
-    height: 330,
+    height: 322,
     padding: '20px 14px',
 })
 
@@ -17,7 +17,8 @@ const LogContent = style({
     display: 'flex',
     flexDirection: 'column',
     gap: 4,
-    height: 'calc(330px - 120px)',
+    height: 'calc(100% - 100px)',
+    boxSizing: 'content-box',
     padding: 10,
     marginTop: 20,
     borderRadius: 8,

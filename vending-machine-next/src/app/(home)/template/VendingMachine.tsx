@@ -1,10 +1,15 @@
 'use client'
 
-import Button from '@/components/button/Button'
 import Input from '@/components/input/Input'
+import { ItemModel } from '@/model/item'
+import DialButton from '../components/dialButton/DialButton'
 import { UI_VendingMachine as S } from './VendingMachine.css'
 
-const VendingMachine = () => {
+interface Props {
+    items: ItemModel[]
+}
+
+const VendingMachine = ({ items }: Props) => {
     return (
         <div className={S.Container}>
             <Input
@@ -13,17 +18,12 @@ const VendingMachine = () => {
             />
 
             <div className={S.DialContent}>
-                <Button>쿨라</Button>
-                <Button>쿨라</Button>
-                <Button>쿨라</Button>
-
-                <Button>쿨라</Button>
-                <Button>쿨라</Button>
-                <Button>쿨라</Button>
-
-                <Button>쿨라</Button>
-                <Button>쿨라</Button>
-                <Button>쿨라</Button>
+                {items.map((item) => (
+                    <DialButton
+                        key={item.id}
+                        item={item}
+                    />
+                ))}
             </div>
         </div>
     )

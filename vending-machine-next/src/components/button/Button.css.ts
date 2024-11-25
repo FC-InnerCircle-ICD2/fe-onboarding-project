@@ -22,6 +22,10 @@ export const UI_Button = recipe({
                 width: '60px',
                 minWidth: '60px',
             },
+            '90px': {
+                width: '90px',
+                minWidth: '90px',
+            },
         },
     },
     defaultVariants: {
