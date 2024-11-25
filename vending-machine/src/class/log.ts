@@ -10,16 +10,15 @@ class Log {
     public addLog(log: string) {
         this.logs.push(log)
 
-        this.showLogs()
+        this.showLogs(log)
     }
 
-    public showLogs() {
-        this.logContainer.innerHTML = this.logs
-            .map((log) => {
-                return `<li class="log-item">${log}</li>`
-            })
-            .join('')
+    public showLogs(log: string) {
+        const li = document.createElement('li')
+        li.classList.add('log-item')
+        li.textContent = log
 
+        this.logContainer.appendChild(li)
         this.logContainer.scrollTop = this.logContainer.scrollHeight
     }
 }
