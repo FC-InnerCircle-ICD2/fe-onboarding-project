@@ -10,12 +10,14 @@ const screen = document.querySelector("#screen");
 const item_btns = document.querySelectorAll(".btn");
 const input_btn = document.querySelector("#in_btn");
 const in_money = document.querySelector("#in_money");
+const money_log = document.querySelector("#money_log");
+const out_btn = document.querySelector("#out_btn");
 
 let money = 0;
+let logs = [];
+
 
 // 상품 버튼 구현
-
-
 for (let i = 0; i < products.length; i++) {
     products[i].innerText = products_list[i];
 }
@@ -30,8 +32,6 @@ const item_click = (value) => {
     console.log("value",value)
 }
 
-
-
 item_btns.forEach(button => {
     button.addEventListener('click', () => {
         const price = button.querySelector('.price').textContent.replace(/[^0-9]/g, "");
@@ -42,18 +42,26 @@ item_btns.forEach(button => {
 
 
 // 돈 투입 버튼
-
-
 input_btn.addEventListener('click', () => {
     money =  money + parseInt(in_money.value);
-
     screen.innerText = money;
+
+    logs.push(`${in_money.value}원을 투입했습니다.`);
+    money_log.value = logs.join("\n");
 
     in_money.value = 0;
 });
 
 
 // 돈 반환 버튼 (0으로 초기화)
+out_btn.addEventListener('click', () => {
+    logs.push(`${money}원을 반환합니다.`);
+    money_log.value = logs.join("\n");
+
+    money = 0;
+    screen.innerText = money;
+})
+
 
 
 
