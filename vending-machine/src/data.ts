@@ -1,5 +1,11 @@
 // 추후 api를 통해 데이터를
-export const dummyData = [
+export interface Item {
+    id: number
+    name: string
+    price: number
+}
+
+export const dummyData: Item[] = [
     {
         id: 1,
         name: '쿨라',
