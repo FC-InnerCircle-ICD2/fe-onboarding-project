@@ -103,6 +103,9 @@ section {
 body {
   line-height: 1;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 ol,
 ul {

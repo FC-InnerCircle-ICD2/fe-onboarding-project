@@ -1,3 +1,5 @@
+import InputField from "./input/InputField.js";
+
 export default class Machine {
   machine;
 
@@ -8,5 +10,8 @@ export default class Machine {
     document.querySelector("body").appendChild(this.machine);
   }
 
-  on() {}
+  on() {
+    const inputField = new InputField(this.machine);
+    inputField.init();
+  }
 }
