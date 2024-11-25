@@ -1,22 +1,16 @@
 import { inputInfo } from "../../utils/inputInfo.js";
+import InputFieldButton from "./InputFieldButton.js";
+import InputFieldText from "./InputFieldText.js";
 
 export default class InputField {
-  constructor() {
-    this.price = 0;
+  constructor(version) {
+    this.version = version;
     this.element = document.createElement("div");
-    this.element.classList.add("inputField");
+    this.element.className = `inputField ${version}`;
 
-    this.inputText = document.createElement("div");
-    this.inputText.classList.add("inputField_inputText");
-    this.inputText.innerText = 0;
-    this.element.appendChild(this.inputText);
+    this.element.appendChild(new InputFieldText(version).element);
 
     this.makeButtons();
-  }
-
-  setPrice(price) {
-    this.price = price;
-    this.inputText.innerText = price;
   }
 
   makeButtons() {
@@ -24,22 +18,9 @@ export default class InputField {
     buttons.classList.add("inputField_buttons");
 
     inputInfo.forEach((item) => {
-      const info = document.createElement("button");
-      info.classList.add("inputField_buttons_button");
-
-      const label = document.createElement("div");
-      label.innerText = item.label;
-      info.appendChild(label);
-
-      const price = document.createElement("div");
-      price.innerText = item.price;
-      info.appendChild(price);
-      info.value = item.price;
-
-      info.addEventListener("click", (e) => {
-        this.setPrice(e.currentTarget.value);
-      });
-      buttons.appendChild(info);
+      buttons.appendChild(
+        new InputFieldButton(this.version, item.label, item.price).element
+      );
     });
     this.element.appendChild(buttons);
   }
