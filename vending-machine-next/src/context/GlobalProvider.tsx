@@ -43,7 +43,8 @@ const GlobalProvider = ({ children }: Props) => {
         setCurrentCoin((p) => {
             return p - value < 0 ? 0 : p - value
         })
-        addLogs(`${refundCoin.toLocaleString()}원을 반환합니다.`)
+
+        refundCoin && addLogs(`${refundCoin.toLocaleString()}원을 반환합니다.`)
     }
 
     const addLogs = (log: string) => {

@@ -27,8 +27,13 @@ const LogContent = style({
     overflowY: 'auto',
 })
 
+const Log = style({
+    fontSize: '1rem',
+})
+
 export const UI_SideContainer = {
     Container,
     Form,
     LogContent,
+    Log,
 }

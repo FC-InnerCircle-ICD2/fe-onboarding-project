@@ -7,7 +7,7 @@ import { ChangeEvent, useContext, useState } from 'react'
 import { UI_SideContainer as S } from './SideContainer.css'
 
 const SideContainer = () => {
-    const { currentCoin, addCoin, minusCoin } = useContext(GlobalContext)
+    const { currentCoin, logs, addCoin, minusCoin } = useContext(GlobalContext)
     const [coin, setCoin] = useState<number>(0)
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +53,13 @@ const SideContainer = () => {
                 </Button>
             </div>
             <div className={S.LogContent}>
-                <p>10000원이 투입되었습니다.</p>
-                <p>1000원이 반환되었습니다.</p>
+                {logs.map((log, i) => (
+                    <p
+                        key={`log_${i}`}
+                        className={S.Log}>
+                        {log}
+                    </p>
+                ))}
             </div>
         </div>
     )
