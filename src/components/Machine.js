@@ -1,8 +1,6 @@
 import InputField from "./input/InputField.js";
 
 export default class Machine {
-  machine;
-
   constructor() {
     this.machine = document.createElement("article");
     this.machine.classList.add("machine");
