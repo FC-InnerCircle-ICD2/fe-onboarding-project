@@ -6,12 +6,17 @@
     <title>바닐라 JS 프로젝트</title>
   </head>
   <body>
-    <main id="machine-1">
-      <div class="flex gap-5 mx-auto w-[800px]">
-        <section class="bg-blue-50 px-5 py-7 rounded-md w-[400px]">
+    <main class="flex justify-center items-center h-screen flex-wrap">
+      <article
+        id="machine-1"
+        class="flex gap-5 mx-auto max-w-[800px] items-center"
+      >
+        <section
+          class="bg-blue-50 px-5 py-7 rounded-lg basis-1/2 border border-black"
+        >
           <div
             aria-label="금액 표시판"
-            class="text-center text-2xl border border-black rounded-md p-3 bg-white"
+            class="text-center text-2xl border border-black rounded-lg py-5 bg-white"
           >
             0
           </div>
@@ -19,75 +24,36 @@
             class="product-container flex flex-wrap justify-center gap-3 mt-7"
           ></div>
         </section>
-        <section>
-          <div class="flex items-center gap-2 mb-5">
+        <section class="basis-1/2 flex flex-col gap-5 h-[370px]">
+          <div class="flex justify-between gap-2">
             <input
               aria-label="투입 금액"
               type="text"
-              class="text-center text-2xl border border-black rounded-md p-3 max-w-[200px]"
+              class="text-center text-2xl border border-black rounded-lg py-5"
               value="0"
             />
 
             <button
               aria-label="투입"
-              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0 active:scale-95 duration-200"
+              class="grow bg-blue-300 px-3.5 py-4 rounded-lg border border-black shrink-0 active:scale-95 duration-200"
             >
               투입
             </button>
             <button
               aria-label="반환"
-              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0 active:scale-95 duration-200"
+              class="grow bg-blue-300 px-3.5 py-4 rounded-lg border border-black shrink-0 active:scale-95 duration-200"
             >
               반환
             </button>
           </div>
           <div
             aria-label="로그"
-            class="border border-black rounded-md p-3 bg-white max-h-[300px] overflow-y-auto whitespace-pre-line h-[200px]"
+            class="border border-black rounded-lg p-3 bg-white overflow-y-auto h-full"
           ></div>
         </section>
-      </div>
+      </article>
     </main>
-    <main id="machine-2">
-      <div class="flex gap-5 mx-auto w-[800px]">
-        <section class="bg-blue-50 px-5 py-7 rounded-md w-[450px]">
-          <div
-            aria-label="금액 표시판"
-            class="text-center text-2xl border border-black rounded-md p-3 bg-white"
-          >
-            0
-          </div>
-          <div class="product-container"></div>
-        </section>
-        <section>
-          <div class="flex items-center gap-2 mb-5">
-            <input
-              aria-label="투입 금액"
-              type="text"
-              class="text-center text-2xl border border-black rounded-md p-3 max-w-[200px]"
-              value="0"
-            />
 
-            <button
-              aria-label="투입"
-              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0 active:scale-95 duration-200"
-            >
-              투입
-            </button>
-            <button
-              aria-label="반환"
-              class="bg-blue-300 px-3.5 py-4 rounded-md border border-black shrink-0 active:scale-95 duration-200"
-            >
-              반환
-            </button>
-          </div>
-          <div
-            aria-label="로그"
-            class="border border-black rounded-md p-3 bg-white max-h-[300px] overflow-y-auto whitespace-pre-line h-[200px]"
-          ></div>
-        </section>
-      </div>
-    </main>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
