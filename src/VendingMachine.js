@@ -32,7 +32,7 @@ class VendingMachine {
     const parsedMoney = parseInt(moneyWithComma.replace(/,/g, "")); // 콤마 제거 + 숫자로 변환
     if (parsedMoney > 0) {
       this.currentMoney += parsedMoney;
-      this.logs.push(`${parsedMoney.toLocaleString()}원을 투입했습니다.`);
+      this.logs.push(`[금액 투입] ${parsedMoney.toLocaleString()}원`);
     }
     this.insertedMoneyInputEl.value = "0";
     this.renderMoneyBoard();
@@ -42,7 +42,7 @@ class VendingMachine {
   // 잔돈 반환 하기
   returnChange() {
     if (this.currentMoney === 0) return;
-    this.logs.push(`${this.currentMoney}원을 반환했습니다.`);
+    this.logs.push(`[잔액 반환] ${this.currentMoney.toLocaleString()}원`);
     this.currentMoney = 0;
     this.renderMoneyBoard();
     this.renderLogs();
