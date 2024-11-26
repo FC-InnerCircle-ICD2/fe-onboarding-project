@@ -88,8 +88,19 @@ textarea:not([rows]) {
   scroll-margin-block: 5ex;
 }
 
+/* number type input 우측에 생기는 button을 없애줍니다. */
 input::-webkit-inner-spin-button {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
+}
+
+/* body, html의 margin, padding, height를 초기화 합니다. */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
