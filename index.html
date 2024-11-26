@@ -6,7 +6,20 @@
     <title>Vending Machine</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <main role="main">
+        <section class="product-panel">
+          <div class="product-window"></div>
+          <div class="product-buttons"></div>
+        </section>
+        <section class="coin-panel">
+          <input class="coin-input" type="number" />
+          <button class="coin-insert-button">투입</button>
+          <button class="coin-return-button">반환</button>
+        </section>
+        <section class="log-window"></section>
+      </main>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
