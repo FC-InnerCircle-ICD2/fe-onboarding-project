@@ -33,8 +33,8 @@ class VendingMachine {
       this.logs.push(`${parsedMoney}원을 투입했습니다.`);
     }
     insertedMoneyInputEl.value = 0;
-    this.updateCurrentMoney();
-    this.updateLogs();
+    this.renderCurrentMoney();
+    this.renderLogs();
   }
 
   // 잔돈 반환 하기
@@ -42,12 +42,12 @@ class VendingMachine {
     if (this.currentMoney === 0) return;
     this.logs.push(`${this.currentMoney}원을 반환했습니다.`);
     this.currentMoney = 0;
-    this.updateCurrentMoney();
-    this.updateLogs();
+    this.renderCurrentMoney();
+    this.renderLogs();
   }
 
   // 투입 금액 업데이트
-  updateCurrentMoney() {
+  renderCurrentMoney() {
     const currentMoneyEl = this.machineEl.querySelector(
       '[aria-label="현재 잔액"]'
     );
@@ -55,7 +55,7 @@ class VendingMachine {
   }
 
   // 로그 업데이트
-  updateLogs() {
+  renderLogs() {
     const logsEl = this.machineEl.querySelector('[aria-label="로그"]');
     logsEl.textContent = this.logs.join("\n");
     logsEl.scrollTo({ top: logsEl.scrollHeight, behavior: "smooth" });
@@ -121,15 +121,15 @@ class VendingMachine {
       this.logs.push(
         `[구매 완료] ${product.name} (잔액 ${this.currentMoney}원)`
       );
-      this.updateCurrentMoney();
-      this.updateLogs();
+      this.renderCurrentMoney();
+      this.renderLogs();
     } else {
       this.logs.push(
         `[구매 실패] ${product.name} (${
           (this.currentMoney - product.price) * -1
         }원 부족)`
       );
-      this.updateLogs();
+      this.renderLogs();
     }
   }
 
