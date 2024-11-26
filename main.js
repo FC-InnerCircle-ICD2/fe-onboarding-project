@@ -49,6 +49,8 @@ input_btn.addEventListener('click', () => {
     logs.push(`${in_money.value}원을 투입했습니다.`);
     money_log.value = logs.join("\n");
 
+    money_log.scrollTop = money_log.scrollHeight;
+
     in_money.value = 0;
 });
 
@@ -58,9 +60,16 @@ out_btn.addEventListener('click', () => {
     logs.push(`${money}원을 반환합니다.`);
     money_log.value = logs.join("\n");
 
+    money_log.scrollTop = money_log.scrollHeight;
+
     money = 0;
     screen.innerText = money;
+
 })
+
+
+
+
 
 
 
