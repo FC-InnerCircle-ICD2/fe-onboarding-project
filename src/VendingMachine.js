@@ -169,12 +169,19 @@ class VendingMachine {
     // 상품 버튼 추가
     this.setupProducts();
 
-    // input 값 입력시 콤마 추가
+    // 금액 입력 input의 값 입력시 콤마 추가
     this.insertedMoneyInputEl.addEventListener("input", (e) => {
       const value = e.target.value.replace(/[^\d]/g, "");
       if (value) {
         const numValue = value.replace(/^0+/, ""); // 앞의 0 제거
         e.target.value = Number(numValue).toLocaleString();
+      }
+    });
+
+    // 금액 입력 input의 Enter키 입력 이벤트 추가
+    this.insertedMoneyInputEl.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        this.insertMoney();
       }
     });
   }
