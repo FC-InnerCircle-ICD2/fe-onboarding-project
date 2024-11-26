@@ -20,19 +20,20 @@ class VendingMachine {
     this.logs = [];
     /** @type {Product[]} */
     this.products = products;
+    /** @type {HTMLInputElement} */
+    this.insertedMoneyInputEl = this.machineEl.querySelector(
+      '[aria-label="투입 금액"]'
+    );
   }
 
   // 돈 넣기
   insertMoney() {
-    const insertedMoneyInputEl = this.machineEl.querySelector(
-      '[aria-label="투입 금액"]'
-    );
-    const parsedMoney = parseInt(insertedMoneyInputEl.value);
+    const parsedMoney = parseInt(this.insertedMoneyInputEl.value);
     if (parsedMoney > 0) {
       this.currentMoney += parsedMoney;
       this.logs.push(`${parsedMoney}원을 투입했습니다.`);
     }
-    insertedMoneyInputEl.value = 0;
+    this.insertedMoneyInputEl.value = 0;
     this.renderMoneyBoard();
     this.renderLogs();
   }
