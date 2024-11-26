@@ -27,8 +27,10 @@ export default class OutputFieldButton {
         `.outputField_textarea.${version}`
       );
       outputTextarea.innerHTML += `${outputText.value}원이 투입되었습니다.<br />`;
-      inputText.innerText =
-        Number(inputText.innerText) + Number(outputText.value);
+      inputText.innerText = (
+        Number(inputText.innerText.replaceAll(",", "")) +
+        Number(outputText.value)
+      ).toLocaleString();
       outputText.value = 0;
     }
   }
@@ -41,7 +43,10 @@ export default class OutputFieldButton {
       `.outputField_textarea.${version}`
     );
     if (inputText.innerText !== "0") {
-      outputTextarea.innerHTML += `${inputText.innerText}원이 반환되었습니다.<br />`;
+      outputTextarea.innerHTML += `${inputText.innerText.replaceAll(
+        ",",
+        ""
+      )}원이 반환되었습니다.<br />`;
       inputText.innerText = "0";
     }
   }
