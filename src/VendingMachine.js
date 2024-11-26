@@ -76,8 +76,32 @@ class VendingMachine {
       button.appendChild(productNameEl);
       button.appendChild(productPriceEl);
 
+      // 버튼 클릭 이벤트 추가
+      button.addEventListener("click", () => {
+        this.buyProduct(product);
+      });
+
       productButtonsContainer.appendChild(button);
     });
+  }
+
+  // 상품 구매 처리
+  buyProduct(product) {
+    if (this.currentMoney >= product.price) {
+      this.currentMoney -= product.price;
+      this.logs.push(
+        `[구매 완료] ${product.name} (잔액 ${this.currentMoney}원)`
+      );
+      this.updateCurrentMoney();
+      this.updateLogs();
+    } else {
+      this.logs.push(
+        `[구매 실패] ${product.name} (${
+          (this.currentMoney - product.price) * -1
+        }원 부족)`
+      );
+      this.updateLogs();
+    }
   }
 
   // 초기 셋팅
