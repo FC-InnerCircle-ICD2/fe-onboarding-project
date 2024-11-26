@@ -1,9 +1,24 @@
+/**
+ * @typedef {Object} Product
+ * @property {string} name - 상품 이름
+ * @property {number} price - 상품 가격
+ */
+
 class VendingMachine {
+  /**
+   * @param {string} machineId - 자판기 DOM 요소의 ID
+   * @param {Product[]} products - 상품 목록
+   */
   constructor(machineId, products) {
+    /** @type {HTMLElement} */
     this.machineEl = document.querySelector(`#${machineId}`);
+    /** @type {number} */
     this.currentMoney = 0;
+    /** @type {number} */
     this.insertedMoney = 0;
+    /** @type {string[]} */
     this.logs = [];
+    /** @type {Product[]} */
     this.products = products;
   }
 
