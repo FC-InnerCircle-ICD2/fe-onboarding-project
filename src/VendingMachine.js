@@ -55,7 +55,7 @@ class VendingMachine {
     const moneyBoardEl = this.machineEl.querySelector(
       '[aria-label="금액 표시판"]'
     );
-    moneyBoardEl.textContent = money;
+    moneyBoardEl.textContent = money.toLocaleString();
   }
 
   // 로그 랜더링
@@ -117,15 +117,18 @@ class VendingMachine {
     if (this.currentMoney >= product.price) {
       this.currentMoney -= product.price;
       this.logs.push(
-        `[구매 완료] ${product.name} (잔액 ${this.currentMoney}원)`
+        `[구매 완료] ${
+          product.name
+        } (잔액 ${this.currentMoney.toLocaleString()}원)`
       );
       this.renderMoneyBoard();
       this.renderLogs();
     } else {
       this.logs.push(
-        `[구매 실패] ${product.name} (${
-          (this.currentMoney - product.price) * -1
-        }원 부족)`
+        `[구매 실패] ${product.name} (${(
+          (this.currentMoney - product.price) *
+          -1
+        ).toLocaleString()}원 부족)`
       );
       this.renderLogs();
     }
