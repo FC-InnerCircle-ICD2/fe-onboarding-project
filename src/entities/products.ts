@@ -15,3 +15,19 @@ export const products: Array<TProduct> = [
   { id: '0008', name: '하이볼', price: 3000 },
   { id: '0009', name: '맥주', price: 4500 },
 ];
+
+export class ProductController {
+  private product: TProduct | null = null;
+
+  getProduct(): TProduct | null {
+    return this.product;
+  }
+
+  setProduct(product: TProduct) {
+    this.product = product;
+  }
+
+  resetProduct() {
+    this.product = null;
+  }
+}
