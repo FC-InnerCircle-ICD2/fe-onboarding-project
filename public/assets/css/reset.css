@@ -87,3 +87,9 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+input::-webkit-inner-spin-button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
