@@ -23,6 +23,7 @@ const updateDisplayAmount = (amount, elements) => {
 
 const updateBalance = (elements) => {
   elements.balanceAmount.textContent = formatNumber(state.currentMoney);
+  elements.moneyDisplay.textContent = formatNumber(state.currentMoney);
 };
 
 const addLog = (message, elements) => {
@@ -55,7 +56,7 @@ const createProductGrid = (elements) => {
     
     button.append(nameSpan, priceSpan);
     button.addEventListener("mouseenter", () => updateDisplayAmount(product.price, elements));
-    button.addEventListener("mouseleave", () => updateDisplayAmount(0, elements));
+    button.addEventListener("mouseleave", () => updateDisplayAmount(state.currentMoney, elements));
     button.addEventListener("click", () => handleProductPurchase(product, elements));
     
     grid.appendChild(button);
@@ -92,7 +93,7 @@ const handleMoneyInsert = (elements) => {
   }
 
   state.currentMoney += inputAmount;
-  updateDisplayAmount(0, elements);
+  updateDisplayAmount(state.currentMoney, elements);
   updateBalance(elements);
   addLog(`${formatNumber(inputAmount)}원이 투입되었습니다.`, elements);
   elements.moneyInput.value = "";
