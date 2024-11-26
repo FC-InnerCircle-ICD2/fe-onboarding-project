@@ -62,7 +62,22 @@ class VendingMachine {
   // 로그 랜더링
   renderLogs() {
     const logsEl = this.machineEl.querySelector('[aria-label="로그"]');
-    logsEl.textContent = this.logs.join("\n");
+    // 더 안전한 방법으로 자식 요소들을 제거
+    while (logsEl.firstChild) {
+      logsEl.removeChild(logsEl.firstChild);
+    }
+
+    this.logs.forEach((log) => {
+      const logEl = document.createElement("div");
+      logEl.textContent = log;
+      const logColor = log.includes("실패")
+        ? "text-red-500"
+        : log.includes("성공")
+        ? "text-emerald-600"
+        : "text-black";
+      logEl.classList.add(logColor);
+      logsEl.appendChild(logEl);
+    });
     logsEl.scrollTo({ top: logsEl.scrollHeight, behavior: "smooth" });
   }
 
@@ -118,7 +133,7 @@ class VendingMachine {
     if (this.currentMoney >= product.price) {
       this.currentMoney -= product.price;
       this.logs.push(
-        `[구매 완료] ${
+        `[구매 성공] ${
           product.name
         } (잔액 ${this.currentMoney.toLocaleString()}원)`
       );
