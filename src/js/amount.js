@@ -24,15 +24,17 @@ const insertMoney = amount => {
   // 잔액표시 화면변경
   priceDisplay.innerHTML = balance.toLocaleString("ko-kr")
 
-  // TODO: 로그 입력하기
+  // 로그 입력
+  addLog("insert", amount)
 }
 
 const returnMoney = () => {
+  // 로그 입력 (잔액이 0이 되기 전에 로그에 전달해야 해서 먼저 실행)
+  addLog("return", balance)
+
   // 투입금액 전액 반환
   changeAmount(0)
 
   // 잔액표시 화면변경
   priceDisplay.innerHTML = 0
-
-  // TODO: 로그 입력하기
 }

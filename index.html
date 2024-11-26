@@ -37,7 +37,7 @@
     <script type="text/javascript" src="src/js/log.js"></script>
 
     <script>
-      // 잔액 표시
+      // 잔액
       let balance = 0
 
       // DOM 요소 생성 함수
@@ -52,9 +52,8 @@
       products.map(product => {
         const liElement = createElement("li")
         liElement.addEventListener("click", () =>
-          purchaseProduct(product.price, balance)
+          purchaseProduct(product.id, balance)
         )
-        // TODO: 지금은 가격 표시만 하고 있지만 제품의 배출과도 연동되어야 함
         liElement.className = "product"
 
         const productName = createElement("div")

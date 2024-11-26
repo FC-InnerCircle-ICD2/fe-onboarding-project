@@ -1,5 +1,7 @@
 class Product {
+  static currentId = 1
   constructor(name, price) {
+    this.id = Product.currentId++
     this.name = name
     this.price = price
   }
