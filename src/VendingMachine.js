@@ -33,7 +33,7 @@ class VendingMachine {
       this.logs.push(`${parsedMoney}원을 투입했습니다.`);
     }
     insertedMoneyInputEl.value = 0;
-    this.renderCurrentMoney();
+    this.renderMoneyBoard();
     this.renderLogs();
   }
 
@@ -42,19 +42,22 @@ class VendingMachine {
     if (this.currentMoney === 0) return;
     this.logs.push(`${this.currentMoney}원을 반환했습니다.`);
     this.currentMoney = 0;
-    this.renderCurrentMoney();
+    this.renderMoneyBoard();
     this.renderLogs();
   }
 
-  // 투입 금액 업데이트
-  renderCurrentMoney() {
-    const currentMoneyEl = this.machineEl.querySelector(
-      '[aria-label="현재 잔액"]'
+  /**
+   * 금액 표시판 랜더링
+   * @param {number} money
+   */
+  renderMoneyBoard(money = this.currentMoney) {
+    const moneyBoardEl = this.machineEl.querySelector(
+      '[aria-label="금액 표시판"]'
     );
-    currentMoneyEl.textContent = this.currentMoney;
+    moneyBoardEl.textContent = money;
   }
 
-  // 로그 업데이트
+  // 로그 랜더링
   renderLogs() {
     const logsEl = this.machineEl.querySelector('[aria-label="로그"]');
     logsEl.textContent = this.logs.join("\n");
@@ -95,19 +98,13 @@ class VendingMachine {
       // 잔액 부족으로 구매 실패시 버튼을 누르고 있을 때 이벤트 추가
       button.addEventListener("mousedown", () => {
         if (this.currentMoney < product.price) {
-          const currentMoneyEl = this.machineEl.querySelector(
-            '[aria-label="현재 잔액"]'
-          );
-          currentMoneyEl.textContent = product.price;
+          this.renderMoneyBoard(product.price);
         }
       });
 
       // 잔액 부족으로 구매 실패시 버튼에서 손을 뗄 때 이벤트 추가
       button.addEventListener("mouseup", () => {
-        const currentMoneyEl = this.machineEl.querySelector(
-          '[aria-label="현재 잔액"]'
-        );
-        currentMoneyEl.textContent = this.currentMoney;
+        this.renderMoneyBoard();
       });
 
       productButtonsContainer.appendChild(button);
@@ -121,7 +118,7 @@ class VendingMachine {
       this.logs.push(
         `[구매 완료] ${product.name} (잔액 ${this.currentMoney}원)`
       );
-      this.renderCurrentMoney();
+      this.renderMoneyBoard();
       this.renderLogs();
     } else {
       this.logs.push(
