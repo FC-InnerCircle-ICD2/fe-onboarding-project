@@ -1,9 +1,10 @@
 class VendingMachine {
-  constructor(machineId) {
+  constructor(machineId, products) {
     this.machineEl = document.querySelector(`#${machineId}`);
     this.currentMoney = 0;
     this.insertedMoney = 0;
     this.logs = [];
+    this.products = products;
   }
 
   // 돈 넣기
@@ -45,7 +46,26 @@ class VendingMachine {
     logsEl.scrollTo({ top: logsEl.scrollHeight, behavior: "smooth" });
   }
 
-  // 초기 기능 부여
+  // 상품 추가 및 버튼 생성
+  setupProducts() {
+    const productButtonsContainer =
+      this.machineEl.querySelector(".product-container");
+
+    this.products.forEach((product) => {
+      const button = document.createElement("button");
+      const productNameEl = document.createElement("div");
+      const productPriceEl = document.createElement("div");
+      button.ariaLabel = `${product.name} 구매: ${product.price}원`;
+      productNameEl.textContent = product.name;
+      productPriceEl.textContent = `${product.price}원`;
+      button.appendChild(productNameEl);
+      button.appendChild(productPriceEl);
+
+      productButtonsContainer.appendChild(button);
+    });
+  }
+
+  // 초기 셋팅
   init() {
     // 투입 버튼 클릭 이벤트 추가
     const insertButtonEl = this.machineEl.querySelector('[aria-label="투입"]');
@@ -59,6 +79,9 @@ class VendingMachine {
     returnChangeButtonEl.addEventListener("click", () => {
       this.returnChange();
     });
+
+    // 상품 버튼 추가
+    this.setupProducts();
   }
 }
 
