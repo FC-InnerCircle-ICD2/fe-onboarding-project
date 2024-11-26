@@ -1,23 +1,24 @@
-import "./style.css";
-import javascriptLogo from "./javascript.svg";
-import { setupCounter } from "./counter.js";
+import { vendingContents } from "./data.js";
 
-// document.querySelector('#app').innerHTML = `
-//   <div>
-//     <a href="https://vite.dev" target="_blank">
-//       <img src="${viteLogo}" class="logo" alt="Vite logo" />
-//     </a>
-//     <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-//       <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-//     </a>
-//     <h1>Hello Vite!</h1>
-//     <div class="card">
-//       <button id="counter" type="button"></button>
-//     </div>
-//     <p class="read-the-docs">
-//       Click on the Vite logo to learn more
-//     </p>
-//   </div>
-// `
+// 자판기 Button 들 랜더링
+const buttonWrap = document.querySelector(".button_wrap");
+const fragment = document.createDocumentFragment();
 
-setupCounter(document.querySelector("#counter"));
+vendingContents.map((item) => {
+  const button = document.createElement("button");
+  const p = document.createElement("p");
+  const span = document.createElement("span");
+
+  button.className = "item_button";
+  p.className = "item_name";
+  span.className = "item_price";
+
+  p.textContent = item.name;
+  span.textContent = `${item.price}원`;
+
+  button.appendChild(p);
+  button.appendChild(span);
+  fragment.appendChild(button); // Fragment에 추가
+});
+
+buttonWrap.appendChild(fragment); // Fragment를 한 번에 추가
