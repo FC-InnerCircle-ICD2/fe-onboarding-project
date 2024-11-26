@@ -37,6 +37,7 @@ class VendingMachine {
     this.insertedMoneyInputEl.value = "0";
     this.renderMoneyBoard();
     this.renderLogs();
+    this.insertedMoneyInputEl.focus();
   }
 
   // 잔돈 반환 하기
