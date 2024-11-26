@@ -14,9 +14,7 @@ export default class InputFieldButton {
     this.element.appendChild(priceTag);
     this.element.value = price;
 
-    this.element.addEventListener("click", (e) => {
-      const input = document.querySelector(`.inputField_inputText.${version}`);
-      input.innerText = Number(input.innerText) + Number(e.currentTarget.value);
-    });
+    // 클릭시 구매 이벤트 요청
+    this.element.addEventListener("click", (e) => {});
   }
 }

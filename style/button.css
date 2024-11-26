@@ -18,3 +18,18 @@
   background-color: rgb(126, 126, 255);
   color: white;
 }
+
+.outputField_buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.outputField_buttons_button {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
