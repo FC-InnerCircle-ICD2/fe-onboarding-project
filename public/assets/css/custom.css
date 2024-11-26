@@ -1,0 +1,100 @@
+.container {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  display: flex;
+  width: auto;
+  /* height: auto; */
+  height: 550px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
+  align-items: center;
+}
+
+.vending_wrap {
+  /* width: 65%; */
+  width: 500px;
+  height: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.cash_input {
+  width: 97%;
+  height: 100px;
+  border-radius: 16px;
+  background-color: #4d4d4d;
+  /* background-color: darkgray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button_wrap {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(3, minmax(auto, 1fr));
+  align-items: center;
+  justify-content: space-around;
+  padding: 25px 20px 0 20px;
+}
+
+.item_button {
+  width: 120px;
+  height: 100px;
+  background-color: #ffc300;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item_name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.item_price {
+  font-size: 12px;
+  color: #4d4d4d;
+  font-weight: 300;
+}
+
+.control_area_wrap {
+  width: 600px;
+  height: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  padding: 40px;
+}
+
+.insert_return_space {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.log_area {
+  background-color: #e5e5e5;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+  font-size: 12px;
+  padding: 20px;
+  font-weight: 400;
+  line-height: 2;
+}
