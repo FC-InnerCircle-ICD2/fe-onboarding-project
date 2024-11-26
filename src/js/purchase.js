@@ -1,6 +1,6 @@
 const purchaseProduct = (product_id, displayed_balance) => {
   // 상품정의에서 해당 상품의 금액 불러오기
-  const price = products.filter(product => product.id === product_id)[0].price
+  const price = products.find(product => product.id === product_id).price
 
   if (displayed_balance === 0) {
     // 잔액 0원시 1초간 상품금액 노출
@@ -10,7 +10,7 @@ const purchaseProduct = (product_id, displayed_balance) => {
     setTimeout(() => {
       document.querySelector("#product-price-display").innerHTML = 0
     }, 1000)
-  } else if (displayed_balance > price) {
+  } else if (displayed_balance >= price) {
     // 상품 구매 = 잔액변동 + 화면변경 + 로그 추가
 
     // 잔액 변동

@@ -7,25 +7,37 @@
   </head>
 
   <body>
-    <p id="product-price-display">0</p>
-
-    <ul class="product-container"></ul>
-
-    <div class="amount-container">
-      <div class="change-amount">
-        <form>
-          <input type="number" id="insert-input" min="0" />
-          <button
-            type="button"
-            onclick="insertMoney(document.querySelector('#insert-input').value)"
-          >
-            투입
-          </button>
-          <button type="button" onclick="returnMoney()">반환</button>
-        </form>
+    <section class="vending-machine">
+      <div class="product-container">
+        <img
+          src="./products.png"
+          alt="vending-machine"
+          width="300"
+          height="400"
+        />
+        <p id="product-price-display">0</p>
+        <ul class="product-lists"></ul>
       </div>
-      <ul class="log-lists"></ul>
-    </div>
+
+      <div class="amount-container">
+        <div class="change-amount">
+          <form>
+            <input type="number" id="insert-input" min="1" />
+            <button
+              type="button"
+              class="button"
+              onclick="insertMoney(document.querySelector('#insert-input').value)"
+            >
+              투입
+            </button>
+            <button type="button" class="button" onclick="returnMoney()">
+              반환
+            </button>
+          </form>
+        </div>
+        <ul class="log-lists"></ul>
+      </div>
+    </section>
 
     <!-- 상품 정의 -->
     <script type="text/javascript" src="src/constants/products.js"></script>
@@ -46,7 +58,7 @@
       }
 
       // 상품 컨테이너 정의
-      const productContainer = document.querySelector(".product-container")
+      const productContainer = document.querySelector(".product-lists")
 
       // 상품 리스트 DOM에 렌더링
       products.map(product => {

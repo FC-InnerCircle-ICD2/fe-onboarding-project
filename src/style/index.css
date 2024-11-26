@@ -1,20 +1,56 @@
+/* ========= destyle ========= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 li {
   list-style: none;
 }
 
+/* ========= 전체 영역 ========= */
+.vending-machine {
+  width: fit-content;
+  background-color: rgb(235, 235, 235);
+  text-align: center;
+  display: flex;
+  box-shadow: 10px 10px 0 10px #333; /* 반응형 시 없애야 */
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========= 좌측 상품부 ========= */
 .product-container {
+  padding: 32px 0 32px 32px;
+}
+
+#product-price-display {
+  width: 300px;
+  height: 30px;
+  line-height: 30px;
+  background-color: white;
+  margin: 16px auto; /* 반응형 시 margin-top 없애야 */
+  border-radius: 4px;
+}
+
+.product-lists {
   width: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 8px;
-  padding: 16px;
-  border: 1px solid black;
+  grid-gap: 15px;
+  margin: 0 auto;
 }
 
 .product {
   border: 1px solid black;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
+  font-size: 12px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -23,10 +59,28 @@ li {
   cursor: pointer;
 }
 
+.product:hover {
+  background-color: #f0f0f0;
+  border-color: #36454f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.product:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #e6e6e6;
+  transition: transform 0.1s ease;
+}
+
+/* ========= 우측 가격부 ========= */
 .amount-container {
   width: fit-content;
-  border: 1px solid black;
-  padding: 16px;
+  padding: 32px 32px 32px 0;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 4px solid rgb(118, 118, 118); /* 반응형 시 없애야 */
 }
 
 .change-amount {
@@ -34,6 +88,37 @@ li {
   align-items: center;
 }
 
+#insert-input {
+  outline: none;
+  border: none;
+  height: 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.button {
+  width: 32px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.log {
+  font-size: 18px;
+}
+
 .log-lists {
-  color: black;
+  width: 240px; /* 반응형 시 300px로 조정 */
+  height: 200px;
+  margin-top: 16px;
+  background-color: white;
+  border-radius: 8px;
+  text-align: left;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.log:not(:last-child) {
+  margin-bottom: 10px;
 }
