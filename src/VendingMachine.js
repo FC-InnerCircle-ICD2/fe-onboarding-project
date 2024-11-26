@@ -71,6 +71,14 @@ class VendingMachine {
       const productNameEl = document.createElement("div");
       const productPriceEl = document.createElement("div");
       button.ariaLabel = `${product.name} 구매: ${product.price}원`;
+      button.classList.add(
+        "basis-[31%]",
+        "p-3",
+        "border",
+        "border-black",
+        "rounded-md",
+        "bg-blue-300"
+      );
       productNameEl.textContent = product.name;
       productPriceEl.textContent = `${product.price}원`;
       button.appendChild(productNameEl);
