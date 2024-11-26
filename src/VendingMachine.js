@@ -77,7 +77,10 @@ class VendingMachine {
         "border",
         "border-black",
         "rounded-md",
-        "bg-blue-300"
+        "bg-blue-300",
+        "active:scale-95",
+        "hover:brightness-105",
+        "duration-200"
       );
       productNameEl.textContent = product.name;
       productPriceEl.textContent = `${product.price}원`;
