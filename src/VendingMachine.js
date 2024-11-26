@@ -104,6 +104,7 @@ class VendingMachine {
         "duration-200"
       );
       productNameEl.textContent = product.name;
+      productNameEl.classList.add("line-clamp-1");
       productPriceEl.textContent = `${product.price}원`;
       button.appendChild(productNameEl);
       button.appendChild(productPriceEl);
