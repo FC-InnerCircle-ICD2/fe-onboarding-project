@@ -48,6 +48,17 @@ const addLog = (message, elements) => {
   elements.logContainer.insertBefore(logEntry, elements.logContainer.firstChild);
 };
 
+const handleProductPurchase = (product, elements) => {
+  if (state.currentMoney < product.price) {
+    addLog(`잔액이 부족합니다. (필요금액: ${formatNumber(product.price - state.currentMoney)}원)`, elements);
+    return;
+  }
+
+  state.currentMoney -= product.price;
+  updateBalance(elements);
+  addLog(`${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`, elements);
+};
+
 const createProductGrid = (elements) => {
   const grid = createElement("div", "product-grid");
   
@@ -62,6 +73,7 @@ const createProductGrid = (elements) => {
     button.append(nameSpan, priceSpan);
     button.addEventListener("mouseenter", () => updateDisplayAmount(product.price, elements));
     button.addEventListener("mouseleave", () => updateDisplayAmount(0, elements));
+    button.addEventListener("click", () => handleProductPurchase(product, elements));
     
     grid.appendChild(button);
   });
