@@ -26,27 +26,48 @@ for (let i = 0; i < prices.length; i++) {
     prices[i].innerText = `${prices_list[i]}원`;
 }
 
+screen.value = 0;
+in_money.value = 0;
+
+
 
 // 상품 버튼 클릭 이벤트
-const item_click = (value) => {
-    console.log("value",value)
-}
-
 item_btns.forEach(button => {
     button.addEventListener('click', () => {
         const price = button.querySelector('.price').textContent.replace(/[^0-9]/g, "");
+        const product = button.querySelector('.product').textContent;
 
-        console.log(price);
+        if(money < price) {
+            screen.value = Number(price).toLocaleString();
+
+            setTimeout(function () {
+                logs.push(`돈이 부족합니다.`);
+                money_log.value = logs.join("\n");
+                money_log.scrollTop = money_log.scrollHeight;
+                screen.value = Number(money).toLocaleString();
+
+            },1000);
+
+        }
+        else {
+            money = money - price;
+            screen.value = Number(money).toLocaleString();
+            logs.push(`${product}을 구매했습니다.`);
+            money_log.value = logs.join("\n");
+            money_log.scrollTop = money_log.scrollHeight;
+        }
     });
 });
 
 
 // 돈 투입 버튼
 input_btn.addEventListener('click', () => {
-    money =  money + parseInt(in_money.value);
-    screen.innerText = money;
+    const result = in_money.value.replace(/,/g, '')
+    money =  money + parseInt(result);
 
-    logs.push(`${in_money.value}원을 투입했습니다.`);
+    screen.value = Number(money).toLocaleString();
+
+    logs.push(`${result}원을 투입했습니다.`);
     money_log.value = logs.join("\n");
 
     money_log.scrollTop = money_log.scrollHeight;
@@ -63,7 +84,7 @@ out_btn.addEventListener('click', () => {
     money_log.scrollTop = money_log.scrollHeight;
 
     money = 0;
-    screen.innerText = money;
+    screen.value = money;
 
 })
 

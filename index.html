@@ -52,8 +52,8 @@
         <div>
           <input
                   id="in_money"
-                  type="number"
-                  min="0"
+                  type="text"
+                  oninput="this.value = Number(this.value.replace(/[^0-9]/g,'')).toLocaleString();"
           />
           <button id="in_btn">투입</button>
           <button id="out_btn">반환</button>
