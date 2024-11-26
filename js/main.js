@@ -10,8 +10,6 @@ function init() {
 
             const productsList = document.getElementById('products-list');
             products.forEach(product => {
-                console.log(`제품명: ${product.name}, 가격: ${product.price.toLocaleString()}원`);
-
                 const buttonWrapper = document.createElement('div');
                 buttonWrapper.classList.add('col', 's4');
 

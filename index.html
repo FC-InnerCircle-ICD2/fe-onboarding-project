@@ -11,23 +11,24 @@
 <body>
     <div class="container container-wrapper">
         <div class="row content-wrapper">
-            <div class="col s6 vending-machine">
+            <div class="col xl6 l12 m12 s12 vending-machine">
                 <div class="display" id="display">0</div>
                 <div class="row" id="products-list"></div>
             </div>
-            <div class="col s6 input-wrapper">
+            <div class="col xl6 l12 m12 s12 input-wrapper">
                 <div class="row">
                     <div class="col s8">
                         <input class="input-amount" type="number" id="inputAmount" placeholder="금액 입력" min="1">
                     </div>
                     <div class="col s2 input-button">
-                        <button class="btn" onclick="insertAmount()">투입</button>
+                        <button class="btn action-button" onclick="insertAmount()">투입</button>
                     </div>
                     <div class="col s2 input-button">
-                        <button class="btn" onclick="returnAmount()">반환</button>
+                        <button class="btn action-button" onclick="returnAmount()">반환</button>
                     </div>
                 </div>
                 <div class="log" id="log"></div>
+                
             </div>
         </div>
 
