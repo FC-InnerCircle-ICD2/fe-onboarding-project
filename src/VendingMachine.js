@@ -81,6 +81,24 @@ class VendingMachine {
         this.buyProduct(product);
       });
 
+      // 잔액 부족으로 구매 실패시 버튼을 누르고 있을 때 이벤트 추가
+      button.addEventListener("mousedown", () => {
+        if (this.currentMoney < product.price) {
+          const currentMoneyEl = this.machineEl.querySelector(
+            '[aria-label="현재 잔액"]'
+          );
+          currentMoneyEl.textContent = product.price;
+        }
+      });
+
+      // 잔액 부족으로 구매 실패시 버튼에서 손을 뗄 때 이벤트 추가
+      button.addEventListener("mouseup", () => {
+        const currentMoneyEl = this.machineEl.querySelector(
+          '[aria-label="현재 잔액"]'
+        );
+        currentMoneyEl.textContent = this.currentMoney;
+      });
+
       productButtonsContainer.appendChild(button);
     });
   }
