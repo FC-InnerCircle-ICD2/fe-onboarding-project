@@ -27,6 +27,10 @@ export default class InputFieldButton {
           `.outputField_textarea.${version}`
         );
         outputTextarea.innerHTML += `${e.currentTarget.dataset.label}을 구매했습니다.<br />`;
+        outputTextarea.scrollTo({
+          top: outputTextarea.scrollHeight,
+          behavior: "smooth",
+        });
         inputText.innerText = (inputNum - value).toLocaleString();
       }
     });
