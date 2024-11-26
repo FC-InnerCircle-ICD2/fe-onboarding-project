@@ -1,29 +1,19 @@
-class CoinInput {
-    private coinInput: HTMLInputElement
+import { createElement } from '../function'
 
-    constructor(element: HTMLInputElement) {
-        this.coinInput = element
+export class CoinInput {
+    constructor() {}
 
-        this.coinInput.addEventListener('input', this.handleInputChange.bind(this))
-    }
+    public getElement(): HTMLInputElement {
+        const input = createElement({ tagName: 'input', className: ['coin-input', 'input'] }) as HTMLInputElement
+        input.setAttribute('maxlength', '9')
 
-    private handleInputChange(event: Event) {
-        const target = event.target as HTMLInputElement
+        input.addEventListener('input', (e: Event) => {
+            const target = e.target as HTMLInputElement
+            const value = Number(target.value.replace(/[^0-9]/g, ''))
 
-        this.updateCoin(Number(target.value.replace(/[^0-9]/g, '')))
-    }
+            target.value = value ? value.toLocaleString() : ''
+        })
 
-    public updateCoin(value: number) {
-        this.coinInput.value = !value ? '' : value.toLocaleString()
-    }
-
-    public getCoin() {
-        return Number(this.coinInput.value.replace(/,/g, ''))
-    }
-
-    public reset() {
-        this.coinInput.value = ''
+        return input
     }
 }
-
-export const coinInput = new CoinInput(document.getElementById('coin-input') as HTMLInputElement)

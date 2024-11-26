@@ -1,23 +1,21 @@
-import { display } from './display'
-import { log } from './log'
+import { createElement } from '../function'
+import { VendingMachine } from './vendingMachine'
 
-class ReturnButton {
-    private btn: HTMLButtonElement
+export class ReturnButton {
+    private vendingMachine: VendingMachine
 
-    constructor(el: HTMLButtonElement) {
-        this.btn = el
+    constructor(vendingMachine: VendingMachine) {
+        this.vendingMachine = vendingMachine
+    }
 
-        this.btn.addEventListener('click', () => {
-            if (!display) return
+    public getElement(): HTMLButtonElement {
+        const button = createElement({ tagName: 'button', className: ['return-coin', 'button'] }) as HTMLButtonElement
+        button.innerText = '반환'
 
-            const currentCoin = display.getCurrentCoin()
-
-            if (!currentCoin) return
-
-            display.returnCoin()
-            log.addLog(`${currentCoin.toLocaleString()}원을 반환했습니다.`)
+        button.addEventListener('click', () => {
+            this.vendingMachine.returnCoin()
         })
+
+        return button
     }
 }
-
-export const returnButton = new ReturnButton(document.getElementById('return-coin') as HTMLButtonElement)

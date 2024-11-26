@@ -1,27 +1,21 @@
-import { coinInput } from './coinInput'
-import { display } from './display'
-import { log } from './log'
+import { createElement } from '../function'
+import { VendingMachine } from './vendingMachine'
 
-class InsertButton {
-    private btn: HTMLButtonElement
+export class InsertButton {
+    private vendingMachine: VendingMachine
 
-    constructor(el: HTMLButtonElement) {
-        this.btn = el
+    constructor(vendingMachine: VendingMachine) {
+        this.vendingMachine = vendingMachine
+    }
 
-        this.btn.addEventListener('click', () => {
-            if (!coinInput || !display) return
+    public getElement(): HTMLButtonElement {
+        const button = createElement({ tagName: 'button', className: ['insert-coin', 'button'] }) as HTMLButtonElement
 
-            const coin = coinInput.getCoin()
-
-            if (!coin) {
-                return
-            }
-
-            display.addCoin(coin)
-            log.addLog(`${coin.toLocaleString()}원을 투입했습니다.`)
-            coinInput.reset()
+        button.innerText = '투입'
+        button.addEventListener('click', () => {
+            this.vendingMachine.insertCoin()
         })
+
+        return button
     }
 }
-
-export const insertButton = new InsertButton(document.getElementById('insert-coin') as HTMLButtonElement)

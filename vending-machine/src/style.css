@@ -16,7 +16,7 @@ body {
     line-height: 1;
 }
 
-#container {
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +27,7 @@ body {
     margin-block: 100px;
     margin-inline: auto;
 
-    #calculator {
+    .calculator {
         width: 340px;
         height: 100%;
         background-color: #b3f1ff;
@@ -35,12 +35,12 @@ body {
         border-radius: 10px;
         padding: 20px;
 
-        #current-coin {
+        .current-coin {
             width: 100%;
             padding-bottom: 20px;
         }
 
-        #dial-container {
+        .dial-container {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
@@ -77,7 +77,7 @@ body {
         }
     }
 
-    #info {
+    .info {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -85,7 +85,7 @@ body {
         height: 100%;
         padding: 20px 10px;
 
-        #operation-container {
+        .operation-container {
             display: flex;
             gap: 10px;
 
@@ -99,7 +99,7 @@ body {
             }
         }
 
-        #log-container {
+        .log-container {
             flex: 1;
             display: flex;
             flex-direction: column;

@@ -1,108 +1,62 @@
-import { dummyData, Item } from '../data'
-import { display } from './display'
-import { log } from './log'
+import { Item } from '../data'
+import { createElement } from '../function'
+import { VendingMachine } from './vendingMachine'
 
-class DialButtons {
-    private buttons: HTMLDivElement[]
+export class DialButtons {
+    private vendingMachine: VendingMachine
+    private item: Item
 
-    constructor(parent: HTMLElement, items: Item[]) {
-        if (!parent) {
-            this.buttons = []
-            return
-        }
+    constructor(vendingMachine: VendingMachine, item: Item) {
+        this.vendingMachine = vendingMachine
+        this.item = item
+    }
 
-        const divArr = items.map((item) => {
-            const div = document.createElement('div') as HTMLDivElement
+    private startAction(target: HTMLDivElement) {
+        // button active 효과
+        target.classList.add('button_active')
 
-            div.classList.add('dial-item')
-            div.setAttribute('role', 'button')
+        setTimeout(() => {
+            target.classList.remove('button_active')
+        }, 300)
 
-            div.dataset.name = item.name
-            div.dataset.price = String(item.price)
+        this.vendingMachine.buyItem(this.item)
+    }
 
-            div.innerHTML = `
-                <p class="title ellipsis align-center dial-child">${item.name}</p>
-                <p class="price ellipsis align-center dial-child">${item.price.toLocaleString()}원</p>
+    private stopAction = () => {
+        this.vendingMachine.resetError()
+    }
+
+    public getElement(): HTMLDivElement {
+        const btn = createElement({ tagName: 'div', className: ['dial-item'] }) as HTMLDivElement
+        btn.setAttribute('role', 'button')
+
+        btn.dataset.name = this.item.name
+        btn.dataset.price = String(this.item.price)
+
+        btn.innerHTML = `
+                <p class="title ellipsis align-center dial-child">${this.item.name}</p>
+                <p class="price ellipsis align-center dial-child">${this.item.price.toLocaleString()}원</p>
             `
 
-            parent.appendChild(div)
-            return div
-        })
-
-        const startAction = (target: HTMLDivElement) => {
-            if (!target) return
-
-            let name = ''
-            let price = 0
-
-            if (target.classList.contains('dial-item')) {
-                name = target.dataset.name || ''
-                price = target.dataset.price ? Number(target.dataset.price) : 0
-            } else if (target.classList.contains('dial-child')) {
-                const parent = target.parentElement
-
-                if (parent && parent.classList.contains('dial-item')) {
-                    name = parent.dataset.name || ''
-                    price = parent.dataset.price ? Number(parent.dataset.price) : 0
-                }
-            }
-
-            if (!name || !price) return
-
-            // button active 효과
-            target.classList.add('button_active')
-
-            setTimeout(() => {
-                target.classList.remove('button_active')
-            }, 300)
-
-            const currentCoin = display.getCurrentCoin()
-
-            // 현재 금액이 상품 금액보다 적을 때
-            if (currentCoin < price) {
-                display.setError(price)
-            }
-            // 현재 금액이 상품 금액보다 클 때
-            else {
-                display.minusCoin(price)
-
-                log.addLog(`${name}(${price.toLocaleString()}원)을 구매했습니다.`)
-            }
-        }
-
-        const stopAction = () => {
-            display.resetError()
-        }
-
         // 마우스 이벤트
-        parent.addEventListener('mousedown', (e: MouseEvent) => {
-            const target = e.target as HTMLDivElement
-
-            if (target) startAction(target)
+        btn.addEventListener('mousedown', (e: MouseEvent) => {
+            this.startAction(btn)
         })
-        parent.addEventListener('mouseleave', stopAction)
-        parent.addEventListener('mouseup', stopAction)
+        btn.addEventListener('mouseleave', this.stopAction)
+        btn.addEventListener('mouseup', this.stopAction)
 
         // 키보드 이벤트
-        parent.addEventListener('keydown', (e: KeyboardEvent) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const target = e.target as HTMLDivElement
-
-                startAction(target)
-            }
+        btn.addEventListener('keydown', (e: KeyboardEvent) => {
+            this.startAction(btn)
         })
-        parent.addEventListener('keyup', stopAction)
+        btn.addEventListener('keyup', this.stopAction)
 
         // 터치 이벤트
-        parent.addEventListener('touchstart', (e: TouchEvent) => {
-            const target = e.target as HTMLDivElement
-
-            startAction(target)
+        btn.addEventListener('touchstart', (e: TouchEvent) => {
+            this.startAction(btn)
         })
-        parent.addEventListener('touchend', stopAction)
+        btn.addEventListener('touchend', this.stopAction)
 
-        this.buttons = divArr
+        return btn
     }
 }
-
-const dialButtons = new DialButtons(document.getElementById('dial-container') as HTMLDivElement, dummyData)
