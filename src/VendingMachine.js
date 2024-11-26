@@ -14,8 +14,8 @@ class VendingMachine {
     this.machineEl = document.querySelector(`#${machineId}`);
     /** @type {number} */
     this.currentMoney = 0;
-    /** @type {number} */
-    this.insertedMoney = 0;
+    /** @type {string} */
+    this.insertedMoney = "0";
     /** @type {string[]} */
     this.logs = [];
     /** @type {Product[]} */
@@ -28,12 +28,13 @@ class VendingMachine {
 
   // 돈 넣기
   insertMoney() {
-    const parsedMoney = parseInt(this.insertedMoneyInputEl.value);
+    const moneyWithComma = this.insertedMoneyInputEl.value;
+    const parsedMoney = parseInt(moneyWithComma.replace(/,/g, "")); // 콤마 제거 + 숫자로 변환
     if (parsedMoney > 0) {
       this.currentMoney += parsedMoney;
-      this.logs.push(`${parsedMoney}원을 투입했습니다.`);
+      this.logs.push(`${parsedMoney.toLocaleString()}원을 투입했습니다.`);
     }
-    this.insertedMoneyInputEl.value = 0;
+    this.insertedMoneyInputEl.value = "0";
     this.renderMoneyBoard();
     this.renderLogs();
   }
@@ -151,6 +152,15 @@ class VendingMachine {
 
     // 상품 버튼 추가
     this.setupProducts();
+
+    // input 값 입력시 콤마 추가
+    this.insertedMoneyInputEl.addEventListener("input", (e) => {
+      const value = e.target.value.replace(/[^\d]/g, "");
+      if (value) {
+        const numValue = value.replace(/^0+/, ""); // 앞의 0 제거
+        e.target.value = Number(numValue).toLocaleString();
+      }
+    });
   }
 }
 
