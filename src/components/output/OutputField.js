@@ -1,5 +1,6 @@
 import OutputFieldButtons from "./OutputFieldButtons.js";
 import OutputFieldText from "./OutputFieldText.js";
+import OutputFieldTextArea from "./OutputFieldTextArea.js";
 
 export default class OutputField {
   constructor(version) {
@@ -8,5 +9,6 @@ export default class OutputField {
 
     this.element.appendChild(new OutputFieldText(version).element);
     this.element.appendChild(new OutputFieldButtons(version).element);
+    this.element.appendChild(new OutputFieldTextArea(version).element);
   }
 }

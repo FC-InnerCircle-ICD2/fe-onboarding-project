@@ -2,7 +2,9 @@ export default class OutputFieldButton {
   constructor(text, version) {
     this.element = document.createElement("button");
     this.element.innerText = text;
-    this.element.className = "outputField_buttons_button";
+    this.element.className = `outputField_buttons_button ${
+      text === "투입" ? "insert" : "return"
+    }`;
     this.element.addEventListener("click", () => {
       if (text === "투입") {
         this.handleInsertEvent(version);
@@ -19,16 +21,28 @@ export default class OutputFieldButton {
     const inputText = document.querySelector(
       `.inputField_inputText.${version}`
     );
-    inputText.innerText =
-      Number(inputText.innerText) + Number(outputText.value);
-    outputText.value = 0;
+
+    if (outputText.value !== "0") {
+      const outputTextarea = document.querySelector(
+        `.outputField_textarea.${version}`
+      );
+      outputTextarea.innerHTML += `${outputText.value}원이 투입되었습니다.<br />`;
+      inputText.innerText =
+        Number(inputText.innerText) + Number(outputText.value);
+      outputText.value = 0;
+    }
   }
 
   handleReturnEvent(version) {
     const inputText = document.querySelector(
       `.inputField_inputText.${version}`
     );
-    console.log(inputText.innerText);
-    inputText.innerText = "0";
+    const outputTextarea = document.querySelector(
+      `.outputField_textarea.${version}`
+    );
+    if (inputText.innerText !== "0") {
+      outputTextarea.innerHTML += `${inputText.innerText}원이 반환되었습니다.<br />`;
+      inputText.innerText = "0";
+    }
   }
 }
