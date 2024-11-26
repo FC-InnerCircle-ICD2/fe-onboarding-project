@@ -63,7 +63,7 @@ class VendingMachine {
   // 로그 랜더링
   renderLogs() {
     const logsEl = this.machineEl.querySelector('[aria-label="로그"]');
-    // 더 안전한 방법으로 자식 요소들을 제거
+    // 로그 요소 리셋
     while (logsEl.firstChild) {
       logsEl.removeChild(logsEl.firstChild);
     }
