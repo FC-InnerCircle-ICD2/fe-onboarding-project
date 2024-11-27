@@ -1,4 +1,4 @@
-import type { CoinController } from '../../entities/coin';
+import type { CoinController } from '../../entities/coin/model';
 import { formatCurrency } from '../../shared/currency';
 
 export const returnCoin = (coinController: CoinController) => {

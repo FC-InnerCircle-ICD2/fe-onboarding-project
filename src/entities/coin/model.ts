@@ -1,4 +1,4 @@
-import { TProduct } from './products';
+import { TProduct } from '../products/model';
 
 export type TCoin = number;
 

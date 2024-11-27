@@ -1,5 +1,8 @@
-import type { CoinController } from '../../entities/coin';
-import type { ProductController, TProduct } from '../../entities/products';
+import type { CoinController } from '../../entities/coin/model';
+import type {
+  ProductController,
+  TProduct,
+} from '../../entities/products/model';
 import { formatCurrency } from '../../shared/currency';
 import type { TResponse } from '../../shared/response';
 
