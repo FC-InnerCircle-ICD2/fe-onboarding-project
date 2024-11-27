@@ -1,0 +1,20 @@
+{
+  "name": "fe-onboarding-project",
+  "version": "1.0.0",
+  "description": "온보딩 프로젝트로 바닐라 자바스크립트 버전으로 주어진 명세를 만족하는 자판기를 구현합니다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FC-InnerCircle-ICD2/fe-onboarding-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FC-InnerCircle-ICD2/fe-onboarding-project/issues"
+  },
+  "homepage": "https://github.com/FC-InnerCircle-ICD2/fe-onboarding-project#readme"
+}

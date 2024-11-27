@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자판기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="left-box">
+            <!-- 상품금액 표시 화면 -->
+            <div class="amount-display">
+                <span id="amount-display">15,000</span> 
+            </div>
+            <!-- 상품 버튼 -->
+            <div class="product-buttons">
+                <button class="product-button" data-price="1500">
+                    <div class="product-name">콜라</div>
+                    <div class="product-price">1500원</div>
+                </button>
+                <button class="product-button" data-price="1700">
+                    <div class="product-name">속이사이다</div>
+                    <div class="product-price">1700원</div>
+                </button>
+                <button class="product-button" data-price="1500">
+                    <div class="product-name">판타지판타</div>
+                    <div class="product-price">1500원</div>
+                </button>
+                <button class="product-button" data-price="1800">
+                    <div class="product-name">오뎅국물</div>
+                    <div class="product-price">1800원</div>
+                </button>
+                <button class="product-button" data-price="800">
+                    <div class="product-name">부장라떼</div>
+                    <div class="product-price">800원</div>
+                </button>
+                <button class="product-button" data-price="1500">
+                    <div class="product-name">제로판타지판타</div>
+                    <div class="product-price">1500원</div>
+                </button>
+                <button class="product-button" data-price="2500">
+                    <div class="product-name">레드뿔</div>
+                    <div class="product-price">2500원</div>
+                </button>
+                <button class="product-button" data-price="1900">
+                    <div class="product-name">핫세븐</div>
+                    <div class="product-price">1900원</div>
+                </button>
+                <button class="product-button" data-price="1400">
+                    <div class="product-name">커피우유</div>
+                    <div class="product-price">1400원</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="right-box">
+            <!-- 투입 금액 표시 화면 -->
+            <div class="input-group">
+                <div class="input-display">
+                    <span id="input-display">3,000</span>
+                </div>
+                <!-- 투입,반환 버튼 -->
+                <div class="input-controls">
+                    <button id="deposit-btn">투입</button>
+                    <button id="return-btn">반환</button>
+                </div>
+            </div>
+            <!-- 로그 출력 창 -->
+            <div class="log-box">
+                <ul id="log-list">
+                   2000원을 투입했습니다.<br>
+                   오뎅국물을 구매했습니다.<br>
+                   200원을 반환합니다.
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
