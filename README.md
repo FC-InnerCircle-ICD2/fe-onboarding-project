@@ -9,6 +9,76 @@
 - 동일한 요구 사항의 서로 다른 구현을 살펴보고 다른 사람의 코드를 통해 배울 수 있습니다.
 - 의도적으로 밝히지 않은 기능 명세가 존재할 수 있습니다.
 
+## 프로젝트 실행 방법
+
+```bash
+git clone https://github.com/hyoungqu23/fe-onboarding-project.git
+```
+
+```bash
+pnpm install
+
+pnpm dev
+```
+
+[여기](http://localhost:5713)에서 확인할 수 있습니다.
+
+<details>
+  <summary>이미지로 보기</summary>
+
+![이미지](./assets/vending-machine.png)
+
+</details>
+
+## 구상하기
+
+### Stacks
+
+- HTML, CSS, TypeScript(JavaScript)
+- Vite
+
+### Architectures
+
+- [x] Shared
+  - [x] log
+  - [x] formatter
+  - [x] ui
+    - [x] Button -> Only Style
+- [x] Entities
+  - [x] 자판기 상품(Products)
+    - [x] Model: name, price …
+    - [x] productController
+  - [x] 금액(Coin)
+    - [x] Model: price …
+    - [x] coinController
+- [x] Features
+  - [x] 자판기 상품 구입(purchaseProduct)
+    - [x] 자판기 상품 선택 = Button Click
+      - [x] ProductButton
+    - [x] 자판기 금액 계산 = Calculate Price
+      - [x] PriceWindow
+    - [x] 해당 상품 구입 완료 혹은 실패
+  - [x] 금액 투입(insertCoin)
+    - [x] 금액 설정 = Text Input
+    - [x] 해당 금액 투입 = Button Click
+      - [x] CoinInput
+      - [x] InsertCoinButton
+    - [x] 투입 완료 혹은 실패
+  - [x] 금액 반환(returnCoin)
+    - [x] 전체 금액 반환 = Button Click
+      - [x] ReturnCoinButton
+    - [x] 반환 완료 혹은 실패
+- [x] Widgets
+  - [x] Product
+  - [x] Coin
+- [x] Pages
+  - [x] LoggingWindow
+  - [x] VendingMachine
+
+<details>
+
+<summary>요구사항, 평가항목 펼쳐보기</summary>
+
 ## 요구사항
 
 ![자판기 와이어프레임](./assets/wireframe.png)
@@ -67,3 +137,5 @@
 - 웹 표준, 웹 접근성, 코드의 가독성, 효율성을 고려하였는가
 - 상품명과 금액의 변경에 유연하게 대처할 수 있도록 작성되었는가
 - 작성한 코드의 의도를 충분히 잘 설명할 수 있는가
+
+</details>
