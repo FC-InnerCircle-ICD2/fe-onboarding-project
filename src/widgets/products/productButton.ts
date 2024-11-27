@@ -25,5 +25,15 @@ export const handleProductButtonClick = (
   productController: ProductController,
   coinController: CoinController,
 ) => {
-  purchaseProduct(product, productController, coinController);
+  const purchaseResponse = purchaseProduct(
+    product,
+    productController,
+    coinController,
+  );
+
+  if (purchaseResponse.ok) {
+    const currentCoin = coinController.getCoin();
+
+    updateProductWindow(currentCoin);
+  }
 };
