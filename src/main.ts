@@ -17,5 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
   updateProductWindow(0);
   createProductButtons(productController, coinController, logService);
   createInsertCoinButton(coinController, logService);
-  createReturnCoinButton(coinController);
+  createReturnCoinButton(coinController, logService);
 });
