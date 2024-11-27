@@ -1,0 +1,86 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지니의 자판기</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" type="text/css" href="src/style/index.css" />
+  </head>
+
+  <body>
+    <section class="vending-machine">
+      <div class="product-container">
+        <img
+          src="./products.png"
+          alt="vending-machine"
+          width="300"
+          height="400"
+        />
+        <p id="product-price-display">0</p>
+        <ul class="product-lists"></ul>
+      </div>
+
+      <div class="amount-container">
+        <div class="change-amount">
+          <form>
+            <input type="number" id="insert-input" min="1" />
+            <button
+              type="button"
+              class="button"
+              onclick="insertMoney(document.querySelector('#insert-input').value)"
+            >
+              투입
+            </button>
+            <button type="button" class="button" onclick="returnMoney()">
+              반환
+            </button>
+          </form>
+        </div>
+        <ul class="log-lists"></ul>
+      </div>
+    </section>
+
+    <!-- 상품 정의 -->
+    <script type="text/javascript" src="src/constants/products.js"></script>
+    <!-- 금액 변동 로직 -->
+    <script type="text/javascript" src="src/js/amount.js"></script>
+    <!-- 상품 구매 로직 -->
+    <script type="text/javascript" src="src/js/purchase.js"></script>
+    <!-- 로그 로직 -->
+    <script type="text/javascript" src="src/js/log.js"></script>
+
+    <script>
+      // 잔액
+      let balance = 0
+
+      // DOM 요소 생성 함수
+      const createElement = element => {
+        return document.createElement(element)
+      }
+
+      // 상품 컨테이너 정의
+      const productContainer = document.querySelector(".product-lists")
+
+      // 상품 리스트 DOM에 렌더링
+      products.map(product => {
+        const liElement = createElement("li")
+        liElement.addEventListener("click", () =>
+          purchaseProduct(product.id, balance)
+        )
+        liElement.className = "product"
+
+        const productName = createElement("div")
+        productName.className = "product_name"
+        productName.textContent = product.name
+        liElement.append(productName)
+
+        const productPrice = createElement("div")
+        productPrice.className = "product_price"
+        productPrice.textContent = product.price.toLocaleString("ko-kr")
+        liElement.append(productPrice)
+
+        productContainer.appendChild(liElement)
+      })
+    </script>
+  </body>
+</html>
