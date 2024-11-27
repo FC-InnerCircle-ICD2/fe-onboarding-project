@@ -9,6 +9,8 @@
   border-radius: 8px;
   display: flex;
   gap: 8px;
+  width: 100%;
+  max-width: 300px;
 }
 
 .inputField {
@@ -28,7 +30,6 @@
 }
 
 .outputField {
-  width: 300px;
   flex-wrap: wrap;
   background-color: rgb(252, 117, 117);
 }
@@ -57,4 +58,14 @@
   font-size: 12px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+@media (max-width: 600px) {
+  .machine {
+    flex-direction: column;
+  }
+
+  .outputField_inputText {
+    width: 100%;
+  }
 }

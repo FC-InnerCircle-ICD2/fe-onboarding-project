@@ -1,6 +1,6 @@
 .inputField_buttons {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
