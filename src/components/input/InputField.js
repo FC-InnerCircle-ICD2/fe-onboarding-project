@@ -9,19 +9,17 @@ export default class InputField {
     this.element.className = `inputField ${version}`;
 
     this.element.appendChild(new InputFieldText(version).element);
-
-    this.makeButtons();
+    this.element.appendChild(this.makeButtons());
   }
 
   makeButtons() {
     const buttons = document.createElement("div");
     buttons.classList.add("inputField_buttons");
-
     inputInfo.forEach((item) => {
       buttons.appendChild(
         new InputFieldButton(this.version, item.label, item.price).element
       );
     });
-    this.element.appendChild(buttons);
+    return buttons;
   }
 }
