@@ -33,7 +33,7 @@ export default class OutputFieldButton {
       `.inputField_inputText.${version}`
     );
 
-    if (outputText.value !== "0") {
+    if (outputText.value !== "0" && outputText.value !== "") {
       this.changeOutputTextarea(
         version,
         `${outputText.value}원이 투입되었습니다.<br />`

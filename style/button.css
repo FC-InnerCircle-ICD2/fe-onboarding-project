@@ -29,6 +29,8 @@
 
 .outputField_buttons {
   display: flex;
+  flex-grow: 1;
+  height: 30px;
   gap: 4px;
 }
 
