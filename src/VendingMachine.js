@@ -89,8 +89,8 @@ class VendingMachine {
 
     this.products.forEach((product) => {
       const button = document.createElement("button");
-      const productNameEl = document.createElement("div");
-      const productPriceEl = document.createElement("div");
+      const productNameEl = document.createElement("span");
+      const productPriceEl = document.createElement("span");
       button.ariaLabel = `${product.name} 구매: ${product.price}원`;
       button.classList.add(
         "basis-[31%]",
