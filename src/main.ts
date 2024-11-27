@@ -15,7 +15,7 @@ const logService = new LogService(logWindowElement!);
 
 document.addEventListener('DOMContentLoaded', () => {
   updateProductWindow(0);
-  createProductButtons(productController, coinController);
+  createProductButtons(productController, coinController, logService);
   createInsertCoinButton(coinController);
   createReturnCoinButton(coinController);
 });

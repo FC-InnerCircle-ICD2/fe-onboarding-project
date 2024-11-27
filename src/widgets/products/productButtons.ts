@@ -3,6 +3,7 @@ import {
   type ProductController,
   products,
 } from '../../entities/products/model';
+import { LogService } from '../../shared/log';
 import { createProductButton, handleProductButtonClick } from './productButton';
 import { updateProductWindow } from './productWindow';
 
@@ -12,12 +13,18 @@ const productButtonsElement =
 export const createProductButtons = (
   productController: ProductController,
   coinController: CoinController,
+  logService: LogService,
 ) => {
   for (const product of products) {
     const button = createProductButton(product);
 
     button.addEventListener('click', () => {
-      handleProductButtonClick(product, productController, coinController);
+      handleProductButtonClick(
+        product,
+        productController,
+        coinController,
+        logService,
+      );
     });
 
     button.addEventListener('mousedown', () => {

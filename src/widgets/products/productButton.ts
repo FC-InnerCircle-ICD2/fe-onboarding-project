@@ -5,6 +5,7 @@ import type {
 } from '../../entities/products/model';
 import { purchaseProduct } from '../../features/products/purchaseProduct';
 import { formatCurrency } from '../../shared/currency';
+import { LogService } from '../../shared/log';
 import { updateProductWindow } from './productWindow';
 
 export const createProductButton = (product: TProduct) => {
@@ -24,11 +25,13 @@ export const handleProductButtonClick = (
   product: TProduct,
   productController: ProductController,
   coinController: CoinController,
+  logService: LogService,
 ) => {
   const purchaseResponse = purchaseProduct(
     product,
     productController,
     coinController,
+    logService,
   );
 
   if (purchaseResponse.ok) {
