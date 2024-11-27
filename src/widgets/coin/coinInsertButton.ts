@@ -1,5 +1,6 @@
 import type { CoinController } from '../../entities/coin/model';
 import { insertCoin } from '../../features/coin/insertCoin';
+import { LogService } from '../../shared/log';
 import { updateProductWindow } from '../products/productWindow';
 import { updateCoinInput } from './coinInput';
 
@@ -9,9 +10,12 @@ const coinInsertButtonElement = document.querySelector<HTMLButtonElement>(
   '.coin-insert-button',
 );
 
-export const createInsertCoinButton = (coinController: CoinController) => {
+export const createInsertCoinButton = (
+  coinController: CoinController,
+  logService: LogService,
+) => {
   coinInsertButtonElement!.addEventListener('click', () => {
-    handleInsertCoinButtonClick(coinController);
+    handleInsertCoinButtonClick(coinController, logService);
 
     const currentBalance = coinController.getCoin();
 
@@ -20,13 +24,17 @@ export const createInsertCoinButton = (coinController: CoinController) => {
   });
 };
 
-export const handleInsertCoinButtonClick = (coinController: CoinController) => {
+export const handleInsertCoinButtonClick = (
+  coinController: CoinController,
+  logService: LogService,
+) => {
   const coin = parseInt(coinInputElement!.value);
 
   if (isNaN(coin)) {
     alert('잘못된 투입 금액입니다. 다시 시도해주세요.');
+    logService.track(`잘못된 투입 금액입니다.`);
     return;
   }
 
-  insertCoin(coin, coinController);
+  insertCoin(coin, coinController, logService);
 };
