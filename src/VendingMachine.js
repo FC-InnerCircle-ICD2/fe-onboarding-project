@@ -155,14 +155,17 @@ class VendingMachine {
   // 초기 셋팅
   init() {
     // 투입 버튼 클릭 이벤트 추가
-    const insertButtonEl = this.machineEl.querySelector('[aria-label="투입"]');
+    const insertButtonEl = this.machineEl.querySelector(
+      '[aria-label="금액 투입 버튼"]'
+    );
     insertButtonEl.addEventListener("click", () => {
       this.insertMoney();
     });
 
     // 잔돈 반환 버튼 클릭 이벤트 추가
-    const returnChangeButtonEl =
-      this.machineEl.querySelector('[aria-label="반환"]');
+    const returnChangeButtonEl = this.machineEl.querySelector(
+      '[aria-label="잔액 반환 버튼"]'
+    );
     returnChangeButtonEl.addEventListener("click", () => {
       this.returnChange();
     });
