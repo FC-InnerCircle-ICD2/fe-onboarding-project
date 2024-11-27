@@ -16,7 +16,9 @@ export default class InputFieldButton {
     this.element.dataset.label = label;
 
     // 클릭시 구매 이벤트 요청
-    this.element.addEventListener("click", (e) => {
+    this.element.addEventListener("click", (e) => {});
+
+    this.element.addEventListener("mousedown", (e) => {
       const inputText = document.querySelector(
         `.inputField_inputText.${version}`
       );
@@ -32,6 +34,20 @@ export default class InputFieldButton {
           behavior: "smooth",
         });
         inputText.innerText = (inputNum - value).toLocaleString();
+        inputText.dataset.value = inputNum - value;
+      } else {
+        inputText.innerText = value.toLocaleString();
+      }
+    });
+
+    this.element.addEventListener("mouseup", (e) => {
+      const inputText = document.querySelector(
+        `.inputField_inputText.${version}`
+      );
+      const inputNum = Number(inputText.dataset.value);
+      const value = Number(e.currentTarget.value);
+      if (value > inputNum) {
+        inputText.innerText = Number(inputText.dataset.value).toLocaleString();
       }
     });
   }

@@ -42,6 +42,8 @@ export default class OutputFieldButton {
         Number(inputText.innerText.replaceAll(",", "")) +
         Number(outputText.value)
       ).toLocaleString();
+      inputText.dataset.value =
+        Number(inputText.dataset.value) + Number(outputText.value);
       outputText.value = "";
     }
   }
@@ -56,6 +58,7 @@ export default class OutputFieldButton {
         `${inputText.innerText.replaceAll(",", "")}원이 반환되었습니다.<br />`
       );
       inputText.innerText = "0";
+      inputText.dataset.value = "0";
     }
   }
 }

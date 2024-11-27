@@ -3,5 +3,6 @@ export default class InputFieldText {
     this.element = document.createElement("div");
     this.element.className = `inputField_inputText ${version}`;
     this.element.innerText = "0";
+    this.element.dataset.value = "0";
   }
 }
