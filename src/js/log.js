@@ -18,7 +18,6 @@ const addLog = (type, amount, product_id) => {
   logList.textContent = switchLogType(type, amount, product_id)
   logList.className = "log ellipsis"
 
-  // 질문 : 스크롤을 끝까지 이동시키고 싶은데, 끝에서 조금 위로 이동합니다. 수정값을 줘도 그대로라 다른 원인인것 같은데 찾지를 못하겠습니다
-  logLists.scrollTop = logLists.scrollHeight
   logLists.appendChild(logList)
+  logLists.scrollTop = logLists.scrollHeight
 }
