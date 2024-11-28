@@ -1,12 +1,12 @@
-import type { CoinController } from '../../entities/coin/model';
+import type { TCoinManager } from '../../entities/coin/model';
 import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
 
 export const returnCoin = (
-  coinController: CoinController,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
-  const returnedCoin = coinController.returnCoin();
+  const returnedCoin = coinManager.returnCoin();
 
   logService.track(`${returnedCoin}을 반환합니다.`);
 

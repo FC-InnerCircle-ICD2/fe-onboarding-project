@@ -1,8 +1,5 @@
-import type { CoinController } from '../../entities/coin/model';
-import type {
-  ProductController,
-  TProduct,
-} from '../../entities/products/model';
+import type { TCoinManager } from '../../entities/coin/model';
+import type { TProduct, TProductManger } from '../../entities/products/model';
 import { purchaseProduct } from '../../features/products/purchaseProduct';
 import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
@@ -23,19 +20,19 @@ export const createProductButton = (product: TProduct) => {
 
 export const handleProductButtonClick = (
   product: TProduct,
-  productController: ProductController,
-  coinController: CoinController,
+  productManager: TProductManger,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
   const purchaseResponse = purchaseProduct(
     product,
-    productController,
-    coinController,
+    productManager,
+    coinManager,
     logService,
   );
 
   if (purchaseResponse.ok) {
-    const currentCoin = coinController.getCoin();
+    const currentCoin = coinManager.getCoin();
 
     updateProductWindow(currentCoin);
   }

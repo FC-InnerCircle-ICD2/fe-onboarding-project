@@ -1,24 +1,21 @@
-import type { CoinController } from '../../entities/coin/model';
-import type {
-  ProductController,
-  TProduct,
-} from '../../entities/products/model';
+import type { TCoinManager } from '../../entities/coin/model';
+import type { TProduct, TProductManger } from '../../entities/products/model';
 import { LogService } from '../../shared/log';
 import type { TResponse } from '../../shared/response';
 
 export const purchaseProduct = (
   product: TProduct,
-  productController: ProductController,
-  coinController: CoinController,
+  productManager: TProductManger,
+  coinManager: TCoinManager,
   logService: LogService,
 ): TResponse => {
-  const currentCoin = coinController.getCoin();
+  const currentCoin = coinManager.getCoin();
 
   if (product.price <= currentCoin) {
-    productController.setProduct(product);
+    productManager.setProduct(product);
     logService.track(`${product.name}을/를 구매했습니다.`);
 
-    coinController.useCoin(product.price);
+    coinManager.useCoin(product.price);
     logService.track(`${product.price}원을 소비했습니다.`);
 
     return { ok: true };

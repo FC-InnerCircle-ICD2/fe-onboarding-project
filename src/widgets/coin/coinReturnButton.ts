@@ -1,4 +1,4 @@
-import type { CoinController } from '../../entities/coin/model';
+import type { TCoinManager } from '../../entities/coin/model';
 import { returnCoin } from '../../features/coin/returnCoin';
 import { LogService } from '../../shared/log';
 import { updateProductWindow } from '../products/productWindow';
@@ -8,22 +8,21 @@ const coinReturnButtonElement = document.querySelector<HTMLButtonElement>(
 );
 
 export const createReturnCoinButton = (
-  coinController: CoinController,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
   coinReturnButtonElement!.addEventListener('click', () => {
-    handleReturnCoinButtonClick(coinController, logService);
+    handleReturnCoinButtonClick(coinManager, logService);
 
-    const currentBalance = coinController.getCoin();
+    const currentBalance = coinManager.getCoin();
 
     updateProductWindow(currentBalance);
   });
 };
 
 export const handleReturnCoinButtonClick = (
-  coinController: CoinController,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
-  returnCoin(coinController, logService);
-  
+  returnCoin(coinManager, logService);
 };

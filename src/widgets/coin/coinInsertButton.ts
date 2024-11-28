@@ -1,4 +1,4 @@
-import type { CoinController } from '../../entities/coin/model';
+import type { TCoinManager } from '../../entities/coin/model';
 import { insertCoin } from '../../features/coin/insertCoin';
 import { LogService } from '../../shared/log';
 import { updateProductWindow } from '../products/productWindow';
@@ -11,13 +11,13 @@ const coinInsertButtonElement = document.querySelector<HTMLButtonElement>(
 );
 
 export const createInsertCoinButton = (
-  coinController: CoinController,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
   coinInsertButtonElement!.addEventListener('click', () => {
-    handleInsertCoinButtonClick(coinController, logService);
+    handleInsertCoinButtonClick(coinManager, logService);
 
-    const currentBalance = coinController.getCoin();
+    const currentBalance = coinManager.getCoin();
 
     updateCoinInput(0);
     updateProductWindow(currentBalance);
@@ -25,10 +25,10 @@ export const createInsertCoinButton = (
 };
 
 export const handleInsertCoinButtonClick = (
-  coinController: CoinController,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
   const coin = parseInt(coinInputElement!.value);
 
-  insertCoin(coin, coinController, logService);
+  insertCoin(coin, coinManager, logService);
 };

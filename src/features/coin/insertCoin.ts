@@ -1,9 +1,9 @@
-import type { CoinController, TCoin } from '../../entities/coin/model';
+import type { TCoin, TCoinManager } from '../../entities/coin/model';
 import { LogService } from '../../shared/log';
 
 export const insertCoin = (
   coin: TCoin,
-  coinController: CoinController,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
   if (isNaN(coin)) {
@@ -12,6 +12,6 @@ export const insertCoin = (
     return;
   }
 
-  coinController.insertCoin(coin);
+  coinManager.insertCoin(coin);
   logService.track(`${coin}을 투입합니다.`);
 };

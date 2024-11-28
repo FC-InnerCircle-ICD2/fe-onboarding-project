@@ -1,5 +1,5 @@
-import { CoinController } from './entities/coin/model';
-import { ProductController } from './entities/products/model';
+import { createCoinManager } from './entities/coin/model';
+import { createProductManager } from './entities/products/model';
 import { LogService } from './shared/log';
 import './style.css';
 import { createInsertCoinButton } from './widgets/coin/coinInsertButton';
@@ -9,13 +9,13 @@ import { updateProductWindow } from './widgets/products/productWindow';
 
 const logWindowElement = document.querySelector<HTMLDivElement>('.log-window');
 
-const productController = new ProductController();
-const coinController = new CoinController();
+const productManager = createProductManager();
+const coinManager = createCoinManager();
 const logService = new LogService(logWindowElement!);
 
 document.addEventListener('DOMContentLoaded', () => {
   updateProductWindow(0);
-  createProductButtons(productController, coinController, logService);
-  createInsertCoinButton(coinController, logService);
-  createReturnCoinButton(coinController, logService);
+  createProductButtons(productManager, coinManager, logService);
+  createInsertCoinButton(coinManager, logService);
+  createReturnCoinButton(coinManager, logService);
 });

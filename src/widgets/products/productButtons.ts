@@ -1,8 +1,5 @@
-import type { CoinController } from '../../entities/coin/model';
-import {
-  type ProductController,
-  products,
-} from '../../entities/products/model';
+import type { TCoinManager } from '../../entities/coin/model';
+import { type TProductManger, products } from '../../entities/products/model';
 import { LogService } from '../../shared/log';
 import { createProductButton, handleProductButtonClick } from './productButton';
 import { updateProductWindow } from './productWindow';
@@ -11,8 +8,8 @@ const productButtonsElement =
   document.querySelector<HTMLDivElement>('.product-buttons');
 
 export const createProductButtons = (
-  productController: ProductController,
-  coinController: CoinController,
+  productManager: TProductManger,
+  coinManager: TCoinManager,
   logService: LogService,
 ) => {
   for (const product of products) {
@@ -21,8 +18,8 @@ export const createProductButtons = (
     button.addEventListener('click', () => {
       handleProductButtonClick(
         product,
-        productController,
-        coinController,
+        productManager,
+        coinManager,
         logService,
       );
     });
@@ -32,7 +29,7 @@ export const createProductButtons = (
     });
 
     button.addEventListener('mouseleave', () => {
-      const currentBalance = coinController.getCoin();
+      const currentBalance = coinManager.getCoin();
 
       updateProductWindow(currentBalance);
     });
