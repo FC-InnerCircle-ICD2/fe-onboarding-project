@@ -4,8 +4,6 @@
 //  * 자판기 물품 버튼 생성 클래스
 //  */
 
-import { ProductGroupType, VendingMachineItemType } from "./model";
-
 // function formmatedNumber(value: string) {
 //   return Number(value.replace(/,/g, ""));
 // }
@@ -211,6 +209,8 @@ import { ProductGroupType, VendingMachineItemType } from "./model";
 //   }
 // }
 
+import { ProductGroupType, VendingMachineItemType } from "./model";
+
 export class State {
   private _listeners: (() => void)[];
   private _insertAmout: number;
@@ -315,9 +315,9 @@ export class Controller {
       });
   }
   insert() {
-    this.state.purchaseState = true;
     if (this.insertButton) {
       this.insertButton.addEventListener("click", () => {
+        this.state.purchaseState = true;
         if (this.priceDisplay) {
           this.priceDisplay.innerText = String(this.state.insertAmount);
         }
@@ -332,19 +332,19 @@ export class Controller {
     }
   }
   return() {
-    this.state.purchaseState = false;
     if (this.returnButton) {
-      //1. 반환 버튼 클릭
+      // 반환 버튼 클릭
       this.returnButton.addEventListener("click", () => {
-        //2. 로그 찍기
+        this.state.purchaseState = false;
+        // 로그 찍기
         this.addLog(`${this.state.remainingAmount}원이 반환되었습니다.`);
-        //3. this.state.remainingAmount 초기화
+        // this.state.remainingAmount 초기화
         this.state.remainingAmount = 0;
-        //4. this.priceDisplay innerText의 초기화
+        // this.priceDisplay innerText의 초기화
         if (this.priceDisplay) {
           this.priceDisplay.innerText = String(this.state.remainingAmount);
         }
-        //5. this.insertInput에 포커싱
+        // this.insertInput에 포커싱
         if (this.insertInput) {
           this.insertInput.focus();
         }
@@ -373,42 +373,15 @@ export class Controller {
   purchase({ name, price }: Omit<VendingMachineItemType, "id">) {
     const newAmount = this.state.remainingAmount - price;
     this.state.remainingAmount = newAmount;
-    if (this.priceDisplay) {
-      this.priceDisplay.innerText = this.state.remainingAmount.toString();
-    }
+    this.displayPrice(this.state.remainingAmount);
     this.addLog(`${name}을 구입했습니다.`);
   }
-  onProduct({ product, data }: ProductGroupType) {
-    const updateDisplayPrice = (price: number | string) => {
-      if (this.priceDisplay) {
-        this.priceDisplay.innerText = String(price);
-      }
-    };
-
-    product.item.addEventListener("mousedown", () => {
-      if (!this.state.purchaseState) {
-        updateDisplayPrice(data.price);
-      }
-    });
-
-    product.item.addEventListener("mouseup", () => {
-      if (!this.state.purchaseState) {
-        updateDisplayPrice(0);
-      }
-    });
-
-    product.item.addEventListener("mouseleave", () => {
-      if (!this.state.purchaseState) {
-        updateDisplayPrice(0);
-      }
-    });
-
-    product.item.addEventListener("click", () => {
-      if (this.state.purchaseState) {
-        this.purchase(data); // 구매 로직 실행
-      }
-    });
+  displayPrice(price: number | string) {
+    if (this.priceDisplay) {
+      this.priceDisplay.innerText = String(price);
+    }
   }
+
   generatorProducts() {}
 }
 

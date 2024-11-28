@@ -82,18 +82,41 @@ const productItemsRender = () => {
         <span>${data.price}</span>
         `);
 
-    node.product.item.addEventListener("click", () => {
-      if (state.purchaseState) {
-        controller.purchase({ name, price });
-      }
-      // controller.onProduct(node);
-    });
+    const item = node.product.item;
+
+    const update = () => {
+      item.addEventListener("click", () => {
+        if (state.purchaseState) {
+          // 구매 상태일 때
+
+          console.log(`Purchasing ${name} for ${price}`);
+          controller.purchase({ name, price });
+        }
+      });
+      // 구매 상태가 아닐 때
+      item.addEventListener("mousedown", () => {
+        if (!state.purchaseState) {
+          console.log(`Pressing ${price}`);
+          controller.displayPrice(price);
+        }
+      });
+      item.addEventListener("mouseup", () => {
+        if (!state.purchaseState) {
+          controller.displayPrice(0);
+        }
+      });
+      item.addEventListener("mouseleave", () => {
+        if (!state.purchaseState) {
+          controller.displayPrice(0);
+        }
+      });
+    };
+    update();
 
     productGroup.push(node);
     buttonGroup?.append(node.product.item);
   });
 };
-
 productItemsRender();
 
 controller.onChangeInsert();
@@ -101,7 +124,7 @@ controller.insert();
 controller.return();
 
 state.addListener(() => {
-  console.log("remainingAmount", state.remainingAmount);
+  console.log("state", state);
   productGroup.forEach((product) => {
     product.product.setItemState({
       disabled: state.purchaseState
