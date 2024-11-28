@@ -1,5 +1,9 @@
 import { vendingContents } from "./data.js";
+import { checkBatchimEnding } from "./utils.js";
 
+/*************************************************************
+ * 전역
+ *************************************************************/
 /**
  * input 전역에 쉼표 적용
  */
@@ -30,25 +34,12 @@ document.addEventListener("input", (event) => {
   }
 });
 
+/*************************************************************
+ * Item Button
+ *************************************************************/
 // 자판기 Button 들 랜더링
 const buttonWrap = document.querySelector(".btn_wrap");
 const fragment = document.createDocumentFragment();
-
-/**
- * 문자열 마지막 글자에 받침이 있는지 확인해주는 함수
- * @param {string} word
- * @returns boolean
- */
-const checkBatchimEnding = (word) => {
-  if (typeof word !== "string") return null;
-
-  let lastLetter = word[word.length - 1];
-  let uni = lastLetter.charCodeAt(0);
-
-  if (uni < 44032 || uni > 55203) return null;
-
-  return (uni - 44032) % 28 != 0;
-};
 
 let moneyInputOriginValue = 0;
 let isMousedown = false;
@@ -136,6 +127,9 @@ vendingContents.map((item) => {
 });
 buttonWrap.appendChild(fragment); // Fragment를 한 번에 추가
 
+/*************************************************************
+ * Insert Button
+ *************************************************************/
 const insertButton = document.querySelector("#insertBtn");
 /**
  * 투입 button 클릭 했을 때 실행되는 함수
@@ -160,6 +154,9 @@ const insertBtnClickHandler = (event) => {
 };
 insertButton.addEventListener("click", insertBtnClickHandler);
 
+/*************************************************************
+ * Return Button
+ *************************************************************/
 const returnButton = document.querySelector("#returnBtn");
 /**
  * 반환 button 클릭 했을 때 실행되는 함수
