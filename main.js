@@ -106,6 +106,7 @@ const itemBtnMouseupHandler = (event) => {
     moneyInput.value = calculatedValue.toLocaleString();
     const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
     logArea.innerHTML += `${event.currentTarget.name + adj} 구매했습니다.<br/>`;
+    logArea.scrollTop = logArea.scrollHeight;
   }
 };
 
@@ -153,6 +154,7 @@ const insertBtnClickHandler = (event) => {
     const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
     moneyInput.value = (currentMoney + insertMoney).toLocaleString();
     logArea.innerHTML += `${insertMoney.toLocaleString()}원을 투입했습니다.<br/>`;
+    logArea.scrollTop = logArea.scrollHeight;
     insertInput.value = null;
   }
 };
@@ -167,6 +169,7 @@ const returnBtnClickHandler = (event) => {
   const moneyInput = document.querySelector("#currentMoney");
   const logArea = document.querySelector(".log_area");
   logArea.innerHTML += `${moneyInput.value}원을 반환했습니다.<br/>`;
+  logArea.scrollTop = logArea.scrollHeight;
   moneyInput.value = 0;
 };
 returnButton.addEventListener("click", returnBtnClickHandler);
