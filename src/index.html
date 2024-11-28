@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <link>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
-    <div>
-      <h1>자판기 머신</h1>
-      <div>
-        <div>
+    <div class="container">
+      <h1>[자판기 머신]</h1>
+      <div class="vendingMachine">
+        <div class="product_container">
           <!-- 상품 가격 뷰 -->
           <div id="priceDisplay"></div>
           <!-- 상품 목록 버튼 그룹 -->
-          <div id="buttonGroup"></div>
+          <div id="productGroup"></div>
         </div>
-        <div>
+        <div class="control_container">
           <!-- 자판기 금액 컨트롤 -->
           <div id="conrtol">
             <input
@@ -23,19 +23,13 @@
               type="text"
               placeholder="금액을 투입해주세요."
             />
-            <button id="insertButton" type="button">투입</button>
-            <button id="returnButton" type="button">반환</button>
+            <button id="insertButton" class="conrtol_button" type="button">투입</button>
+            <button id="returnButton" class="conrtol_button" type="button">반환</button>
           </div>
           <!-- 자판기 로그 -->
           <ul
             id="logsContainer"
-            style="
-              padding: 10px;
-              border-radius: 12px;
-              border: 1px solid black;
-              height: 200px;
-              overflow: auto;
-            "
+           
           ></ul>
         </div>
       </div>

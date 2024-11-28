@@ -1,4 +1,4 @@
-export function formmatedPrice(value: string) {
+export function convertPriceFormat(value: string) {
   // 숫자만
   const onlyNumbers = String(value).replace(/[^0-9]/g, "");
   // 세 자리마다 쉼표 추가
