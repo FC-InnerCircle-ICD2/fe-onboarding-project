@@ -96,11 +96,6 @@
     vertical-align: baseline;
   }
 
-  body {
-    position: fixed;
-    inset: 0;
-  }
-
   ol,
   ul {
     list-style: none;

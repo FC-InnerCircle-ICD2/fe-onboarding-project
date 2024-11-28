@@ -22,12 +22,13 @@
   width: min(100%, var(--container-width));
   margin-inline: auto;
   padding-inline: var(--safe-mobile-padding-inline);
+  padding-block: 100px;
   /* background-color: var(--gray100); */
 }
 
 .container h1 {
   text-align: center;
-  padding: 50px;
+  padding-bottom: 50px;
   font-size: 4rem;
 }
 .vendingMachine {
@@ -125,7 +126,6 @@
 }
 
 #insertInput {
-  /* width: fit-content; */
   flex: 1;
   height: var(--form-height);
   font-size: 1.8rem;
@@ -133,6 +133,9 @@
   border: var(--border);
   text-align: right;
   padding-inline: 8px;
+}
+#insertInput::placeholder {
+  color: var(--gray300);
 }
 .conrtol_button {
   width: 80px;
@@ -159,10 +162,6 @@
   scale: 0.95;
 }
 
-#insertInput::placeholder {
-  color: var(--gray300);
-}
-
 #logsContainer {
   display: flex;
   flex-direction: column;
@@ -173,6 +172,10 @@
 
   max-height: 60dvh;
   overflow: auto;
+}
+#logsContainer:empty {
+  padding: 0;
+  border: none;
 }
 
 @keyframes fadeIn {
@@ -187,7 +190,7 @@
 }
 #logsContainer li {
   font-size: 1.6rem;
-  animation: fadeIn 0.2s ease forwards;
+  animation: fadeIn 0.3s ease-in forwards;
   color: var(--gray500);
 }
 
@@ -197,5 +200,8 @@
   }
   .vendingMachine {
     flex-direction: column;
+  }
+  .control_container {
+    width: 100%;
   }
 }
