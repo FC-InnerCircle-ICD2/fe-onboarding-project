@@ -29,7 +29,12 @@ const updateBalance = (elements) => {
 const addLog = (message, elements) => {
   const logEntry = createElement("p", "log-entry");
   logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-  elements.logContainer.insertBefore(logEntry, null);
+  elements.logContainer.appendChild(logEntry);
+  scrollToBottom(elements.logContainer);
+};
+
+const scrollToBottom = (element) => {
+  element.scrollTop = element.scrollHeight;
 };
 
 const handleProductPurchase = (product, elements) => {
