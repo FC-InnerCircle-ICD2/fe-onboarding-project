@@ -11,7 +11,6 @@ export class CoinController {
 
   insertCoin(newCoin: TCoin) {
     if (newCoin < 0) {
-      alert('잘못된 투입 금액입니다.');
       return;
     }
 
