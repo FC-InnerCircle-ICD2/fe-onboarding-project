@@ -148,3 +148,7 @@
   line-height: 2;
   overflow: auto;
 }
+
+.item_pressed_text {
+  color: #ffc300;
+}
