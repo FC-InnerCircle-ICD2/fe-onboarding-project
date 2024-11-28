@@ -1,5 +1,35 @@
 import { vendingContents } from "./data.js";
 
+/**
+ * input 전역에 쉼표 적용
+ */
+document.addEventListener("input", (event) => {
+  const target = event.target;
+  if (
+    target.tagName === "INPUT" &&
+    target.type === "text" &&
+    target.dataset.type === "number"
+  ) {
+    // 커서 위치 저장
+    const cursorPosition = target.selectionStart;
+
+    // 원본 값에서 숫자만 추출
+    const originalValue = target.value;
+    const numericValue = originalValue.replace(/[^0-9.]/g, ""); // 숫자와 소수점만 남김
+
+    // 쉼표를 추가한 값 생성
+    const formattedValue = Number(numericValue).toLocaleString();
+
+    // 값 갱신
+    target.value = formattedValue;
+
+    // 커서 위치 계산 및 복원
+    const newCursorPosition =
+      formattedValue.length - (originalValue.length - cursorPosition);
+    target.setSelectionRange(newCursorPosition, newCursorPosition);
+  }
+});
+
 // 자판기 Button 들 랜더링
 const buttonWrap = document.querySelector(".btn_wrap");
 const fragment = document.createDocumentFragment();
@@ -30,7 +60,7 @@ const itemBtnMousedownHandler = (event) => {
   isMousedown = true; // 마우스 버튼 눌림
 
   const moneyInput = document.querySelector("#currentMoney");
-  const currentMoney = Number(moneyInput.value);
+  const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
   moneyInputOriginValue = currentMoney;
 
   if (currentMoney <= 0 || currentMoney - event.currentTarget.value < 0) {
@@ -71,8 +101,9 @@ const itemBtnMouseupHandler = (event) => {
   // 계산 및 log 출력
   const currentMoney = Number(moneyInput.value);
   if (currentMoney - event.currentTarget.value > 0) {
-    moneyInput.value = currentMoney - event.currentTarget.value;
-    moneyInputOriginValue = moneyInput.value;
+    const calculatedValue = currentMoney - event.currentTarget.value;
+    moneyInputOriginValue = calculatedValue;
+    moneyInput.value = calculatedValue.toLocaleString();
     const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
     logArea.innerHTML += `${event.currentTarget.name + adj} 구매했습니다.<br/>`;
   }
@@ -113,14 +144,15 @@ const insertBtnClickHandler = (event) => {
   const insertInput = document.querySelector("#insertMoney");
   const moneyInput = document.querySelector("#currentMoney");
   const logArea = document.querySelector(".log_area");
-  const insertMoney = Number(insertInput.value);
+  const insertMoney = Number(insertInput.value.replace(/[^0-9.]/g, ""));
 
   if (insertMoney < 0) {
     alert("금액은 양수만 입력할 수 있습니다!");
     insertInput.value = null;
   } else {
-    moneyInput.value = Number(moneyInput.value) + insertMoney;
-    logArea.innerHTML += `${insertMoney}원을 투입했습니다.<br/>`;
+    const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
+    moneyInput.value = (currentMoney + insertMoney).toLocaleString();
+    logArea.innerHTML += `${insertMoney.toLocaleString()}원을 투입했습니다.<br/>`;
     insertInput.value = null;
   }
 };
