@@ -189,10 +189,12 @@ export class Controller {
   //자판기 아이템 생성
   generatorProducts() {
     const productItemsRender = () => {
-      this.productData.forEach((data, index) => {
+      this.productData.forEach((data) => {
         const node = { product: new Product(), data };
         const { name, price } = data;
         node.product.item.classList.add("vendingMachine_product_item");
+        node.product.item.dataset.productName = name;
+        node.product.item.dataset.productPrice = String(price);
         node.product.innerHTML(`
       <strong class="vendingMachine_product_item_name">${data.name}</strong>
       <span class="vendingMachine_product_item_price">${convertPriceFormat(
@@ -200,62 +202,73 @@ export class Controller {
       )}원</span>
       `);
 
-        const item = node.product.item;
-
-        const updateEvent = () => {
-          // 구매 상태일 때 이벤트
-          item.addEventListener("click", () => {
-            if (this.state.purchaseState) {
-              this.purchase({ name, price });
-            }
-          });
-          // 구매 상태가 아닐 때 이벤트
-          item.addEventListener("mousedown", () => {
-            if (!this.state.purchaseState) {
-              this.displayPrice(price);
-            }
-          });
-          item.addEventListener("mouseup", () => {
-            if (!this.state.purchaseState) {
-              this.displayPrice(0);
-            }
-          });
-          item.addEventListener("mouseleave", () => {
-            if (!this.state.purchaseState) {
-              this.displayPrice(0);
-            }
-          });
-          item.addEventListener("keypress", (e) => {
-            if (!this.state.purchaseState) {
-              if (e.key === "Enter") {
-                this.displayPrice(price);
-              }
-            }
-          });
-          item.addEventListener("keyup", (e) => {
-            if (!this.state.purchaseState) {
-              if (e.key === "Enter") {
-                this.displayPrice(0);
-              }
-            }
-          });
-          item.addEventListener("touchstart", () => {
-            if (!this.state.purchaseState) {
-              this.displayPrice(price);
-            }
-          });
-          item.addEventListener("touchend", () => {
-            if (!this.state.purchaseState) {
-              this.displayPrice(0);
-            }
-          });
-        };
-        updateEvent();
-
         this.productGroupData.push(node);
         if (this.productGroup) this.productGroup?.append(node.product.item);
       });
     };
+
+    const productEventHandler = () => {
+      const handleEvent = (event: Event) => {
+        const target = event.target as HTMLElement;
+        const productItem = target.closest<HTMLButtonElement>(
+          ".vendingMachine_product_item"
+        );
+
+        if (!productItem) return;
+
+        const name = productItem.dataset.productName;
+        const price = Number(productItem.dataset.productPrice);
+
+        if (!name || isNaN(price)) return;
+
+        if (this.state.purchaseState) {
+          // 구매 상태인 경우 클릭 이벤트 처리
+          if (event.type === "click") {
+            this.purchase({ name, price });
+          }
+        } else {
+          // 구매 상태가 아닌 경우 이벤트 유형에 따른 처리
+          switch (event.type) {
+            case "mousedown":
+            case "touchstart":
+              this.displayPrice(price);
+              break;
+            case "mouseup":
+            case "mouseleave":
+            case "touchend":
+              this.displayPrice(0);
+              break;
+            case "keypress":
+              if ((event as KeyboardEvent).key === "Enter") {
+                this.displayPrice(price);
+              }
+              break;
+            case "keyup":
+              if ((event as KeyboardEvent).key === "Enter") {
+                this.displayPrice(0);
+              }
+              break;
+          }
+        }
+      };
+
+      // 부모 요소에 단일 이벤트 리스너 등록
+      if (this.productGroup) {
+        [
+          "click",
+          "mousedown",
+          "mouseup",
+          "mouseleave",
+          "keypress",
+          "keyup",
+          "touchstart",
+          "touchend",
+        ].forEach((eventType) => {
+          this.productGroup?.addEventListener(eventType, handleEvent);
+        });
+      }
+    };
+    productEventHandler();
     productItemsRender();
   }
   updateState() {
