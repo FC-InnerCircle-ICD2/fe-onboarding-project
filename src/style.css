@@ -153,7 +153,6 @@
 }
 
 .conrtol_button:not(:disabled):hover {
-  cursor: not-allowed;
   border-color: var(--gray900);
   background-color: var(--gray400);
   color: var(--gray900);

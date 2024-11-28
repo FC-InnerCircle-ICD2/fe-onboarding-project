@@ -93,6 +93,7 @@ export class Controller {
     this.productGroupData = [];
   }
 
+  //input onChange
   onChangeInsert() {
     if (this.insertInput)
       this.insertInput.addEventListener("input", (e) => {
@@ -109,15 +110,14 @@ export class Controller {
         this.state.insertAmount = Number(onlyNumbers);
       });
   }
+  //금액 투입
   insert() {
     if (this.insertButton) {
       this.insertButton.addEventListener("click", () => {
         this.state.purchaseState = true;
         this.state.remainingAmount += this.state.insertAmount;
-        if (this.priceDisplay) {
-          this.priceDisplay.innerText = String(this.state.remainingAmount);
-        }
-        // this.displayPrice( String(this.state.insertAmount))
+
+        this.displayPrice(String(this.state.remainingAmount));
         if (this.insertInput) {
           this.insertInput.value = "";
         }
@@ -127,7 +127,6 @@ export class Controller {
             String(this.state.insertAmount)
           )}원을 투입했습니다.`
         );
-        // this.state.remainingAmount += this.state.insertAmount;
         this.state.insertAmount = 0; // 투입 금액 초기화
       });
     }
@@ -156,7 +155,7 @@ export class Controller {
       });
     }
   }
-
+  //로그 찍기 함수
   addLog(log: string) {
     if (this.logsContainer) {
       const li = document.createElement("li");
@@ -175,6 +174,7 @@ export class Controller {
     }
   }
 
+  //자판기 아이템 구입
   purchase({ name, price }: Omit<VendingMachineItemType, "id">) {
     const newAmount = this.state.remainingAmount - price;
     this.state.remainingAmount = newAmount;
@@ -186,7 +186,7 @@ export class Controller {
       this.priceDisplay.innerText = convertPriceFormat(String(price));
     }
   }
-
+  //자판기 아이템 생성
   generatorProducts() {
     const productItemsRender = () => {
       this.productData.forEach((data, index) => {
@@ -277,9 +277,9 @@ export class Controller {
     });
   }
 
+  //자판기 빌드
   build() {
     //초기 상태 설정
-
     if (this.priceDisplay) this.priceDisplay.innerText = "0";
     if (this.insertInput) this.insertInput.maxLength = 7;
     if (this.insertButton) this.insertButton.disabled = true;
