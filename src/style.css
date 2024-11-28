@@ -35,6 +35,7 @@ body {
 }
 
 .vending-body {
+  display: grid;
   flex: 1;
 }
 
