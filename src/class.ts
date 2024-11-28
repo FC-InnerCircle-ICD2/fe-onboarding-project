@@ -4,7 +4,7 @@
 //  * 자판기 물품 버튼 생성 클래스
 //  */
 
-import { VendingMachineItemType } from "./model";
+import { ProductGroupType, VendingMachineItemType } from "./model";
 
 // function formmatedNumber(value: string) {
 //   return Number(value.replace(/,/g, ""));
@@ -211,25 +211,27 @@ import { VendingMachineItemType } from "./model";
 //   }
 // }
 
-export class VendingMachineState {
+export class State {
   private _listeners: (() => void)[];
   private _insertAmout: number;
   private _remainingAmount: number;
   private _displayPrice: number;
+  /**자판기 사용 상태인지 */
+  private _purchaseState: boolean;
 
   constructor() {
     this._listeners = [];
     this._insertAmout = 0;
     this._remainingAmount = 0;
     this._displayPrice = 0;
+    this._purchaseState = false;
   }
 
   addListener(listener: () => void) {
-    console.log("Listener added"); // 디버깅 로그 추가
     this._listeners.push(listener);
   }
   private notify() {
-    console.log("notify called with listeners:", this._listeners.length);
+    console.log("this._listeners.length", this._listeners.length);
     this._listeners.forEach((listener) => listener());
   }
 
@@ -254,6 +256,160 @@ export class VendingMachineState {
     this._displayPrice = value;
     this.notify();
   }
+  get purchaseState() {
+    return this._purchaseState;
+  }
+  set purchaseState(value: boolean) {
+    this._purchaseState = value;
+    this.notify();
+  }
+}
+
+type ControllerComponentType = {
+  insertInput: HTMLInputElement | null;
+  priceDisplay: HTMLElement | null;
+  insertButton: HTMLButtonElement | null;
+  returnButton: HTMLButtonElement | null;
+  logsContainer: HTMLElement | null;
+};
+type VendingMachineControllerType = {
+  // productData: VendingMachineItemType[];
+  state: State;
+  component: ControllerComponentType;
+};
+export class Controller {
+  // private productData: VendingMachineItemType[];
+  private state: State;
+  private component: ControllerComponentType;
+  private insertInput: ControllerComponentType["insertInput"];
+  private priceDisplay: ControllerComponentType["priceDisplay"];
+  private insertButton: ControllerComponentType["insertButton"];
+  private returnButton: ControllerComponentType["returnButton"];
+  private logsContainer: ControllerComponentType["logsContainer"];
+
+  constructor({ state, component }: VendingMachineControllerType) {
+    // this.productData = productData;
+    this.state = state;
+    this.component = component;
+    this.insertInput = component.insertInput;
+    this.priceDisplay = component.priceDisplay;
+    this.insertButton = component.insertButton;
+    this.returnButton = component.returnButton;
+    this.logsContainer = component.logsContainer;
+  }
+
+  onChangeInsert() {
+    if (this.insertInput)
+      this.insertInput.addEventListener("input", (e) => {
+        const target = e.target as HTMLInputElement;
+        //숫자만
+        const onlyNumbers = String(target.value).replace(/[^0-9]/g, "");
+        //세 자리마다 쉼표
+        const formattedValue = onlyNumbers.replace(
+          /\B(?=(\d{3})+(?!\d))/g,
+          ","
+        );
+        target.value = formattedValue;
+        // console.log({ value: onlyNumbers, formattedValue });
+        this.state.insertAmount = Number(onlyNumbers);
+      });
+  }
+  insert() {
+    this.state.purchaseState = true;
+    if (this.insertButton) {
+      this.insertButton.addEventListener("click", () => {
+        if (this.priceDisplay) {
+          this.priceDisplay.innerText = String(this.state.insertAmount);
+        }
+        if (this.insertInput) {
+          this.insertInput.value = "";
+        }
+        // 상태 업데이트
+        this.addLog(`${this.state.insertAmount}원을 투입했습니다.`);
+        this.state.remainingAmount += this.state.insertAmount;
+        this.state.insertAmount = 0; // 투입 금액 초기화
+      });
+    }
+  }
+  return() {
+    this.state.purchaseState = false;
+    if (this.returnButton) {
+      //1. 반환 버튼 클릭
+      this.returnButton.addEventListener("click", () => {
+        //2. 로그 찍기
+        this.addLog(`${this.state.remainingAmount}원이 반환되었습니다.`);
+        //3. this.state.remainingAmount 초기화
+        this.state.remainingAmount = 0;
+        //4. this.priceDisplay innerText의 초기화
+        if (this.priceDisplay) {
+          this.priceDisplay.innerText = String(this.state.remainingAmount);
+        }
+        //5. this.insertInput에 포커싱
+        if (this.insertInput) {
+          this.insertInput.focus();
+        }
+      });
+    }
+  }
+
+  addLog(log: string) {
+    if (this.logsContainer) {
+      const li = document.createElement("li");
+      li.innerText = `${log}`;
+      this.logsContainer?.append(li);
+      console.log({
+        scrollHeight: this.logsContainer.scrollHeight,
+        clientHeight: this.logsContainer.clientHeight,
+      });
+      const scrollHeight = this.logsContainer.scrollHeight;
+      this.logsContainer.scrollTo({
+        left: 0,
+        top: scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }
+
+  purchase({ name, price }: Omit<VendingMachineItemType, "id">) {
+    const newAmount = this.state.remainingAmount - price;
+    this.state.remainingAmount = newAmount;
+    if (this.priceDisplay) {
+      this.priceDisplay.innerText = this.state.remainingAmount.toString();
+    }
+    this.addLog(`${name}을 구입했습니다.`);
+  }
+  onProduct({ product, data }: ProductGroupType) {
+    const updateDisplayPrice = (price: number | string) => {
+      if (this.priceDisplay) {
+        this.priceDisplay.innerText = String(price);
+      }
+    };
+
+    product.item.addEventListener("mousedown", () => {
+      if (!this.state.purchaseState) {
+        updateDisplayPrice(data.price);
+      }
+    });
+
+    product.item.addEventListener("mouseup", () => {
+      if (!this.state.purchaseState) {
+        updateDisplayPrice(0);
+      }
+    });
+
+    product.item.addEventListener("mouseleave", () => {
+      if (!this.state.purchaseState) {
+        updateDisplayPrice(0);
+      }
+    });
+
+    product.item.addEventListener("click", () => {
+      if (this.state.purchaseState) {
+        this.purchase(data); // 구매 로직 실행
+      }
+    });
+  }
+  generatorProducts() {}
 }
 
 export class Product {
@@ -269,6 +425,7 @@ export class Product {
   set disabled(value: boolean) {
     this._disabled = value;
   }
+
   get item() {
     return this._item;
   }
@@ -278,69 +435,4 @@ export class Product {
   innerHTML(innerHTML: string) {
     this._item.innerHTML = innerHTML;
   }
-}
-
-type ControllerComponentType = {
-  insertInput: HTMLInputElement | null;
-  priceDisplay: HTMLElement | null;
-  insertButton: HTMLButtonElement | null;
-  returnButton: HTMLButtonElement | null;
-};
-type VendingMachineControllerType = {
-  state: VendingMachineState;
-  component: ControllerComponentType;
-};
-export class VendingMachineController {
-  private state: VendingMachineState;
-  private component: ControllerComponentType;
-  private insertInput: ControllerComponentType["insertInput"];
-  private priceDisplay: ControllerComponentType["priceDisplay"];
-  private insertButton: ControllerComponentType["insertButton"];
-  private returnButton: ControllerComponentType["returnButton"];
-  constructor({ state, component }: VendingMachineControllerType) {
-    this.state = state;
-    this.component = component;
-    this.insertInput = component.insertInput;
-    this.priceDisplay = component.priceDisplay;
-    this.insertButton = component.insertButton;
-    this.returnButton = component.returnButton;
-  }
-
-  onChangeInsert() {
-    if (this.insertInput)
-      this.insertInput.addEventListener("input", (e) => {
-        const target = e.target as HTMLInputElement;
-        const value = target.value;
-        //숫자만
-        const onlyNumbers = String(value).replace(/[^0-9]/g, "");
-        //세 자리마다 쉼표
-        const formattedValue = onlyNumbers.replace(
-          /\B(?=(\d{3})+(?!\d))/g,
-          ","
-        );
-        console.log({ value: onlyNumbers, formattedValue });
-        this.state.insertAmount = Number(onlyNumbers);
-      });
-  }
-  insert() {
-    if (this.insertButton) {
-      this.insertButton.addEventListener("click", () => {
-        console.log("Insert button clicked"); // 디버깅 로그 추가
-        if (this.priceDisplay) {
-          this.priceDisplay.innerText = String(this.state.insertAmount);
-        }
-        if (this.insertInput) {
-          this.insertInput.value = "";
-        }
-        // 상태 업데이트
-        console.log("Updating state.insertAmount"); // 디버깅 로그 추가
-        this.state.remainingAmount += this.state.insertAmount;
-        this.state.insertAmount = 0; // 투입 금액 초기화
-      });
-    }
-  }
-  return() {}
-}
-export class VendingMachine {
-  constructor() {}
 }

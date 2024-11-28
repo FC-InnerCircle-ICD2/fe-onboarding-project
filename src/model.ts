@@ -1,3 +1,5 @@
+import { Product } from "./class";
+
 export type VendingMachineItemType = {
   id: number;
   name: string;
@@ -6,4 +8,9 @@ export type VendingMachineItemType = {
 export type GeneratorProductButtonsType = {
   data: VendingMachineItemType[];
   container: HTMLElement | null;
+};
+
+export type ProductGroupType = {
+  product: Product;
+  data: VendingMachineItemType;
 };

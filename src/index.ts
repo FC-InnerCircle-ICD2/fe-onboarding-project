@@ -37,52 +37,60 @@
 //   vm.returnAction();
 // });
 
-import {
-  Product,
-  VendingMachine,
-  VendingMachineController,
-  VendingMachineState,
-} from "./class";
+import { Product, Controller, State } from "./class";
 import { VendingMachineData } from "./mockData";
-import { VendingMachineItemType } from "./model";
+import { ProductGroupType, VendingMachineItemType } from "./model";
 
 const buttonGroup = document.getElementById("buttonGroup");
 const insertInput = document.getElementById(
   "insertInput"
 ) as HTMLInputElement | null;
 const priceDisplay = document.getElementById("priceDisplay");
-if (priceDisplay) priceDisplay.innerText = "0";
 const insertButton = document.getElementById(
   "insertButton"
 ) as HTMLButtonElement | null;
 const returnButton = document.getElementById(
   "returnButton"
 ) as HTMLButtonElement | null;
+const logsContainer = document.getElementById("logsContainer");
 
-const state = new VendingMachineState();
-const controller = new VendingMachineController({
+//초기 상태 설정
+if (priceDisplay) priceDisplay.innerText = "0";
+if (insertButton) insertButton.disabled = true;
+if (returnButton) returnButton.disabled = true;
+
+const state = new State();
+const controller = new Controller({
+  // productData: VendingMachineData,
   state,
   component: {
     insertInput,
     priceDisplay,
     insertButton,
     returnButton,
+    logsContainer,
   },
 });
 
-const productGroup: {
-  product: Product;
-  data: VendingMachineItemType;
-}[] = [];
+const productGroup: ProductGroupType[] = [];
 const productItemsRender = () => {
   VendingMachineData.forEach((data) => {
-    const product = new Product();
-    product.innerHTML(`
+    const node = { product: new Product(), data };
+    const { name, price } = data;
+    node.product.innerHTML(`
         <strong>${data.name}</strong></br>
         <span>${data.price}</span>
         `);
-    productGroup.push({ product, data });
-    buttonGroup?.append(product.item);
+
+    node.product.item.addEventListener("click", () => {
+      if (state.purchaseState) {
+        controller.purchase({ name, price });
+      }
+      // controller.onProduct(node);
+    });
+
+    productGroup.push(node);
+    buttonGroup?.append(node.product.item);
   });
 };
 
@@ -90,13 +98,20 @@ productItemsRender();
 
 controller.onChangeInsert();
 controller.insert();
-console.log(state.remainingAmount);
+controller.return();
 
 state.addListener(() => {
+  console.log("remainingAmount", state.remainingAmount);
   productGroup.forEach((product) => {
-    console.log(product.data.price > state.remainingAmount);
     product.product.setItemState({
-      disabled: product.data.price > state.remainingAmount,
+      disabled: state.purchaseState
+        ? product.data.price > state.remainingAmount
+        : false,
     });
   });
+  if (insertButton)
+    insertButton.disabled =
+      insertInput?.value === "0" || insertInput?.value === "";
+
+  if (returnButton) returnButton.disabled = state.remainingAmount === 0;
 });
