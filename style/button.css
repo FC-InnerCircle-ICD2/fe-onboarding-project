@@ -15,10 +15,12 @@
   flex-direction: column;
   align-items: center;
   gap: 3px;
+  font-size: 8px;
 }
 
-.inputField_buttons_button div:last-child {
-  font-size: 8px;
+.inputField_buttons_button::before {
+  content: attr(data-label);
+  font-size: 10px;
 }
 
 .inputField_buttons_button:hover {
