@@ -20,27 +20,61 @@ const checkBatchimEnding = (word) => {
   return (uni - 44032) % 28 != 0;
 };
 
+let moneyInputOriginValue = 0;
+let isMousedown = false;
 /**
- * item button을 click 했을 때 실행되는 함수
+ * item button에서 mousedown 했을 때 실행되는 함수
  * @param {event} event
  */
-const itemBtnClickHandler = (event) => {
+const itemBtnMousedownHandler = (event) => {
+  isMousedown = true; // 마우스 버튼 눌림
+
   const moneyInput = document.querySelector("#currentMoney");
   const currentMoney = Number(moneyInput.value);
+  moneyInputOriginValue = currentMoney;
+
+  if (currentMoney <= 0 || currentMoney - event.currentTarget.value < 0) {
+    moneyInput.value = event.currentTarget.value;
+    moneyInput.className += " item_pressed_text";
+  }
+};
+
+/**
+ * item button에서 mouseleave 했을 때 실행되는 함수
+ */
+const itemBtnMouseleaveHandler = () => {
+  // HTML Element 선택
+  const moneyInput = document.querySelector("#currentMoney");
+
+  if (isMousedown) {
+    // mousedown에서 가격 보여주는 event로 인해 바뀐 값, class 초기화
+    moneyInput.value = moneyInputOriginValue;
+    moneyInput.classList.remove("item_pressed_text");
+  }
+};
+
+/**
+ * item button에서 mouseup 했을 때 실행되는 함수
+ * @param {event} event
+ */
+const itemBtnMouseupHandler = (event) => {
+  isMousedown = false; // 마우스 버튼 떼어짐
+
+  // HTML Element 선택
+  const moneyInput = document.querySelector("#currentMoney");
   const logArea = document.querySelector(".log_area");
 
-  if (!currentMoney || currentMoney <= 0) {
-    alert("돈을 넣은 후 원하는 상품을 선택해주세요.");
-  } else {
-    if (currentMoney - event.currentTarget.value < 0) {
-      alert("선택한 상품의 가격이 투입한 금액보다 높습니다.");
-    } else {
-      moneyInput.value = currentMoney - event.currentTarget.value;
-      const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
-      logArea.innerHTML += `${
-        event.currentTarget.name + adj
-      } 구매했습니다.<br/>`;
-    }
+  // mousedown에서 가격 보여주는 event로 인해 바뀐 값, class 초기화
+  moneyInput.value = moneyInputOriginValue;
+  moneyInput.classList.remove("item_pressed_text");
+
+  // 계산 및 log 출력
+  const currentMoney = Number(moneyInput.value);
+  if (currentMoney - event.currentTarget.value > 0) {
+    moneyInput.value = currentMoney - event.currentTarget.value;
+    moneyInputOriginValue = moneyInput.value;
+    const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
+    logArea.innerHTML += `${event.currentTarget.name + adj} 구매했습니다.<br/>`;
   }
 };
 
@@ -61,7 +95,9 @@ vendingContents.map((item) => {
 
   button.name = item.name;
   button.value = item.price;
-  button.addEventListener("click", itemBtnClickHandler);
+  button.addEventListener("mousedown", itemBtnMousedownHandler);
+  button.addEventListener("mouseleave", itemBtnMouseleaveHandler);
+  button.addEventListener("mouseup", itemBtnMouseupHandler);
   button.appendChild(p);
   button.appendChild(span);
   fragment.appendChild(button); // Fragment에 추가
