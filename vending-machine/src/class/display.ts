@@ -1,4 +1,4 @@
-import { createElement } from '../function'
+import { createElement } from '../util/elementFactory'
 
 export class DisplayInput {
     constructor() {}

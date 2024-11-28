@@ -1,7 +1,7 @@
 import { Item } from '../data'
-import { createElement } from '../function'
+import { createElement } from '../util/elementFactory'
 import { CoinInput } from './coinInput'
-import { DialButtons } from './dialButtons'
+import { DialContainer } from './dialContainer'
 import { DisplayInput } from './display'
 import { InsertButton } from './insertButton'
 import { ReturnButton } from './returnButton'
@@ -56,14 +56,8 @@ export class VendingMachine {
         currentCoin.appendChild(this.display)
 
         // 자판기 버튼 초기화
-        const dialContainer = createElement({ tagName: 'div', className: ['dial-container'] }) as HTMLDivElement
-
-        this.items.map((item) => {
-            dialContainer.appendChild(new DialButtons(this, item).getElement())
-        })
-
-        calculator.appendChild(currentCoin)
-        calculator.appendChild(dialContainer)
+        calculator?.appendChild(currentCoin)
+        calculator?.appendChild(new DialContainer(this, this.items).getElement())
 
         this.container?.appendChild(calculator)
     }

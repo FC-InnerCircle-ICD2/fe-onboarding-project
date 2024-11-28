@@ -1,4 +1,4 @@
-import { createElement } from '../function'
+import { createElement } from '../util/elementFactory'
 import { VendingMachine } from './vendingMachine'
 
 export class ReturnButton {
