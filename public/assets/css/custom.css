@@ -34,19 +34,13 @@
   height: 100px;
   border-radius: 16px;
   background-color: #4d4d4d;
-  /* background-color: darkgray;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
   padding: 20px;
   text-align: center;
   color: white;
-  font-size: 28px;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
+  font-size: 20px;
 }
 
-.button_wrap {
+.btn_wrap {
   display: grid;
   grid-gap: 15px;
   grid-template-columns: repeat(3, minmax(auto, 1fr));
@@ -55,29 +49,60 @@
   padding: 25px 20px 0 20px;
 }
 
-.item_button {
+.item_btn {
   width: 120px;
   height: 100px;
-  background-color: #ffc300;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border: none;
+}
+
+.btn_default_color {
+  background-color: #ffc300;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease,
     background-color 0.3s ease;
 }
 
-.item_button:hover {
+.btn_pale_color {
+  background-color: #ffd54f;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.btn_deep_color {
+  background-color: #ffb300;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.btn_default_color:hover {
   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
   transform: scale(1.05); /* 살짝 커짐 */
   background-color: #ffd54f; /* 살짝 더 밝은 노랑 */
   transform: translateY(-2px); /* 살짝 위로 올라감 */
 }
 
-.item_button:active {
+.btn_pale_color:hover {
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05); /* 살짝 커짐 */
+  background-color: #ffe082; /* 살짝 더 밝은 노랑 */
+  transform: translateY(-2px); /* 살짝 위로 올라감 */
+}
+
+.btn_deep_color:hover {
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05); /* 살짝 커짐 */
+  background-color: #ffc107; /* 살짝 더 밝은 노랑 */
+  transform: translateY(-2px); /* 살짝 위로 올라감 */
+}
+
+.item_btn:active {
   transform: translateY(5px); /* 살짝 눌리는 느낌 */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -121,4 +146,5 @@
   padding: 20px;
   font-weight: 400;
   line-height: 2;
+  overflow: auto;
 }

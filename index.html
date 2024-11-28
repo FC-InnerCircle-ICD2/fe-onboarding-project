@@ -23,22 +23,27 @@
     <div class="body_wrapper">
       <div class="container">
         <div class="vending_wrap">
-          <input readonly class="cash_input" value="20000" />
-          <div class="button_wrap"></div>
+          <input readonly id="currentMoney" class="cash_input" value="0" />
+          <div class="btn_wrap"></div>
         </div>
         <div class="control_area_wrap">
           <div class="insert_return_space">
-            <input type="number" class="cash_input w250" value="0" />
-            <button class="item_button">
+            <input
+              type="text"
+              data-type="number"
+              id="insertMoney"
+              class="cash_input w250"
+              placeholder="Please Insert Money"
+              min="0"
+            />
+            <button id="insertBtn" class="item_btn btn_deep_color">
               <p class="item_name">투입</p>
             </button>
-            <button class="item_button">
+            <button id="returnBtn" class="item_btn btn_pale_color">
               <p class="item_name">반환</p>
             </button>
           </div>
-          <div class="log_area">
-            2000원을 투입했습니다.<br />오뎅국물을 구매했습니다.
-          </div>
+          <div class="log_area"></div>
         </div>
       </div>
     </div>
