@@ -75,6 +75,22 @@ body {
   background-color: #f9fafb;
 }
 
+.product-button:active {
+  animation: glow 0.5s ease-in-out;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #3498db;
+  }
+  50% {
+    box-shadow: 0 0 20px #3498db, 0 0 30px #3498db;
+  }
+  100% {
+    box-shadow: 0 0 5px #3498db;
+  }
+}
+
 .product-name {
   font-weight: 500;
   font-size: 1.125rem;
