@@ -1,30 +1,33 @@
 import { TProduct } from '../products/model';
 
 export type TCoin = number;
+export type TCoinManager = {
+  getCoin: () => TCoin;
+  insertCoin: (newCoin: TCoin) => void;
+  useCoin: (price: TProduct['price']) => void;
+  returnCoin: () => TCoin;
+};
 
-export class CoinController {
-  private balance: TCoin = 0;
+export const createCoinManager = (): TCoinManager => {
+  let balance: TCoin = 0;
 
-  getCoin() {
-    return this.balance;
-  }
+  return {
+    getCoin: () => balance,
+    insertCoin: (newCoin: TCoin) => {
+      if (newCoin < 0) {
+        return;
+      }
 
-  insertCoin(newCoin: TCoin) {
-    if (newCoin < 0) {
-      return;
-    }
+      balance += newCoin;
+    },
+    useCoin: (price: TProduct['price']) => {
+      balance -= price;
+    },
+    returnCoin: () => {
+      const currentCoin = balance;
+      balance = 0;
 
-    this.balance += newCoin;
-  }
-
-  useCoin(price: TProduct['price']) {
-    this.balance -= price;
-  }
-
-  returnCoin() {
-    const currentCoin = this.balance;
-    this.balance = 0;
-
-    return currentCoin;
-  }
-}
+      return currentCoin;
+    },
+  };
+};

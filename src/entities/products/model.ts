@@ -16,18 +16,24 @@ export const products: Array<TProduct> = [
   { id: '0009', name: '맥주', price: 4500 },
 ];
 
-export class ProductController {
-  private product: TProduct | null = null;
+export type TProductManger = {
+  getProduct: () => TProduct | null;
+  setProduct: (product: TProduct) => void;
+  resetProduct: () => void;
+};
 
-  getProduct(): TProduct | null {
-    return this.product;
-  }
+export const createProductManager = (): TProductManger => {
+  let currentProduct: TProduct | null = null;
 
-  setProduct(product: TProduct) {
-    this.product = product;
-  }
-
-  resetProduct() {
-    this.product = null;
-  }
-}
+  return {
+    getProduct: (): TProduct | null => {
+      return currentProduct;
+    },
+    setProduct: (product: TProduct) => {
+      currentProduct = product;
+    },
+    resetProduct: () => {
+      currentProduct = null;
+    },
+  };
+};
