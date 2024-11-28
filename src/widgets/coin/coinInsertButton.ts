@@ -30,11 +30,5 @@ export const handleInsertCoinButtonClick = (
 ) => {
   const coin = parseInt(coinInputElement!.value);
 
-  if (isNaN(coin)) {
-    alert('잘못된 투입 금액입니다. 다시 시도해주세요.');
-    logService.track(`잘못된 투입 금액입니다.`);
-    return;
-  }
-
   insertCoin(coin, coinController, logService);
 };
