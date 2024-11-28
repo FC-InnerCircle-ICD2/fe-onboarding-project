@@ -29,36 +29,50 @@ const updateBalance = (elements) => {
 const addLog = (message, elements) => {
   const logEntry = createElement("p", "log-entry");
   logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-  elements.logContainer.insertBefore(logEntry, elements.logContainer.firstChild);
+  elements.logContainer.insertBefore(logEntry, null);
 };
 
 const handleProductPurchase = (product, elements) => {
   if (state.currentMoney < product.price) {
-    addLog(`잔액이 부족합니다. (필요금액: ${formatNumber(product.price - state.currentMoney)}원)`, elements);
+    addLog(
+      `잔액이 부족합니다. (필요금액: ${formatNumber(
+        product.price - state.currentMoney
+      )}원)`,
+      elements
+    );
     return;
   }
 
   state.currentMoney -= product.price;
   updateBalance(elements);
-  addLog(`${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`, elements);
+  addLog(
+    `${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`,
+    elements
+  );
 };
 
 const createProductGrid = (elements) => {
   const grid = createElement("div", "product-grid");
-  
-  PRODUCTS.forEach(product => {
+
+  PRODUCTS.forEach((product) => {
     const button = createElement("button", "product-button");
     const nameSpan = createElement("span", "product-name");
     const priceSpan = createElement("span", "product-price");
-    
+
     nameSpan.textContent = product.name;
     priceSpan.textContent = `${formatNumber(product.price)}원`;
-    
+
     button.append(nameSpan, priceSpan);
-    button.addEventListener("mouseenter", () => updateDisplayAmount(product.price, elements));
-    button.addEventListener("mouseleave", () => updateDisplayAmount(state.currentMoney, elements));
-    button.addEventListener("click", () => handleProductPurchase(product, elements));
-    
+    button.addEventListener("mouseenter", () =>
+      updateDisplayAmount(product.price, elements)
+    );
+    button.addEventListener("mouseleave", () =>
+      updateDisplayAmount(state.currentMoney, elements)
+    );
+    button.addEventListener("click", () =>
+      handleProductPurchase(product, elements)
+    );
+
     grid.appendChild(button);
   });
 
@@ -74,7 +88,7 @@ const createMainElements = (elements) => {
   const displayContainer = createElement("div", "display-container");
   const moneyDisplay = createElement("div", "money-display");
   moneyDisplay.textContent = "0";
-  
+
   elements.moneyDisplay = moneyDisplay;
   const productGrid = createProductGrid(elements);
 
@@ -148,7 +162,7 @@ const createMoneySection = (elements) => {
   // elements 객체에 필요한 요소들 저장
   elements.balanceAmount = balanceAmount;
   elements.moneyInput = moneyInput;
-  
+
   return section;
 };
 
@@ -161,7 +175,7 @@ const createLogSection = (elements) => {
   section.append(title, container);
 
   elements.logContainer = container;
-  
+
   return section;
 };
 
@@ -189,6 +203,5 @@ const createVendingMachine = () => {
   elements.container.appendChild(elements.vendingMachine);
   elements.app.appendChild(elements.container);
 };
-
 
 createVendingMachine();
