@@ -40,7 +40,7 @@ export class VendingMachineController {
       //숫자만
       const onlyNumbers = target.value.replace(/\D/g, "");
       //세 자리마다 쉼표
-      const formattedValue = onlyNumbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      const formattedValue = Number(onlyNumbers).toLocaleString("ko-KR");
       target.value = formattedValue;
       // console.log({ value: onlyNumbers, formattedValue });
       this.state.insertAmount = Number(onlyNumbers);
