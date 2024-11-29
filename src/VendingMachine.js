@@ -83,12 +83,13 @@ class VendingMachine {
   }
 
   // 상품 추가 및 버튼 생성
-  setupProducts() {
-    const productButtonsContainer =
-      this.machineEl.querySelector(".product-container");
+  initProducts() {
+    const productButtonListEl = this.machineEl.querySelector(
+      ".product-button-list"
+    );
 
     // 버튼 클릭 이벤트 추가
-    productButtonsContainer.addEventListener("click", (e) => {
+    productButtonListEl.addEventListener("click", (e) => {
       const buttonEl = e.target.closest("button");
       if (!buttonEl) return; /* guard */
 
@@ -102,7 +103,7 @@ class VendingMachine {
     });
 
     // 잔액 부족으로 구매 실패시 버튼을 누르고 있을 때 이벤트 추가
-    productButtonsContainer.addEventListener("mousedown", (e) => {
+    productButtonListEl.addEventListener("mousedown", (e) => {
       const buttonEl = e.target.closest("button");
       if (!buttonEl) return; /* guard */
 
@@ -113,7 +114,7 @@ class VendingMachine {
     });
 
     // 잔액 부족으로 구매 실패시 버튼에서 손을 뗄 때 이벤트 추가
-    productButtonsContainer.addEventListener("mouseup", () => {
+    productButtonListEl.addEventListener("mouseup", () => {
       this.renderMoneyBoard();
     });
 
@@ -144,7 +145,7 @@ class VendingMachine {
       button.appendChild(productNameEl);
       button.appendChild(productPriceEl);
 
-      productButtonsContainer.appendChild(button);
+      productButtonListEl.appendChild(button);
     });
   }
 
@@ -189,7 +190,7 @@ class VendingMachine {
     });
 
     // 상품 버튼 추가
-    this.setupProducts();
+    this.initProducts();
 
     // 금액 입력 input의 값 입력시 콤마 추가
     this.insertedMoneyInputEl.addEventListener("input", (e) => {
