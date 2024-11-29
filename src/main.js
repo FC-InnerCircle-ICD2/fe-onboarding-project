@@ -135,6 +135,11 @@ const handleMoneyInsert = (elements) => {
     return;
   }
 
+  if (inputAmount > 100000000) {
+    addLog("1억원 이상은 투입할 수 없습니다.", elements);
+    return;
+  }
+
   state.currentMoney += inputAmount;
   updateDisplayAmount(state.currentMoney, elements);
   updateBalance(elements);
