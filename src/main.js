@@ -166,9 +166,7 @@ const createMoneySection = (elements) => {
   const insertButton = createElement("button", "button button-insert");
   const returnButton = createElement("button", "button button-return");
 
-  balanceText.textContent = "현재 잔액: ";
   balanceAmount.textContent = "0";
-  balanceText.append(balanceAmount, document.createTextNode("원"));
 
   moneyInput.type = "number";
   moneyInput.placeholder = VENDING_MACHINE_CONFIG.MONEY_PLACEHOLDER;
