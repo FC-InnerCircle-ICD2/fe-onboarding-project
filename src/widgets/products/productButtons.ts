@@ -5,6 +5,7 @@ import {
   products,
 } from '../../entities/products/model';
 import { purchaseProduct } from '../../features/products/purchaseProduct';
+import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
 import { createProductButton, handleProductButtonClick } from './productButton';
 import { updateProductWindow } from './productWindow';
@@ -24,6 +25,8 @@ export const createProductButton = (product: TProduct) => {
 
   return button;
 };
+
+export const initializeProductButtons = (
   productManager: TProductManger,
   coinManager: TCoinManager,
   logService: LogService,
@@ -35,6 +38,11 @@ export const createProductButton = (product: TProduct) => {
   if (!productButtonsElement) return;
 
   productButtonsElement.append(...productButtons);
+
+  productButtonsElement.addEventListener('click', (event: MouseEvent) => {
+    const product = findClickedProduct(event);
+
+    if (!product) return;
 
     const purchaseResponse = purchaseProduct(
       product,
@@ -48,13 +56,31 @@ export const createProductButton = (product: TProduct) => {
 
       updateProductWindow(currentCoin);
     }
+  });
 
-    button.addEventListener('mouseleave', () => {
-      const currentBalance = coinManager.getCoin();
+  productButtonsElement.addEventListener('mousedown', (event) => {
+    const product = findClickedProduct(event);
 
-      updateProductWindow(currentBalance);
-    });
+    if (!product) return;
 
-    productButtonsElement!.appendChild(button);
-  }
+  });
+
+  productButtonsElement.addEventListener('mouseleave', () => {
+    const currentBalance = coinManager.getCoin();
+  });
+};
+
+const findClickedProduct = (event: MouseEvent): TProduct | null => {
+  if (!(event.target instanceof HTMLElement)) return null;
+
+  const button = event.target.closest<HTMLButtonElement>('[data-product-id]');
+
+  if (!button) return null;
+
+  const productId = button.dataset.productId;
+  const product = products.find((p) => p.id === productId);
+
+  if (!product) return null;
+
+  return product;
 };
