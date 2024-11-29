@@ -35,83 +35,79 @@ export class VendingMachineController {
 
   //input onChange
   onChangeInsert() {
-    if (this.insertInput)
-      this.insertInput.addEventListener("input", (e) => {
-        const target = e.target as HTMLInputElement;
-        //숫자만
-        const onlyNumbers = String(target.value).replace(/\D/g, "");
-        //세 자리마다 쉼표
-        const formattedValue = onlyNumbers.replace(
-          /\B(?=(\d{3})+(?!\d))/g,
-          ","
-        );
-        target.value = formattedValue;
-        // console.log({ value: onlyNumbers, formattedValue });
-        this.state.insertAmount = Number(onlyNumbers);
-      });
+    if (!this.insertInput) return;
+
+    this.insertInput.addEventListener("input", (e) => {
+      const target = e.target as HTMLInputElement;
+      //숫자만
+      const onlyNumbers = String(target.value).replace(/\D/g, "");
+      //세 자리마다 쉼표
+      const formattedValue = onlyNumbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      target.value = formattedValue;
+      // console.log({ value: onlyNumbers, formattedValue });
+      this.state.insertAmount = Number(onlyNumbers);
+    });
   }
   //금액 투입
   insert() {
-    if (this.insertButton) {
-      this.insertButton.addEventListener("click", () => {
-        this.state.purchaseState = true;
-        this.state.remainingAmount += this.state.insertAmount;
+    if (!this.insertButton) return;
 
-        this.displayPrice(String(this.state.remainingAmount));
-        if (this.insertInput) {
-          this.insertInput.value = "";
-        }
-        // 상태 업데이트
-        this.addLog(
-          `${convertPriceFormat(
-            String(this.state.insertAmount)
-          )}원을 투입했습니다.`
-        );
-        this.state.insertAmount = 0; // 투입 금액 초기화
-      });
-    }
+    this.insertButton.addEventListener("click", () => {
+      this.state.purchaseState = true;
+      this.state.remainingAmount += this.state.insertAmount;
+
+      this.displayPrice(String(this.state.remainingAmount));
+      if (this.insertInput) {
+        this.insertInput.value = "";
+      }
+      // 상태 업데이트
+      this.addLog(
+        `${convertPriceFormat(
+          String(this.state.insertAmount)
+        )}원을 투입했습니다.`
+      );
+      this.state.insertAmount = 0; // 투입 금액 초기화
+    });
   }
   return() {
-    if (this.returnButton) {
-      // 반환 버튼 클릭
-      this.returnButton.addEventListener("click", () => {
-        this.state.purchaseState = false;
-        // 로그 찍기
-        this.addLog(
-          `${convertPriceFormat(
-            String(this.state.remainingAmount)
-          )}원이 반환되었습니다.`
-        );
-        // this.state.remainingAmount 초기화
-        this.state.remainingAmount = 0;
-        // this.priceDisplay innerText의 초기화
-        if (this.priceDisplay) {
-          this.priceDisplay.innerText = String(this.state.remainingAmount);
-        }
-        // this.insertInput에 포커싱
-        if (this.insertInput) {
-          this.insertInput.focus();
-        }
-      });
-    }
+    if (!this.returnButton) return;
+    // 반환 버튼 클릭
+    this.returnButton.addEventListener("click", () => {
+      this.state.purchaseState = false;
+      // 로그 찍기
+      this.addLog(
+        `${convertPriceFormat(
+          String(this.state.remainingAmount)
+        )}원이 반환되었습니다.`
+      );
+      // this.state.remainingAmount 초기화
+      this.state.remainingAmount = 0;
+      // this.priceDisplay innerText의 초기화
+      if (!this.priceDisplay) return;
+      this.priceDisplay.innerText = String(this.state.remainingAmount);
+
+      // this.insertInput에 포커싱
+      if (!this.insertInput) return;
+      this.insertInput.focus();
+    });
   }
   //로그 찍기 함수
   addLog(log: string) {
-    if (this.logsContainer) {
-      const li = document.createElement("li");
-      li.innerText = `${log}`;
-      this.logsContainer?.append(li);
-      console.log({
-        scrollHeight: this.logsContainer.scrollHeight,
-        clientHeight: this.logsContainer.clientHeight,
-      });
-      const scrollHeight = this.logsContainer.scrollHeight;
-      this.logsContainer.scrollTo({
-        left: 0,
-        top: scrollHeight,
-        behavior: "smooth",
-      });
-    }
+    if (!this.logsContainer) return;
+
+    const li = document.createElement("li");
+    li.innerText = `${log}`;
+    this.logsContainer?.append(li);
+    console.log({
+      scrollHeight: this.logsContainer.scrollHeight,
+      clientHeight: this.logsContainer.clientHeight,
+    });
+    const scrollHeight = this.logsContainer.scrollHeight;
+    this.logsContainer.scrollTo({
+      left: 0,
+      top: scrollHeight,
+      behavior: "smooth",
+    });
   }
 
   //자판기 아이템 구입
@@ -122,9 +118,8 @@ export class VendingMachineController {
     this.addLog(`${name}을 구입했습니다.`);
   }
   displayPrice(price: number | string) {
-    if (this.priceDisplay) {
-      this.priceDisplay.innerText = convertPriceFormat(String(price));
-    }
+    if (!this.priceDisplay) return;
+    this.priceDisplay.innerText = convertPriceFormat(String(price));
   }
   //자판기 아이템 생성
   generatorProducts() {
@@ -143,7 +138,8 @@ export class VendingMachineController {
         `);
 
         this.productGroupData.push(node);
-        if (this.productGroup) this.productGroup?.append(node.product.item);
+        if (!this.productGroup) return;
+        this.productGroup?.append(node.product.item);
       });
     };
 
@@ -221,12 +217,13 @@ export class VendingMachineController {
             : false,
         });
       });
-      if (this.insertButton)
-        this.insertButton.disabled =
-          this.insertInput?.value === "0" || this.insertInput?.value === "";
+      if (!this.insertButton) return;
 
-      if (this.returnButton)
-        this.returnButton.disabled = this.state.remainingAmount === 0;
+      this.insertButton.disabled =
+        this.insertInput?.value === "0" || this.insertInput?.value === "";
+
+      if (!this.returnButton) return;
+      this.returnButton.disabled = this.state.remainingAmount === 0;
     });
   }
 
