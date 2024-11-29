@@ -1,15 +1,16 @@
 import { Item } from '../data'
+import { UIElement } from '../interface/UIElement'
 import { createElement } from '../util/elementFactory'
 import { DialButtons } from './dialButtons'
 import { VendingMachine } from './vendingMachine'
 
-export class DialContainer {
-    private vendingMachine: VendingMachine
-    private items: Item[]
+export class DialContainer implements UIElement {
+    #vendingMachine: VendingMachine
+    #items: Item[]
 
     constructor(vendingMachine: VendingMachine, items: Item[]) {
-        this.vendingMachine = vendingMachine
-        this.items = items
+        this.#vendingMachine = vendingMachine
+        this.#items = items
     }
 
     private startAction(target: HTMLDivElement) {
@@ -21,11 +22,11 @@ export class DialContainer {
             target.classList.remove('button_active')
         }, 300)
 
-        this.vendingMachine.buyItem(targetItem)
+        this.#vendingMachine.buyItem(targetItem)
     }
 
     private stopAction = () => {
-        this.vendingMachine.resetError()
+        this.#vendingMachine.resetError()
     }
 
     private getTargetElement(target: Element): HTMLDivElement | null {
@@ -42,11 +43,11 @@ export class DialContainer {
         return btn
     }
 
-    public getElement(): HTMLDivElement {
+    getElement(): HTMLDivElement {
         const container = createElement({ tagName: 'div', className: ['dial-container'] }) as HTMLDivElement
 
-        this.items.map((item) => {
-            container.appendChild(new DialButtons(this.vendingMachine, item).getElement())
+        this.#items.map((item) => {
+            container.appendChild(new DialButtons(item).getElement())
         })
 
         // 마우스 이벤트

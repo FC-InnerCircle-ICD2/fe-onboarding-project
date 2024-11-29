@@ -1,9 +1,8 @@
+import { UIElement } from '../interface/UIElement'
 import { createElement } from '../util/elementFactory'
 
-export class CoinInput {
-    constructor() {}
-
-    public getElement(): HTMLInputElement {
+export class CoinInput implements UIElement {
+    getElement(): HTMLInputElement {
         const input = createElement({ tagName: 'input', className: ['coin-input', 'input'] }) as HTMLInputElement
         input.setAttribute('maxlength', '9')
 

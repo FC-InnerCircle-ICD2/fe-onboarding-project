@@ -1,9 +1,8 @@
+import { UIElement } from '../interface/UIElement'
 import { createElement } from '../util/elementFactory'
 
-export class DisplayInput {
-    constructor() {}
-
-    public getElement(): HTMLInputElement {
+export class DisplayInput implements UIElement {
+    getElement(): HTMLInputElement {
         const input = createElement({
             tagName: 'input',
             id: 'count-display',
