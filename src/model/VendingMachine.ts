@@ -35,9 +35,7 @@ export class VendingMachineController {
 
   //input onChange
   onChangeInsert() {
-    if (!this.insertInput) return;
-
-    this.insertInput.addEventListener("input", (e) => {
+    this.insertInput?.addEventListener("input", (e) => {
       const target = e.target as HTMLInputElement;
       //숫자만
       const onlyNumbers = String(target.value).replace(/\D/g, "");
@@ -50,9 +48,7 @@ export class VendingMachineController {
   }
   //금액 투입
   insert() {
-    if (!this.insertButton) return;
-
-    this.insertButton.addEventListener("click", () => {
+    this.insertButton?.addEventListener("click", () => {
       this.state.purchaseState = true;
       this.state.remainingAmount += this.state.insertAmount;
 
@@ -70,9 +66,8 @@ export class VendingMachineController {
     });
   }
   return() {
-    if (!this.returnButton) return;
     // 반환 버튼 클릭
-    this.returnButton.addEventListener("click", () => {
+    this.returnButton?.addEventListener("click", () => {
       this.state.purchaseState = false;
       // 로그 찍기
       this.addLog(
@@ -94,10 +89,9 @@ export class VendingMachineController {
   //로그 찍기 함수
   addLog(log: string) {
     if (!this.logsContainer) return;
-
     const li = document.createElement("li");
     li.innerText = `${log}`;
-    this.logsContainer?.append(li);
+    this.logsContainer.append(li);
     console.log({
       scrollHeight: this.logsContainer.scrollHeight,
       clientHeight: this.logsContainer.clientHeight,
@@ -138,7 +132,6 @@ export class VendingMachineController {
         `);
 
         this.productGroupData.push(node);
-        if (!this.productGroup) return;
         this.productGroup?.append(node.product.item);
       });
     };
@@ -150,10 +143,8 @@ export class VendingMachineController {
           ".vendingMachine_product_item"
         );
 
-        if (!productItem) return;
-
-        const name = productItem.dataset.productName;
-        const price = Number(productItem.dataset.productPrice);
+        const name = productItem?.dataset.productName;
+        const price = Number(productItem?.dataset.productPrice);
 
         if (!name || isNaN(price)) return;
 
@@ -209,6 +200,9 @@ export class VendingMachineController {
   }
   updateState() {
     this.state.addListener(() => {
+      if (!this.insertButton) return;
+      if (!this.returnButton) return;
+
       console.log("state", this.state);
       this.productGroupData.forEach((product) => {
         product.product.setItemState({
@@ -217,12 +211,10 @@ export class VendingMachineController {
             : false,
         });
       });
-      if (!this.insertButton) return;
 
       this.insertButton.disabled =
         this.insertInput?.value === "0" || this.insertInput?.value === "";
 
-      if (!this.returnButton) return;
       this.returnButton.disabled = this.state.remainingAmount === 0;
     });
   }
@@ -231,7 +223,7 @@ export class VendingMachineController {
   build() {
     //초기 상태 설정
     if (this.priceDisplay) this.priceDisplay.innerText = "0";
-    if (this.insertInput) this.insertInput.maxLength = 7;
+    if (this.insertInput) this.insertInput.maxLength = 7; //999,999까지
     if (this.insertButton) this.insertButton.disabled = true;
     if (this.returnButton) this.returnButton.disabled = true;
     this.generatorProducts();
