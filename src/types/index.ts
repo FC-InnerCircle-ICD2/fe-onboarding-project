@@ -1,6 +1,6 @@
-import { VendingMachineProduct } from "../model/Product";
+import { VendingMachineProduct } from "../model/VendingMachineProduct";
 
-import { VendingMachineState } from "../model/State";
+import { VendingMachineState } from "../model/VendingMachineState";
 export type ControllerComponentType = {
   insertInput: HTMLInputElement | null;
   priceDisplay: HTMLElement | null;

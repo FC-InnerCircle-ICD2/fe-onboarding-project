@@ -1,14 +1,14 @@
 import { convertPriceFormat } from "../shared/priceFormat";
-import {
+import type {
   ControllerComponentType,
   ProductGroupType,
   VendingMachineControllerType,
   VendingMachineItemType,
 } from "../types";
-import { VendingMachineProduct } from "./Product";
-import { VendingMachineState } from "./State";
+import { VendingMachineProduct } from "./VendingMachineProduct";
+import { VendingMachineState } from "./VendingMachineState";
 
-export class VendingMachineController {
+export class VendingMachineManager {
   private productData: VendingMachineItemType[];
   private state: VendingMachineState;
   private component: ControllerComponentType;
