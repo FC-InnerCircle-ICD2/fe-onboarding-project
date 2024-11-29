@@ -87,10 +87,45 @@ class VendingMachine {
     const productButtonsContainer =
       this.machineEl.querySelector(".product-container");
 
+    // 버튼 클릭 이벤트 추가
+    productButtonsContainer.addEventListener("click", (e) => {
+      const buttonEl = e.target.closest("button");
+      if (!buttonEl) return; /* guard */
+
+      const productName = buttonEl.getAttribute("data-name");
+      const targetProduct = this.products.find(
+        (product) => product.name === productName
+      );
+      if (targetProduct) {
+        this.buyProduct(targetProduct);
+      }
+    });
+
+    // 잔액 부족으로 구매 실패시 버튼을 누르고 있을 때 이벤트 추가
+    productButtonsContainer.addEventListener("mousedown", (e) => {
+      const buttonEl = e.target.closest("button");
+      if (!buttonEl) return; /* guard */
+
+      const productPrice = parseInt(buttonEl.getAttribute("data-price"));
+      if (this.currentMoney < productPrice) {
+        this.renderMoneyBoard(productPrice);
+      }
+    });
+
+    // 잔액 부족으로 구매 실패시 버튼에서 손을 뗄 때 이벤트 추가
+    productButtonsContainer.addEventListener("mouseup", () => {
+      this.renderMoneyBoard();
+    });
+
     this.products.forEach((product) => {
       const button = document.createElement("button");
       const productNameEl = document.createElement("span");
       const productPriceEl = document.createElement("span");
+
+      // data 속성 추가
+      button.setAttribute("data-name", product.name);
+      button.setAttribute("data-price", product.price);
+
       button.ariaLabel = `${product.name} 구매: ${product.price}원`;
       button.classList.add(
         "basis-[31%]",
@@ -108,23 +143,6 @@ class VendingMachine {
       productPriceEl.textContent = `${product.price}원`;
       button.appendChild(productNameEl);
       button.appendChild(productPriceEl);
-
-      // 버튼 클릭 이벤트 추가
-      button.addEventListener("click", () => {
-        this.buyProduct(product);
-      });
-
-      // 잔액 부족으로 구매 실패시 버튼을 누르고 있을 때 이벤트 추가
-      button.addEventListener("mousedown", () => {
-        if (this.currentMoney < product.price) {
-          this.renderMoneyBoard(product.price);
-        }
-      });
-
-      // 잔액 부족으로 구매 실패시 버튼에서 손을 뗄 때 이벤트 추가
-      button.addEventListener("mouseup", () => {
-        this.renderMoneyBoard();
-      });
 
       productButtonsContainer.appendChild(button);
     });
