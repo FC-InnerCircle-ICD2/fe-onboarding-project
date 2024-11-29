@@ -44,9 +44,9 @@ class VendingMachine {
 
   // 잔돈 반환 하기
   returnChange() {
-    const returnedAmount = this.currentBalance.returnChanges();
-    if (returnedAmount === 0) return;
-    this.logManager.add(`[잔액 반환] ${returnedAmount.toLocaleString()}원`);
+    const returnedChange = this.currentBalance.returnChange();
+    if (returnedChange === 0) return;
+    this.logManager.add(`[잔액 반환] ${returnedChange.toLocaleString()}원`);
     this.updateBalanceDisplay();
   }
 

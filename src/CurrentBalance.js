@@ -7,22 +7,22 @@ class CurrentBalance {
     return this.balance;
   }
 
-  add(amount) {
-    if (amount > 0) {
-      this.balance += amount;
+  add(money) {
+    if (money > 0) {
+      this.balance += money;
     }
     return this.balance;
   }
 
-  subtract(amount) {
-    if (this.canAfford(amount)) {
-      this.balance -= amount;
+  subtract(money) {
+    if (this.canAfford(money)) {
+      this.balance -= money;
       return true;
     }
     return false;
   }
 
-  returnChanges() {
+  returnChange() {
     const previousBalance = this.balance;
     this.balance = 0;
     return previousBalance;
