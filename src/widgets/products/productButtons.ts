@@ -5,13 +5,14 @@ import {
   products,
 } from '../../entities/products/model';
 import { purchaseProduct } from '../../features/products/purchaseProduct';
+import { updateProductWindow } from '../../features/products/updateProductWindow';
 import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
-import { createProductButton, handleProductButtonClick } from './productButton';
-import { updateProductWindow } from './productWindow';
 
 const productButtonsElement =
   document.querySelector<HTMLDivElement>('.product-buttons');
+const productWindowElement =
+  document.querySelector<HTMLDivElement>('.product-window');
 
 export const createProductButton = (product: TProduct) => {
   const button = document.createElement('button');
@@ -54,7 +55,7 @@ export const initializeProductButtons = (
     if (purchaseResponse.ok) {
       const currentCoin = coinManager.getCoin();
 
-      updateProductWindow(currentCoin);
+      updateProductWindow(productWindowElement!, currentCoin);
     }
   });
 
@@ -63,10 +64,12 @@ export const initializeProductButtons = (
 
     if (!product) return;
 
+    updateProductWindow(productWindowElement!, product.price);
   });
 
   productButtonsElement.addEventListener('mouseleave', () => {
     const currentBalance = coinManager.getCoin();
+    updateProductWindow(productWindowElement!, currentBalance);
   });
 };
 
