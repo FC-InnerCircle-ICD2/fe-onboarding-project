@@ -38,7 +38,7 @@ export class VendingMachineController {
     this.insertInput?.addEventListener("input", (e) => {
       const target = e.target as HTMLInputElement;
       //숫자만
-      const onlyNumbers = String(target.value).replace(/\D/g, "");
+      const onlyNumbers = target.value.replace(/\D/g, "");
       //세 자리마다 쉼표
       const formattedValue = onlyNumbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       target.value = formattedValue;
