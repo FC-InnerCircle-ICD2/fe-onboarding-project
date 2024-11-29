@@ -43,7 +43,7 @@ export class VendingMachine implements UIElement {
     }
 
     getElement(): HTMLDivElement {
-        this.#container = createElement({ tagName: 'div', className: ['container'] }) as HTMLDivElement
+        this.#container = createElement<'div'>({ tagName: 'div', className: ['container'] })
 
         this.#initCalculator()
         this.#initSideContainer()
@@ -53,9 +53,9 @@ export class VendingMachine implements UIElement {
 
     // 자판기 UI 초기화
     #initCalculator() {
-        const calculator = createElement({ tagName: 'div', className: ['calculator'] })
+        const calculator = createElement<'div'>({ tagName: 'div', className: ['calculator'] })
 
-        const currentCoin = createElement({ tagName: 'div', className: ['current-coin'] })
+        const currentCoin = createElement<'div'>({ tagName: 'div', className: ['current-coin'] })
         this.#display = new DisplayInput().getElement()
 
         currentCoin.appendChild(this.#display)
@@ -69,9 +69,9 @@ export class VendingMachine implements UIElement {
 
     // side UI 초기화
     #initSideContainer() {
-        const info = createElement({ tagName: 'div', className: ['info'] })
+        const info = createElement<'div'>({ tagName: 'div', className: ['info'] })
 
-        const operation = createElement({ tagName: 'div', className: ['operation-container'] })
+        const operation = createElement<'div'>({ tagName: 'div', className: ['operation-container'] })
 
         this.#coinInput = new CoinInput().getElement()
         this.#insertButton = new InsertButton(this).getElement()
@@ -81,7 +81,7 @@ export class VendingMachine implements UIElement {
         operation.appendChild(this.#insertButton)
         operation.appendChild(this.#returnButton)
 
-        this.#logContainer = createElement({ tagName: 'ul', className: ['log-container'] }) as HTMLUListElement
+        this.#logContainer = createElement<'ul'>({ tagName: 'ul', className: ['log-container'] })
 
         info.appendChild(operation)
         info.appendChild(this.#logContainer)
@@ -148,7 +148,7 @@ export class VendingMachine implements UIElement {
     #addLog(log: string) {
         if (!this.#logContainer) return
 
-        const li = createElement({ tagName: 'li', className: ['log-item'] })
+        const li = createElement<'li'>({ tagName: 'li', className: ['log-item'] })
         li.innerText = log
 
         this.#logContainer.appendChild(li)

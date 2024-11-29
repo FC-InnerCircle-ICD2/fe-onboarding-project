@@ -44,7 +44,7 @@ export class DialContainer implements UIElement {
     }
 
     getElement(): HTMLDivElement {
-        const container = createElement({ tagName: 'div', className: ['dial-container'] }) as HTMLDivElement
+        const container = createElement<'div'>({ tagName: 'div', className: ['dial-container'] })
 
         this.#items.map((item) => {
             container.appendChild(new DialButtons(item).getElement())

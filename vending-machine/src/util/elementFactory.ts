@@ -1,5 +1,13 @@
-export function createElement({ tagName, id, className }: { tagName: keyof HTMLElementTagNameMap; id?: string; className?: string[] }) {
-    const el = document.createElement(tagName)
+export function createElement<T extends keyof HTMLElementTagNameMap>({
+    tagName,
+    id,
+    className,
+}: {
+    tagName: keyof HTMLElementTagNameMap
+    id?: string
+    className?: string[]
+}): HTMLElementTagNameMap[T] {
+    const el = document.createElement(tagName) as HTMLElementTagNameMap[T]
 
     if (id) el.id = id
     if (className && className.length) {
