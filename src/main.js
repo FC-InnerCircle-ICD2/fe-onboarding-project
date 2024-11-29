@@ -1,11 +1,13 @@
 import "./style.css";
 import { PRODUCTS, VENDING_MACHINE_CONFIG } from "./data/products.js";
 
+// 상태 관리
 const state = {
   currentMoney: 0,
   displayAmount: 0,
 };
 
+// 유틸리티 함수
 const formatNumber = (number) => {
   return number.toLocaleString("ko-KR");
 };
@@ -16,6 +18,11 @@ const createElement = (tag, className) => {
   return element;
 };
 
+const scrollToBottom = (element) => {
+  element.scrollTop = element.scrollHeight;
+};
+
+// 화면 업데이트 함수
 const updateDisplayAmount = (amount, elements) => {
   state.displayAmount = amount;
   elements.moneyDisplay.textContent = formatNumber(state.displayAmount);
@@ -33,10 +40,7 @@ const addLog = (message, elements) => {
   scrollToBottom(elements.logContainer);
 };
 
-const scrollToBottom = (element) => {
-  element.scrollTop = element.scrollHeight;
-};
-
+// 상품 구매 처리
 const handleProductPurchase = (product, elements) => {
   if (state.currentMoney < product.price) {
     addLog(
@@ -56,6 +60,7 @@ const handleProductPurchase = (product, elements) => {
   );
 };
 
+// UI 생성 함수
 const createProductGrid = (elements) => {
   const grid = createElement("div", "product-grid");
 
@@ -103,6 +108,7 @@ const createMainElements = (elements) => {
   return { title, contentWrapper, vendingBody };
 };
 
+// 금액 처리 함수
 const handleMoneyInsert = (elements) => {
   const inputAmount = parseInt(elements.moneyInput.value);
 
@@ -130,6 +136,7 @@ const handleInputValidation = (e) => {
   e.target.value = e.target.value.replace(/[^0-9]/g, "");
 };
 
+// UI 섹션 생성 함수
 const createMoneySection = (elements) => {
   const section = createElement("div", "money-section");
   const content = createElement("div", "money-content");
@@ -151,7 +158,6 @@ const createMoneySection = (elements) => {
   insertButton.textContent = "투입";
   returnButton.textContent = "반환";
 
-  // 이벤트 리스너 설정
   insertButton.addEventListener("click", () => handleMoneyInsert(elements));
   returnButton.addEventListener("click", () => handleMoneyReturn(elements));
   moneyInput.addEventListener("input", handleInputValidation);
@@ -164,7 +170,6 @@ const createMoneySection = (elements) => {
   content.append(balanceText, inputContainer);
   section.appendChild(content);
 
-  // elements 객체에 필요한 요소들 저장
   elements.balanceAmount = balanceAmount;
   elements.moneyInput = moneyInput;
 
@@ -193,6 +198,7 @@ const createControlElements = (elements) => {
   return controlPanel;
 };
 
+// 자판기 초기화 및 생성
 const createVendingMachine = () => {
   const elements = {
     app: document.querySelector("#app"),
