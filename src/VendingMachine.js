@@ -13,7 +13,7 @@ class VendingMachine {
     /** @type {HTMLElement} */
     this.machineEl = document.querySelector(`#${machineId}`);
     /** @type {number} */
-    this.currentMoney = 0;
+    this.currentBalance = 0;
     /** @type {string} */
     this.insertedMoney = "0";
     /** @type {string[]} */
@@ -31,33 +31,33 @@ class VendingMachine {
     const moneyWithComma = this.insertedMoneyInputEl.value;
     const parsedMoney = parseInt(moneyWithComma.replace(/,/g, "")); // 콤마 제거 + 숫자로 변환
     if (parsedMoney > 0) {
-      this.currentMoney += parsedMoney;
+      this.currentBalance += parsedMoney;
       this.logs.push(`[금액 투입] ${parsedMoney.toLocaleString()}원`);
     }
     this.insertedMoneyInputEl.value = "0";
-    this.renderMoneyBoard();
+    this.renderBalanceBoard();
     this.renderLogs();
     this.insertedMoneyInputEl.focus();
   }
 
   // 잔돈 반환 하기
   returnChange() {
-    if (this.currentMoney === 0) return;
-    this.logs.push(`[잔액 반환] ${this.currentMoney.toLocaleString()}원`);
-    this.currentMoney = 0;
-    this.renderMoneyBoard();
+    if (this.currentBalance === 0) return;
+    this.logs.push(`[잔액 반환] ${this.currentBalance.toLocaleString()}원`);
+    this.currentBalance = 0;
+    this.renderBalanceBoard();
     this.renderLogs();
   }
 
   /**
    * 금액 표시판 랜더링
-   * @param {number} money
+   * @param {number} currentBalance
    */
-  renderMoneyBoard(money = this.currentMoney) {
-    const moneyBoardEl = this.machineEl.querySelector(
+  renderBalanceBoard(currentBalance = this.currentBalance) {
+    const balanceBoardEl = this.machineEl.querySelector(
       '[aria-label="금액 표시판"]'
     );
-    moneyBoardEl.textContent = money.toLocaleString();
+    balanceBoardEl.textContent = currentBalance.toLocaleString();
   }
 
   // 로그 랜더링
@@ -108,14 +108,14 @@ class VendingMachine {
       if (!buttonEl) return; /* guard */
 
       const productPrice = parseInt(buttonEl.getAttribute("data-price"));
-      if (this.currentMoney < productPrice) {
-        this.renderMoneyBoard(productPrice);
+      if (this.currentBalance < productPrice) {
+        this.renderBalanceBoard(productPrice);
       }
     });
 
     // 잔액 부족으로 구매 실패시 버튼에서 손을 뗄 때 이벤트 추가
     productButtonListEl.addEventListener("mouseup", () => {
-      this.renderMoneyBoard();
+      this.renderBalanceBoard();
     });
 
     this.products.forEach((product) => {
@@ -151,19 +151,19 @@ class VendingMachine {
 
   // 상품 구매 처리
   buyProduct(product) {
-    if (this.currentMoney >= product.price) {
-      this.currentMoney -= product.price;
+    if (this.currentBalance >= product.price) {
+      this.currentBalance -= product.price;
       this.logs.push(
         `[구매 성공] ${
           product.name
-        } (잔액 ${this.currentMoney.toLocaleString()}원)`
+        } (잔액 ${this.currentBalance.toLocaleString()}원)`
       );
-      this.renderMoneyBoard();
+      this.renderBalanceBoard();
       this.renderLogs();
     } else {
       this.logs.push(
         `[구매 실패] ${product.name} (${(
-          (this.currentMoney - product.price) *
+          (this.currentBalance - product.price) *
           -1
         ).toLocaleString()}원 부족)`
       );
