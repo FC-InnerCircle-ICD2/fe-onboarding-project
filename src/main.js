@@ -72,19 +72,37 @@ const createProductGrid = (elements) => {
     nameSpan.textContent = product.name;
     priceSpan.textContent = `${formatNumber(product.price)}원`;
 
+    button.dataset.productId = product.id;
+
     button.append(nameSpan, priceSpan);
-    button.addEventListener("mouseenter", () =>
-      updateDisplayAmount(product.price, elements)
-    );
-    button.addEventListener("mouseleave", () =>
-      updateDisplayAmount(state.currentMoney, elements)
-    );
-    button.addEventListener("click", () =>
-      handleProductPurchase(product, elements)
-    );
 
     grid.appendChild(button);
   });
+
+  // 이벤트 버블링을 활용한 이벤트 처리
+  grid.addEventListener("click", handleGridEvent);
+  grid.addEventListener("mouseover", handleGridEvent);
+  grid.addEventListener("mouseout", handleGridEvent);
+
+  function handleGridEvent(e) {
+    const target = e.target.closest(".product-button");
+    if (!target) return;
+
+    const productId = parseInt(target.dataset.productId);
+    const product = PRODUCTS.find((product) => product.id === productId);
+
+    switch (e.type) {
+      case "click":
+        handleProductPurchase(product, elements);
+        break;
+      case "mouseover":
+        updateDisplayAmount(product.price, elements);
+        break;
+      case "mouseout":
+        updateDisplayAmount(state.currentMoney, elements);
+        break;
+    }
+  }
 
   return grid;
 };
