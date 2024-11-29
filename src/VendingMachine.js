@@ -1,4 +1,5 @@
 import CurrentBalance from "./CurrentBalance";
+import LogManager from "./LogManager";
 
 /**
  * @typedef {Object} Product
@@ -18,8 +19,8 @@ class VendingMachine {
     this.currentBalance = new CurrentBalance();
     /** @type {string} */
     this.insertedMoney = "0";
-    /** @type {string[]} */
-    this.logs = [];
+    /** @type {LogManager} */
+    this.logManager = new LogManager(this.machineEl);
     /** @type {Product[]} */
     this.products = products;
     /** @type {HTMLInputElement} */
@@ -34,11 +35,10 @@ class VendingMachine {
     const parsedMoney = parseInt(moneyWithComma.replace(/,/g, "")); // 콤마 제거 + 숫자로 변환
     if (parsedMoney > 0) {
       this.currentBalance.add(parsedMoney);
-      this.logs.push(`[금액 투입] ${parsedMoney.toLocaleString()}원`);
+      this.logManager.add(`[금액 투입] ${parsedMoney.toLocaleString()}원`);
     }
     this.insertedMoneyInputEl.value = "0";
     this.updateBalanceDisplay();
-    this.renderLogs();
     this.insertedMoneyInputEl.focus();
   }
 
@@ -46,9 +46,8 @@ class VendingMachine {
   returnChange() {
     const returnedAmount = this.currentBalance.returnChanges();
     if (returnedAmount === 0) return;
-    this.logs.push(`[잔액 반환] ${returnedAmount.toLocaleString()}원`);
+    this.logManager.add(`[잔액 반환] ${returnedAmount.toLocaleString()}원`);
     this.updateBalanceDisplay();
-    this.renderLogs();
   }
 
   /**
@@ -62,28 +61,6 @@ class VendingMachine {
     balanceBoardEl.textContent = this.currentBalance
       .getBalance()
       .toLocaleString();
-  }
-
-  // 로그 랜더링
-  renderLogs() {
-    const logsEl = this.machineEl.querySelector('[aria-label="로그"]');
-    // 로그 요소 리셋
-    while (logsEl.firstChild) {
-      logsEl.removeChild(logsEl.firstChild);
-    }
-
-    this.logs.forEach((log) => {
-      const logEl = document.createElement("div");
-      logEl.textContent = log;
-      const logColor = log.includes("실패")
-        ? "text-red-500"
-        : log.includes("성공")
-        ? "text-emerald-600"
-        : "text-black";
-      logEl.classList.add(logColor);
-      logsEl.appendChild(logEl);
-    });
-    logsEl.scrollTo({ top: logsEl.scrollHeight, behavior: "smooth" });
   }
 
   // 상품 추가 및 버튼 생성
@@ -157,20 +134,18 @@ class VendingMachine {
   buyProduct(product) {
     if (this.currentBalance.canAfford(product.price)) {
       this.currentBalance.subtract(product.price);
-      this.logs.push(
+      this.logManager.add(
         `[구매 성공] ${product.name} (잔액 ${this.currentBalance
           .getBalance()
           .toLocaleString()}원)`
       );
       this.updateBalanceDisplay();
-      this.renderLogs();
     } else {
-      this.logs.push(
+      this.logManager.add(
         `[구매 실패] ${product.name} (${this.currentBalance
           .getNeededMoney(product.price)
           .toLocaleString()}원 부족)`
       );
-      this.renderLogs();
     }
   }
 
