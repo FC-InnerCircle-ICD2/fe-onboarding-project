@@ -52,15 +52,13 @@ class VendingMachine {
 
   /**
    * 현재 잔액을 화면에 표시
-   * @param {number} currentBalance
+   * @param {number} [displayMoney]
    */
-  updateBalanceDisplay() {
+  updateBalanceDisplay(displayMoney = this.currentBalance.getBalance()) {
     const balanceBoardEl = this.machineEl.querySelector(
       '[aria-label="금액 표시판"]'
     );
-    balanceBoardEl.textContent = this.currentBalance
-      .getBalance()
-      .toLocaleString();
+    balanceBoardEl.textContent = displayMoney.toLocaleString();
   }
 
   // 상품 추가 및 버튼 생성
