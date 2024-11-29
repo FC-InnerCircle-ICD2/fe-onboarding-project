@@ -1,4 +1,4 @@
-import { VendingMachineItemType } from "./model";
+import { VendingMachineItemType } from "../types";
 
 export const VendingMachineData: VendingMachineItemType[] = [
   {

@@ -1,7 +1,8 @@
-import { Controller, State } from "./class";
-import { VendingMachineData } from "./mockData";
-import "./reset.css";
-import "./style.css";
+import { VendingMachineData } from "./mock/VendingMachineData";
+import { VendingMachineState } from "./model/State";
+import { VendingMachineController } from "./model/VendingMachine";
+import "./styles/reset.css";
+import "./styles/style.css";
 const productGroup = document.getElementById("productGroup");
 const insertInput = document.getElementById(
   "insertInput"
@@ -15,8 +16,8 @@ const returnButton = document.getElementById(
 ) as HTMLButtonElement | null;
 const logsContainer = document.getElementById("logsContainer");
 
-const state = new State();
-const controller = new Controller({
+const state = new VendingMachineState();
+const controller = new VendingMachineController({
   productData: VendingMachineData,
   state,
   component: {

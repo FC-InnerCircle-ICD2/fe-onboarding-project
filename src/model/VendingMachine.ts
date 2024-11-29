@@ -1,76 +1,16 @@
-import { convertPriceFormat } from "./function";
-import { ProductGroupType, VendingMachineItemType } from "./model";
+import { convertPriceFormat } from "../shared/priceFormat";
+import {
+  ControllerComponentType,
+  ProductGroupType,
+  VendingMachineControllerType,
+  VendingMachineItemType,
+} from "../types";
+import { VendingMachineProduct } from "./Product";
+import { VendingMachineState } from "./State";
 
-export class State {
-  private _listeners: (() => void)[];
-  private _insertAmout: number;
-  private _remainingAmount: number;
-  private _displayPrice: number;
-  /**자판기 사용 상태인지 */
-  private _purchaseState: boolean;
-
-  constructor() {
-    this._listeners = [];
-    this._insertAmout = 0;
-    this._remainingAmount = 0;
-    this._displayPrice = 0;
-    this._purchaseState = false;
-  }
-
-  addListener(listener: () => void) {
-    this._listeners.push(listener);
-  }
-  private notify() {
-    console.log("this._listeners.length", this._listeners.length);
-    this._listeners.forEach((listener) => listener());
-  }
-
-  get insertAmount() {
-    return this._insertAmout;
-  }
-  set insertAmount(value: number) {
-    this._insertAmout = value;
-    this.notify();
-  }
-  get remainingAmount() {
-    return this._remainingAmount;
-  }
-  set remainingAmount(value: number) {
-    this._remainingAmount = value;
-    this.notify();
-  }
-  get displayPrice() {
-    return this._displayPrice;
-  }
-  set displayPrice(value: number) {
-    this._displayPrice = value;
-    this.notify();
-  }
-  get purchaseState() {
-    return this._purchaseState;
-  }
-  set purchaseState(value: boolean) {
-    this._purchaseState = value;
-    this.notify();
-  }
-}
-
-type ControllerComponentType = {
-  insertInput: HTMLInputElement | null;
-  priceDisplay: HTMLElement | null;
-  insertButton: HTMLButtonElement | null;
-  returnButton: HTMLButtonElement | null;
-  logsContainer: HTMLElement | null;
-  productGroup: HTMLElement | null;
-};
-type VendingMachineControllerType = {
-  productData: VendingMachineItemType[];
-  state: State;
-  component: ControllerComponentType;
-};
-export class Controller {
+export class VendingMachineController {
   private productData: VendingMachineItemType[];
-  private state: State;
+  private state: VendingMachineState;
   private component: ControllerComponentType;
   private insertInput: ControllerComponentType["insertInput"];
   private priceDisplay: ControllerComponentType["priceDisplay"];
@@ -99,7 +39,7 @@ export class Controller {
       this.insertInput.addEventListener("input", (e) => {
         const target = e.target as HTMLInputElement;
         //숫자만
-        const onlyNumbers = String(target.value).replace(/[^0-9]/g, "");
+        const onlyNumbers = String(target.value).replace(/\D/g, "");
         //세 자리마다 쉼표
         const formattedValue = onlyNumbers.replace(
           /\B(?=(\d{3})+(?!\d))/g,
@@ -190,17 +130,17 @@ export class Controller {
   generatorProducts() {
     const productItemsRender = () => {
       this.productData.forEach((data) => {
-        const node = { product: new Product(), data };
+        const node = { product: new VendingMachineProduct(), data };
         const { name, price } = data;
         node.product.item.classList.add("vendingMachine_product_item");
         node.product.item.dataset.productName = name;
         node.product.item.dataset.productPrice = String(price);
         node.product.innerHTML(`
-      <strong class="vendingMachine_product_item_name">${data.name}</strong>
-      <span class="vendingMachine_product_item_price">${convertPriceFormat(
-        String(data.price)
-      )}원</span>
-      `);
+        <strong class="vendingMachine_product_item_name">${data.name}</strong>
+        <span class="vendingMachine_product_item_price">${convertPriceFormat(
+          String(data.price)
+        )}원</span>
+        `);
 
         this.productGroupData.push(node);
         if (this.productGroup) this.productGroup?.append(node.product.item);
