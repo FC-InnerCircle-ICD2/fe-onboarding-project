@@ -120,7 +120,7 @@ const handleMoneyReturn = () => {
 };
 
 const handleInputValidation = (e) => {
-  e.target.value = e.target.value.replace(/[^0-9]/g, '');
+  e.target.value = e.target.value.replace(/\D/g, '');
 };
 
 // 이벤트 리스너 설정
