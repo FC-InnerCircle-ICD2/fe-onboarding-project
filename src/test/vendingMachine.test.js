@@ -21,8 +21,8 @@ describe("VendingMachine", () => {
       displayPanel.textContent = balanceManager.getBalance().toLocaleString();
     };
 
-    // 투입 버튼 클릭 이벤트 핸들러 추가 (insertMoney 메서드 테스트)
-    insertButton.addEventListener("click", () => {
+    // insertMoney
+    const insertMoney = () => {
       const parsedMoney = parseInt(input.value.replace(/,/g, ""));
       if (parsedMoney > 0) {
         balanceManager.add(parsedMoney);
@@ -31,6 +31,16 @@ describe("VendingMachine", () => {
       input.value = "0";
       updateBalanceDisplay();
       input.focus();
+    };
+
+    // 투입 버튼 클릭 이벤트 핸들러
+    insertButton.addEventListener("click", insertMoney);
+
+    // Enter 키 이벤트 핸들러
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        insertMoney();
+      }
     });
 
     testElements = {
