@@ -1,15 +1,16 @@
-const purchaseProduct = (productId, displayedBalance) => {
-  // 상품정의에서 해당 상품의 금액 불러오기
+const displayProductPrice = () => {
+  setTimeout(() => {
+    updateElement("product-price-display") = convertCurrencyFormat(balance)
+  }, 1000)
+}
+
+const purchaseProduct = (productId, displayedBalance) => { 
+  if(displayedBalance === 0) return
+  console.log("잔액 0 이상")
+  
   const price = products.find(product => product.id === productId).price
 
-  if (displayedBalance === 0) {
-    // TODO: 명세 분석 다시할것
-    updateElement("product-price-display", convertCurrencyFormat(price))
-
-    setTimeout(() => {
-      updateElement("product-price-display", 0)
-    }, 1000)
-  } else if (displayedBalance >= price) {
+  if (displayedBalance >= price) {
     reduceBalance(price)
 
     updateElement(

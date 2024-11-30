@@ -68,6 +68,19 @@
           purchaseProduct(product.id, balance)
         )
 
+        liElement.addEventListener("mousedown", () => {
+          if (balance === 0) {
+            updateElement(
+              "product-price-display",
+              convertCurrencyFormat(product.price)
+            )
+          }
+        })
+
+        liElement.addEventListener("mouseup", () =>
+          updateElement("product-price-display", 0)
+        )
+
         selectNode(".product-lists").appendChild(clone)
       })
 

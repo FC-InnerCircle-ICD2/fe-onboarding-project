@@ -64,7 +64,7 @@ li {
   align-items: center;
   cursor: pointer;
   box-shadow: 8px 8px 16px #c5c5c5, -8px -8px 16px #ffffff;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 .product:hover {
@@ -73,7 +73,7 @@ li {
 
 .product:active,
 .button:active {
-  box-shadow: inset 4px 4px 8px #c5c5c5, inset -4px -4px 8px #ffffff;
+  box-shadow: inset 8px 8px 16px #c5c5c5, inset -8px -8px 16px #ffffff;
 }
 
 .product-price {
