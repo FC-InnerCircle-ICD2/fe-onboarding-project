@@ -5,8 +5,8 @@ const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
 
 const selectNode = node => document.querySelector(`${node}`)
 
-const updateElement = (className, value, type = "innerText") => {
-  const element = document.querySelector(`.${className}`)
+const updateElement = (selector, value, type = "innerText") => {
+  const element = document.querySelector(`${selector}`)
   switch (type) {
     case "innerText":
       element.innerText = value
@@ -31,8 +31,8 @@ const resetBalance = () => (balance = 0)
 const insertMoney = amount => {
   if (isNaN(amount)) return
   increaseBalance(amount)
-  updateElement("insert-input", "", "value")
-  updateElement("product-price-display", convertCurrencyFormat(balance))
+  updateElement(".insert-input", "", "value")
+  updateElement(".product-price-display", convertCurrencyFormat(balance))
   addLog("insert", amount)
 }
 
@@ -40,7 +40,7 @@ const returnMoney = () => {
   if (balance === 0) return
   addLog("return", balance)
   resetBalance()
-  updateElement("product-price-display", 0)
+  updateElement(".product-price-display", 0)
 }
 
 // ===== 로그 로직 =====
@@ -77,7 +77,7 @@ const purchaseProduct = (productId, displayedBalance) => {
   if (displayedBalance >= price) {
     reduceBalance(price)
     updateElement(
-      "product-price-display",
+      ".product-price-display",
       convertCurrencyFormat(displayedBalance - price)
     )
     addLog("purchase", price, productId)
@@ -103,14 +103,14 @@ products.forEach(product => {
   liElement.addEventListener("mousedown", () => {
     if (balance === 0) {
       updateElement(
-        "product-price-display",
+        ".product-price-display",
         convertCurrencyFormat(product.price)
       )
     }
   })
 
   liElement.addEventListener("mouseup", () => {
-    if (balance === 0) updateElement("product-price-display", 0)
+    if (balance === 0) updateElement(".product-price-display", 0)
   })
 
   selectNode(".product-lists").appendChild(clone)
