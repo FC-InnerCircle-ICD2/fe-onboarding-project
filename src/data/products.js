@@ -9,9 +9,3 @@ export const PRODUCTS = [
   { id: 8, name: "핫세븐", price: 1900 },
   { id: 9, name: "커피우유", price: 1400 },
 ];
-
-export const VENDING_MACHINE_CONFIG = {
-  TITLE: "음료 자판기",
-  MONEY_PLACEHOLDER: "금액 입력",
-  LOG_TITLE: "작동 로그",
-};

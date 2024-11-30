@@ -23,8 +23,6 @@ body {
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: bold;
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -32,11 +30,13 @@ body {
 .content-wrapper {
   display: flex;
   gap: 1.5rem;
+  justify-content: center
 }
 
 .vending-body {
-  display: grid;
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .display-container {
@@ -107,6 +107,13 @@ body {
   gap: 1.5rem;
 }
 
+.control-container{
+  display:flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 350px;
+}
+
 .money-section {
   background: #f9fafb;
   padding: 1rem;
@@ -163,29 +170,29 @@ body {
 }
 
 .log-section {
-  flex: 1;
-  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  padding: 0.5rem 1rem 1rem 1rem;
   border-radius: 8px;
 }
 
-.log-title {
-  padding: 0.5rem;
-  background-color: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
-  font-weight: 500;
-  border-radius: 8px 8px 0 0;
+.log-title{
+  text-align: center;
+  margin-bottom: 0.1rem;
 }
 
 .log-container {
   height: 200px;
   overflow-y: auto;
+  background: white;
   padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
 }
 
 .log-entry {
+  margin: 0.5rem 0;
   font-size: 0.875rem;
-  color: #4b5563;
-  margin-bottom: 0.5rem;
+  color: #374151;
 }
 
 /* 반응형 스타일 */
@@ -196,6 +203,10 @@ body {
 
   .content-wrapper {
     flex-direction: column;
+  }
+
+  .control-container{
+    width: auto;
   }
 
   .control-panel {
