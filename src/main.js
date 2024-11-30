@@ -94,9 +94,9 @@ const handleGridEvent = (e) => {
 // 금액 처리 함수
 const handleMoneyInsert = (e) => {
   e.preventDefault();
-  const inputAmount = Number.parseInt(elements.moneyInput.value);
+  const inputAmount = elements.moneyInput.valueAsNumber;
 
-  if (!inputAmount || inputAmount <= 0) {
+  if (Number.isNaN(inputAmount) || inputAmount <= 0) {
     addLog('올바른 금액을 입력해주세요.');
     return;
   }
