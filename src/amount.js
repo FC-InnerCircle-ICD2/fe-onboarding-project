@@ -12,6 +12,8 @@ const changeAmount = amount => {
   }
 }
 
+const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
+
 const priceDisplay = document.querySelector("#product-price-display")
 
 const insertMoney = amount => {
@@ -24,7 +26,7 @@ const insertMoney = amount => {
   changeAmount(amount)
 
   // 잔액표시 화면변경
-  priceDisplay.innerHTML = balance.toLocaleString("ko-kr")
+  priceDisplay.innerHTML = convertCurrencyFormat(balance)
 
   // 로그 입력
   addLog("insert", amount)

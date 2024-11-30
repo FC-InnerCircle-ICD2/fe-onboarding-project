@@ -76,7 +76,7 @@
 
         const productPrice = createElement("div")
         productPrice.className = "product_price"
-        productPrice.textContent = product.price.toLocaleString("ko-kr")
+        productPrice.textContent = convertCurrencyFormat(product.price)
         liElement.append(productPrice)
 
         productContainer.appendChild(liElement)

@@ -3,13 +3,13 @@ const logLists = document.querySelector(".log-lists")
 const switchLogType = (type, amount, product_id) => {
   switch (type) {
     case "insert":
-      return `${parseInt(amount).toLocaleString("ko-kr")}원을 투입했습니다.`
+      return `${convertCurrencyFormat(amount)}원을 투입했습니다.`
     case "purchase":
       return `${
         products.find(product => product.id === product_id).name
       }을 구매했습니다.`
     case "return":
-      return `${parseInt(amount).toLocaleString("ko-kr")}원을 반환합니다.`
+      return `${convertCurrencyFormat(amount)}원을 반환합니다.`
   }
 }
 

@@ -5,7 +5,7 @@ const purchaseProduct = (product_id, displayed_balance) => {
   if (displayed_balance === 0) {
     // 잔액 0원시 1초간 상품금액 노출
     document.querySelector("#product-price-display").innerHTML =
-      price.toLocaleString("ko-kr")
+      convertCurrencyFormat(price)
 
     setTimeout(() => {
       document.querySelector("#product-price-display").innerHTML = 0
@@ -17,17 +17,14 @@ const purchaseProduct = (product_id, displayed_balance) => {
     changeAmount(price * -1)
 
     // 잔액표시 화면변경
-    document.querySelector("#product-price-display").innerHTML = parseInt(
-      displayed_balance - price
-    ).toLocaleString("ko-kr")
+    document.querySelector("#product-price-display").innerHTML =
+      convertCurrencyFormat(displayed_balance - price)
 
     // 로그 추가
     addLog("purchase", price, product_id)
   } else {
     alert(
-      `잔액이 ${parseInt(price - displayed_balance).toLocaleString(
-        "ko-kr"
-      )}원 부족합니다`
+      `잔액이 ${convertCurrencyFormat(price - displayed_balance)}원 부족합니다`
     )
   }
 }
