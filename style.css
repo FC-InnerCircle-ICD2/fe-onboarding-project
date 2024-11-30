@@ -73,7 +73,7 @@ button:active {
 }
 
 /* 투입금액 박스 */
-.input-display {
+#input-display {
     font-size: 24px;
     text-align: center;
     border: 1px solid #333;
