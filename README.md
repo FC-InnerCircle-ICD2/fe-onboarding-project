@@ -115,22 +115,22 @@ classDiagram
     }
 ```
 
-## 유저 플로우
+## 자판기 동작 로직
 
 ```mermaid
 sequenceDiagram
     participant User
     participant VendingMachine
-    participant BalanceManager
+    participant CurrentBalanceManager
     participant LogManager
 
     User->>VendingMachine: 금액 투입
-    VendingMachine->>BalanceManager: add(money)
+    VendingMachine->>CurrentBalanceManager: add(money)
     VendingMachine->>LogManager: add("[금액 투입] ₩xxx")
     
     User->>VendingMachine: 상품 선택
     alt 잔액 충분
-        VendingMachine->>BalanceManager: subtract(price)
+        VendingMachine->>CurrentBalanceManager: subtract(price)
         VendingMachine->>LogManager: add("[구매 성공] 상품명")
         Note over VendingMachine: 상품 제공
     else 잔액 부족
@@ -138,7 +138,7 @@ sequenceDiagram
     end
     
     User->>VendingMachine: 잔돈 반환
-    VendingMachine->>BalanceManager: returnChange()
+    VendingMachine->>CurrentBalanceManager: returnChange()
     VendingMachine->>LogManager: add("[잔액 반환] ₩xxx")
 ```
 
