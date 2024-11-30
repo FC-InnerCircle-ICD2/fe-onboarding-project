@@ -5,7 +5,7 @@ const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
 
 const selectNode = node => document.querySelector(`${node}`)
 
-const updateElement = (selector, value, type = "innerText") => {
+export const updateElement = (selector, value, type = "innerText") => {
   const element = document.querySelector(`${selector}`)
   switch (type) {
     case "innerText":
@@ -22,11 +22,11 @@ const updateElement = (selector, value, type = "innerText") => {
 }
 
 // ===== 금액 변동 로직 =====
-let balance = 0
+export let balance = 0
 
-const increaseBalance = amount => (balance += amount)
-const reduceBalance = amount => increaseBalance(amount * -1)
-const resetBalance = () => (balance = 0)
+export const increaseBalance = amount => (balance += amount)
+export const reduceBalance = amount => increaseBalance(amount * -1)
+export const resetBalance = () => (balance = 0)
 
 const insertMoney = amount => {
   if (isNaN(amount)) return
@@ -44,14 +44,14 @@ const returnMoney = () => {
 }
 
 // ===== 로그 로직 =====
-const switchLogType = (type, amount, productId) => {
+export const switchLogType = (type, amount, productId) => {
   switch (type) {
     case "insert":
       return `${convertCurrencyFormat(amount)}원을 투입했습니다.`
     case "purchase":
       return `${
         products.find(product => product.id === productId).name
-      }을 구매했습니다.`
+      }을(를) 구매했습니다.`
     case "return":
       return `${convertCurrencyFormat(amount)}원을 반환합니다.`
     case "insufficient":
@@ -72,17 +72,17 @@ const addLog = (type, amount, productId) => {
 const purchaseProduct = (productId, displayedBalance) => {
   if (displayedBalance === 0) return
 
-  const price = products.find(product => product.id === productId).price
+  const product = products.find(product => product.id === productId)
 
-  if (displayedBalance >= price) {
-    reduceBalance(price)
+  if (displayedBalance >= product.price) {
+    reduceBalance(product.price)
     updateElement(
       ".product-price-display",
-      convertCurrencyFormat(displayedBalance - price)
+      convertCurrencyFormat(displayedBalance - product.price)
     )
-    addLog("purchase", price, productId)
+    addLog("purchase", product.price, productId)
   } else {
-    addLog("insufficient", price - displayedBalance)
+    addLog("insufficient", product.price - displayedBalance)
   }
 }
 
