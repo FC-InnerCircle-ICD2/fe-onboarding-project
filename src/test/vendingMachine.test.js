@@ -1,9 +1,8 @@
 import "@testing-library/jest-dom";
-import { BALANCE_ARIA_LABELS } from "../constants/vendingMachine";
+import { beforeEach, describe } from "vitest";
 import CurrentBalanceManager from "../managers/CurrentBalanceManager";
 import LogManager from "../managers/LogManager";
 import { createVendingMachineDOM } from "./utils/testUtils";
-import { beforeEach, describe } from "vitest";
 
 describe("VendingMachine", () => {
   let testElements;
@@ -22,7 +21,7 @@ describe("VendingMachine", () => {
       displayPanel.textContent = balanceManager.getBalance().toLocaleString();
     };
 
-    // 투입 버튼 클릭 이벤트 핸들러 추가
+    // 투입 버튼 클릭 이벤트 핸들러 추가 (insertMoney 메서드 테스트)
     insertButton.addEventListener("click", () => {
       const parsedMoney = parseInt(input.value.replace(/,/g, ""));
       if (parsedMoney > 0) {
@@ -44,13 +43,38 @@ describe("VendingMachine", () => {
   });
 
   describe("잔액 투입(insertMoney) 테스트", () => {
-    it("input에 값을 입력하고 투입 버튼을 누르면 잔액이 입력한 금액만큼 증가하고, 3자리마다 쉼표가 추가되는 것을 확인", () => {
-      const { input, displayPanel, insertButton } = testElements;
-
+    // 1000원을 넣고 투입버튼을 클릭하여 돈을 넣고 시작
+    beforeEach(() => {
+      const { input, insertButton } = testElements;
       input.value = "1000";
+      insertButton.click();
+    });
+
+    it("input에 값을 입력하고 투입 버튼을 누르면 잔액이 입력한 금액만큼 증가, 3자리마다 쉼표가 추가되는 것을 확인", () => {
+      const { input, displayPanel } = testElements;
       input.dispatchEvent(new Event("input", { bubbles: true }));
+      expect(displayPanel).toHaveTextContent("1,000");
+    });
+
+    it("로그에 투입 내역이 추가되는 것을 확인", () => {
+      const { input } = testElements;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      expect(testElements.logManager.getLogs().at(-1)).toContain(
+        "[금액 투입] 1,000원"
+      );
+    });
+
+    it("input에 0원 이하의 값을 입력하면 잔액이 변경되지 않고, input이 0으로 초기화되는 것을 확인", () => {
+      const { input, displayPanel, insertButton } = testElements;
+      input.value = "-1000";
       insertButton.click();
       expect(displayPanel).toHaveTextContent("1,000");
+      expect(input.value).toBe("0");
+    });
+
+    it("금액을 투입하고 input에 포커스가 유지되는 것을 확인", () => {
+      const { input } = testElements;
+      expect(input).toHaveFocus();
     });
   });
 });
