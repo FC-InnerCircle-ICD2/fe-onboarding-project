@@ -96,10 +96,16 @@ button {
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  display: flex;
   gap: 1rem;
-  place-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-form {
+  display: flex;
+  /* align-items: center; */
+  gap: 1rem;
 }
 
 .coin-input {
@@ -132,6 +138,7 @@ button {
 }
 
 .coin-insert-button {
+  width: 100%;
   background: #ffb5c5;
   color: white;
 }

@@ -13,9 +13,17 @@
           <div class="product-buttons"></div>
         </section>
         <section class="coin-panel">
-          <input class="coin-input" type="number" />
-          <button class="coin-insert-button">투입</button>
-          <button class="coin-return-button">반환</button>
+          <form class="coin-form">
+            <input
+              type="number"
+              name="coin"
+              class="coin-input"
+              min="0"
+              required
+            />
+            <button type="submit" class="coin-insert-button">투입</button>
+            <button type="button" class="coin-return-button">반환</button>
+          </form>
         </section>
         <div class="log-window"></div>
       </main>
