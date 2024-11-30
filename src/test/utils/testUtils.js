@@ -29,12 +29,19 @@ export const createVendingMachineDOM = (id = 1) => {
     BALANCE_ARIA_LABELS.BALANCE_INSERT_BUTTON
   );
 
+  const returnButton = document.createElement("button");
+  returnButton.setAttribute(
+    "aria-label",
+    BALANCE_ARIA_LABELS.BALANCE_RETURN_BUTTON
+  );
+
   const logsPanel = document.createElement("div");
   logsPanel.setAttribute("aria-label", LOG_ARIA_LABELS.BALANCE_LOGS_PANEL);
 
   machine.appendChild(displayPanel);
   machine.appendChild(input);
   machine.appendChild(insertButton);
+  machine.appendChild(returnButton);
   machine.appendChild(logsPanel);
 
   return {
@@ -42,6 +49,7 @@ export const createVendingMachineDOM = (id = 1) => {
     displayPanel,
     input,
     insertButton,
+    returnButton,
     logsPanel,
   };
 };
