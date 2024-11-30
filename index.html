@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>지니의 자판기</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" type="text/css" href="src/style/index.css" />
+    <link rel="stylesheet" type="text/css" href="src/index.css" />
   </head>
 
   <body>
@@ -27,7 +27,7 @@
             <button
               type="button"
               class="button"
-              onclick="insertMoney(document.querySelector('#insert-input').value)"
+              onclick="insertMoney(document.querySelector('#insert-input').valueAsNumber)"
             >
               투입
             </button>
@@ -41,13 +41,13 @@
     </section>
 
     <!-- 상품 정의 -->
-    <script type="text/javascript" src="src/constants/products.js"></script>
+    <script type="text/javascript" src="src/products.js"></script>
     <!-- 금액 변동 로직 -->
-    <script type="text/javascript" src="src/js/amount.js"></script>
+    <script type="text/javascript" src="src/amount.js"></script>
     <!-- 상품 구매 로직 -->
-    <script type="text/javascript" src="src/js/purchase.js"></script>
+    <script type="text/javascript" src="src/purchase.js"></script>
     <!-- 로그 로직 -->
-    <script type="text/javascript" src="src/js/log.js"></script>
+    <script type="text/javascript" src="src/log.js"></script>
 
     <script>
       // 잔액
