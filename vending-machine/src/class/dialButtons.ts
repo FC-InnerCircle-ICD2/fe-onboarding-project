@@ -10,7 +10,7 @@ export class DialButtons implements UIElement {
     }
 
     getElement(): HTMLDivElement {
-        const btn = createElement<'div'>({ tagName: 'div', className: ['dial-item'] })
+        const btn = createElement({ tagName: 'div', className: ['dial-item'] })
         btn.setAttribute('role', 'button')
 
         btn.dataset.name = this.#item.name

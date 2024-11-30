@@ -3,7 +3,7 @@ export function createElement<T extends keyof HTMLElementTagNameMap>({
     id,
     className,
 }: {
-    tagName: keyof HTMLElementTagNameMap
+    tagName: T
     id?: string
     className?: string[]
 }): HTMLElementTagNameMap[T] {

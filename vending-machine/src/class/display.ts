@@ -3,7 +3,7 @@ import { createElement } from '../util/elementFactory'
 
 export class DisplayInput implements UIElement {
     getElement(): HTMLInputElement {
-        const input = createElement<'input'>({
+        const input = createElement({
             tagName: 'input',
             id: 'count-display',
             className: ['input', 'default-cursor', 'align-center'],

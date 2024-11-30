@@ -10,7 +10,7 @@ export class InsertButton implements UIElement {
     }
 
     getElement(): HTMLButtonElement {
-        const button = createElement<'button'>({ tagName: 'button', className: ['insert-coin', 'button'] })
+        const button = createElement({ tagName: 'button', className: ['insert-coin', 'button'] })
 
         button.innerText = '투입'
         button.addEventListener('click', () => {

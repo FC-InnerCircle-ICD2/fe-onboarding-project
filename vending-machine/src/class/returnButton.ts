@@ -10,7 +10,7 @@ export class ReturnButton implements UIElement {
     }
 
     getElement(): HTMLButtonElement {
-        const button = createElement<'button'>({ tagName: 'button', className: ['return-coin', 'button'] })
+        const button = createElement({ tagName: 'button', className: ['return-coin', 'button'] })
         button.innerText = '반환'
 
         button.addEventListener('click', () => {
