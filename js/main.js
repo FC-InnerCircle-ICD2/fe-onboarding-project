@@ -4,44 +4,47 @@ let totalAmount = 0;
 
 init();
 
-function init() {
-    fetch('./data/products.json')
-        .then(response => response.json())
-        .then(data => {
-            products = data;
+async function init() {
+    try {
+        const response = await fetch('./data/products.json');
+        const data = await response.json();
+        products = data;
+        setProducts(products);
+        setupProductListEvents();
+        setupAmountButtonEvents();
+    } catch (error) {
+        console.error('Error loading products:', error);
+    }
+}
 
-            const productsList = document.getElementById('products-list');
+function setProducts(products) {
+    const productsList = document.getElementById('products-list');
 
-            products.forEach(product => {
-                const buttonWrapper = document.createElement('div');
-                buttonWrapper.classList.add('col', 's4');
+    products.forEach(product => {
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.classList.add('col', 's4');
 
-                const button = document.createElement('button');
-                button.classList.add('btn', 'product');
-                button.setAttribute('data-price', product.price);
-                button.textContent = product.name;
+        const button = document.createElement('button');
+        button.classList.add('btn', 'product');
+        button.setAttribute('data-price', product.price);
+        button.textContent = product.name;
 
-                const lineBreak = document.createElement('br'); // <br> 태그 생성
-                button.appendChild(lineBreak);
+        const lineBreak = document.createElement('br'); // <br> 태그 생성
+        button.appendChild(lineBreak);
 
-                const priceSpan = document.createElement('span');
-                priceSpan.textContent = `${product.price.toLocaleString()}원`;
-                button.appendChild(priceSpan);
+        const priceSpan = document.createElement('span');
+        priceSpan.textContent = `${product.price.toLocaleString()}원`;
+        button.appendChild(priceSpan);
 
-                buttonWrapper.appendChild(button);
-                productsList.appendChild(buttonWrapper);
-            });
-
-            productEventHandler(productsList);
-            setupAmountButtonEvents();
-
-        })
-        .catch(error => console.error('Error loading products:', error));
+        buttonWrapper.appendChild(button);
+        productsList.appendChild(buttonWrapper);
+    });
 }
 
 // 이벤트 위임
-function productEventHandler(productsList) {
-            
+function setupProductListEvents() {
+    const productsList = document.getElementById('products-list');
+
     productsList.addEventListener('mousedown', (event) => {
         const button = event.target;
         if (button.classList.contains('product')) {
