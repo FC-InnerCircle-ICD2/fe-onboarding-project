@@ -18,6 +18,12 @@
         />
         <p class="product-price-display">0</p>
         <ul class="product-lists"></ul>
+        <template class="product-template">
+          <li class="product">
+            <div class="product-name"></div>
+            <div class="product-price"></div>
+          </li>
+        </template>
       </div>
 
       <div class="amount-container">
@@ -29,6 +35,9 @@
           </form>
         </div>
         <ul class="log-lists"></ul>
+        <template class="log-template">
+          <li class="log ellipsis"></li>
+        </template>
       </div>
     </section>
 
@@ -44,47 +53,30 @@
     <script type="text/javascript" src="src/log.js"></script>
 
     <script>
-      // 잔액
       let balance = 0
 
-      // DOM 요소 생성 함수
-      const createElement = element => {
-        return document.createElement(element)
-      }
+      products.forEach(product => {
+        const clone = selectNode(".product-template").content.cloneNode(true)
+        const liElement = clone.querySelector(".product")
+        const productName = clone.querySelector(".product-name")
+        const productPrice = clone.querySelector(".product-price")
 
-      // 상품 컨테이너 정의
-      const productContainer = document.querySelector(".product-lists")
+        productName.innerText = product.name
+        productPrice.innerText = convertCurrencyFormat(product.price)
 
-      // 상품 리스트 DOM에 렌더링
-      products.map(product => {
-        const liElement = createElement("li")
         liElement.addEventListener("click", () =>
           purchaseProduct(product.id, balance)
         )
-        liElement.className = "product"
 
-        const productName = createElement("div")
-        productName.className = "product_name"
-        productName.textContent = product.name
-        liElement.append(productName)
-
-        const productPrice = createElement("div")
-        productPrice.className = "product_price"
-        productPrice.textContent = convertCurrencyFormat(product.price)
-        liElement.append(productPrice)
-
-        productContainer.appendChild(liElement)
+        selectNode(".product-lists").appendChild(clone)
       })
 
-      document.querySelector(".insert-money").addEventListener("click", () => {
-        const insertInputValue =
-          document.querySelector(".insert-input").valueAsNumber
+      selectNode(".insert-money").addEventListener("click", () => {
+        const insertInputValue = selectNode(".insert-input").valueAsNumber
         insertMoney(insertInputValue)
       })
 
-      document
-        .querySelector(".return-money")
-        .addEventListener("click", returnMoney)
+      selectNode(".return-money").addEventListener("click", returnMoney)
     </script>
   </body>
 </html>

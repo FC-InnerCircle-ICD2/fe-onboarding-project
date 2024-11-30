@@ -16,10 +16,11 @@ const switchLogType = (type, amount, productId) => {
 }
 
 const addLog = (type, amount, productId) => {
-  const logList = createElement("li")
+  const clone = selectNode(".log-template").content.cloneNode(true)
+  const logList = clone.querySelector(".log")
   logList.textContent = switchLogType(type, amount, productId)
-  logList.className = "log ellipsis"
 
-  logLists.appendChild(logList)
+  const logLists = selectNode(".log-lists")
+  logLists.appendChild(clone)
   logLists.scrollTop = logLists.scrollHeight
 }

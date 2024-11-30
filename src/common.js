@@ -1,5 +1,9 @@
 const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
 
+const selectNode = node => {
+  return document.querySelector(`${node}`)
+}
+
 const updateElement = (className, value, type = "innerText") => {
   const element = document.querySelector(`.${className}`)
 

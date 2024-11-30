@@ -50,34 +50,6 @@ li {
   margin: 0 auto;
 }
 
-/* .product {
-  border: 1px solid black;
-  width: 90px;
-  height: 90px;
-  font-size: 12px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.product:hover {
-  background-color: #f0f0f0;
-  border-color: #36454f;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
-  transition: all 0.3s ease;
-}
-
-.product:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  background-color: #e6e6e6;
-  transition: transform 0.1s ease;
-} */
-
 .product,
 .button {
   border: none;
@@ -85,7 +57,6 @@ li {
   width: 90px;
   height: 90px;
   font-size: 12px;
-  font-weight: 700;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -103,6 +74,11 @@ li {
 .product:active,
 .button:active {
   box-shadow: inset 4px 4px 8px #c5c5c5, inset -4px -4px 8px #ffffff;
+}
+
+.product-price {
+  font-weight: 700;
+  font-size: 16px;
 }
 
 /* ========= 우측 가격부 ========= */
@@ -135,6 +111,7 @@ li {
 
 .log {
   font-size: 18px;
+  font-weight: 300;
 }
 
 .log-lists {
