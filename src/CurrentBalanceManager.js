@@ -1,4 +1,4 @@
-class CurrentBalance {
+class CurrentBalanceManager {
   constructor() {
     this.balance = 0;
   }
@@ -39,4 +39,4 @@ class CurrentBalance {
   }
 }
 
-export default CurrentBalance;
+export default CurrentBalanceManager;

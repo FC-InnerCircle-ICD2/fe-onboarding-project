@@ -1,4 +1,4 @@
-import CurrentBalance from "./CurrentBalance";
+import CurrentBalanceManager from "./CurrentBalanceManager";
 import LogManager from "./LogManager";
 import ProductButtonManager from "./ProductButtonManager";
 
@@ -16,8 +16,8 @@ class VendingMachine {
   constructor(machineId, products) {
     /** @type {HTMLElement} */
     this.machineEl = document.querySelector(`#${machineId}`);
-    /** @type {CurrentBalance} */
-    this.currentBalance = new CurrentBalance();
+    /** @type {CurrentBalanceManager} */
+    this.currentBalance = new CurrentBalanceManager();
     /** @type {string} */
     this.insertedMoney = "0";
     /** @type {LogManager} */
