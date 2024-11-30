@@ -14,7 +14,7 @@ class VendingMachine {
   /** @type {HTMLInputElement} */
   #insertedMoneyInputEl;
   /** @type {CurrentBalanceManager} */
-  #currentBalance;
+  #currentBalanceManager;
   /** @type {LogManager} */
   #logManager;
   /** @type {ProductButtonManager} */
@@ -29,7 +29,7 @@ class VendingMachine {
     this.#insertedMoneyInputEl = this.#machineEl.querySelector(
       '[aria-label="투입 금액"]'
     );
-    this.#currentBalance = new CurrentBalanceManager();
+    this.#currentBalanceManager = new CurrentBalanceManager();
     this.#logManager = new LogManager(this.#machineEl);
     this.#productButtonManager = new ProductButtonManager(
       this.#machineEl,
@@ -37,7 +37,7 @@ class VendingMachine {
       {
         onBuyProduct: this.#buyProduct.bind(this),
         onProductMouseDown: (price) => {
-          if (!this.#currentBalance.canAfford(price)) {
+          if (!this.#currentBalanceManager.canAfford(price)) {
             this.#updateBalanceDisplay(price);
           }
         },
@@ -52,7 +52,7 @@ class VendingMachine {
     const moneyWithComma = this.#insertedMoneyInputEl.value;
     const parsedMoney = parseInt(moneyWithComma.replace(/,/g, ""));
     if (parsedMoney > 0) {
-      this.#currentBalance.add(parsedMoney);
+      this.#currentBalanceManager.add(parsedMoney);
       this.#logManager.add(`[금액 투입] ${parsedMoney.toLocaleString()}원`);
     }
     this.#insertedMoneyInputEl.value = "0";
@@ -61,7 +61,7 @@ class VendingMachine {
   }
 
   #returnChange() {
-    const returnedChange = this.#currentBalance.returnChange();
+    const returnedChange = this.#currentBalanceManager.returnChange();
     if (returnedChange === 0) return;
     this.#logManager.add(`[잔액 반환] ${returnedChange.toLocaleString()}원`);
     this.#updateBalanceDisplay();
@@ -71,7 +71,9 @@ class VendingMachine {
    * 현재 잔액을 화면에 표시
    * @param {number} [displayMoney]
    */
-  #updateBalanceDisplay(displayMoney = this.#currentBalance.getBalance()) {
+  #updateBalanceDisplay(
+    displayMoney = this.#currentBalanceManager.getBalance()
+  ) {
     const balanceBoardEl = this.#machineEl.querySelector(
       '[aria-label="금액 표시판"]'
     );
@@ -83,17 +85,17 @@ class VendingMachine {
    * @param {Product} product
    */
   #buyProduct(product) {
-    if (this.#currentBalance.canAfford(product.price)) {
-      this.#currentBalance.subtract(product.price);
+    if (this.#currentBalanceManager.canAfford(product.price)) {
+      this.#currentBalanceManager.subtract(product.price);
       this.#logManager.add(
-        `[구매 성공] ${product.name} (잔액 ${this.#currentBalance
+        `[구매 성공] ${product.name} (잔액 ${this.#currentBalanceManager
           .getBalance()
           .toLocaleString()}원)`
       );
       this.#updateBalanceDisplay();
     } else {
       this.#logManager.add(
-        `[구매 실패] ${product.name} (${this.#currentBalance
+        `[구매 실패] ${product.name} (${this.#currentBalanceManager
           .getNeededMoney(product.price)
           .toLocaleString()}원 부족)`
       );
