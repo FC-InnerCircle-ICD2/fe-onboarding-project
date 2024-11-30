@@ -1,5 +1,5 @@
-import "./style.css";
-import { PRODUCTS } from "./data/products.js";
+import './style.css';
+import { PRODUCTS } from './data/products.js';
 
 // 상태 관리
 const state = {
@@ -17,7 +17,7 @@ const elements = {
 
 // 유틸리티 함수
 const formatNumber = (number) => {
-  return number.toLocaleString("ko-KR");
+  return number.toLocaleString('ko-KR');
 };
 
 const scrollToBottom = (element) => {
@@ -35,8 +35,8 @@ const updateBalance = () => {
 };
 
 const addLog = (message) => {
-  const logEntry = document.createElement("p");
-  logEntry.className = "log-entry";
+  const logEntry = document.createElement('p');
+  logEntry.className = 'log-entry';
   logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
   elements.logContainer.appendChild(logEntry);
   scrollToBottom(elements.logContainer);
@@ -48,27 +48,25 @@ const handleProductPurchase = (product) => {
     addLog(
       `잔액이 부족합니다. (필요금액: ${formatNumber(
         product.price - state.currentMoney
-      )}원)`,
+      )}원)`
     );
     return;
   }
 
   state.currentMoney -= product.price;
   updateBalance();
-  addLog(
-    `${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`,
-  );
+  addLog(`${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`);
 };
 
 // 상품 그리드 초기화
 const initializeProductGrid = () => {
   PRODUCTS.forEach((product) => {
-    const button = document.createElement("button");
-    button.className = "product-button";
-    const nameSpan = document.createElement("span");
-    nameSpan.className = "product-name";
-    const priceSpan = document.createElement("span");
-    priceSpan.className = "product-price";
+    const button = document.createElement('button');
+    button.className = 'product-button';
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'product-name';
+    const priceSpan = document.createElement('span');
+    priceSpan.className = 'product-price';
 
     nameSpan.textContent = product.name;
     priceSpan.textContent = `${formatNumber(product.price)}원`;
@@ -82,20 +80,20 @@ const initializeProductGrid = () => {
 
 // 이벤트 핸들러
 const handleGridEvent = (e) => {
-  const target = e.target.closest(".product-button");
+  const target = e.target.closest('.product-button');
   if (!target) return;
 
-  const productId = parseInt(target.dataset.productId);
+  const productId = Number.parseInt(target.dataset.productId);
   const product = PRODUCTS.find((product) => product.id === productId);
 
   switch (e.type) {
-    case "click":
+    case 'click':
       handleProductPurchase(product);
       break;
-    case "mouseover":
+    case 'mouseover':
       updateDisplayAmount(product.price);
       break;
-    case "mouseout":
+    case 'mouseout':
       updateDisplayAmount(state.currentMoney);
       break;
   }
@@ -103,15 +101,15 @@ const handleGridEvent = (e) => {
 
 // 금액 처리 함수
 const handleMoneyInsert = () => {
-  const inputAmount = parseInt(elements.moneyInput.value);
+  const inputAmount = Number.parseInt(elements.moneyInput.value);
 
   if (!inputAmount || inputAmount <= 0) {
-    addLog("올바른 금액을 입력해주세요.");
+    addLog('올바른 금액을 입력해주세요.');
     return;
   }
 
   if (inputAmount > 100000000) {
-    addLog("1억원 이상은 투입할 수 없습니다.");
+    addLog('1억원 이상은 투입할 수 없습니다.');
     return;
   }
 
@@ -120,7 +118,7 @@ const handleMoneyInsert = () => {
   updateBalance();
   console.log(state.currentMoney);
   addLog(`${formatNumber(inputAmount)}원이 투입되었습니다.`);
-  elements.moneyInput.value = "";
+  elements.moneyInput.value = '';
 };
 
 const handleMoneyReturn = () => {
@@ -132,23 +130,23 @@ const handleMoneyReturn = () => {
 };
 
 const handleInputValidation = (e) => {
-  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+  e.target.value = e.target.value.replace(/[^0-9]/g, '');
 };
 
 // 이벤트 리스너 설정
 const initializeEventListeners = () => {
-  elements.productGrid.addEventListener("click", handleGridEvent);
-  elements.productGrid.addEventListener("mouseover", handleGridEvent);
-  elements.productGrid.addEventListener("mouseout", handleGridEvent);
+  elements.productGrid.addEventListener('click', handleGridEvent);
+  elements.productGrid.addEventListener('mouseover', handleGridEvent);
+  elements.productGrid.addEventListener('mouseout', handleGridEvent);
 
   const insertButton = document.querySelector('.button-insert');
   const returnButton = document.querySelector('.button-return');
 
-  insertButton.addEventListener("click", handleMoneyInsert);
-  returnButton.addEventListener("click", handleMoneyReturn);
-  elements.moneyInput.addEventListener("input", handleInputValidation);
-  elements.moneyInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") handleMoneyInsert();
+  insertButton.addEventListener('click', handleMoneyInsert);
+  returnButton.addEventListener('click', handleMoneyReturn);
+  elements.moneyInput.addEventListener('input', handleInputValidation);
+  elements.moneyInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleMoneyInsert();
   });
 };
 
