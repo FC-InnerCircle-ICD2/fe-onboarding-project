@@ -11,6 +11,7 @@ const state = {
 const elements = {
   moneyDisplay: document.querySelector('.money-display'),
   moneyInput: document.querySelector('.money-input'),
+  inputContainer: document.querySelector('.input-container'),
   logContainer: document.querySelector('.log-container'),
   productGrid: document.querySelector('.product-grid'),
 };
@@ -93,7 +94,8 @@ const handleGridEvent = (e) => {
 };
 
 // 금액 처리 함수
-const handleMoneyInsert = () => {
+const handleMoneyInsert = (e) => {
+  e.preventDefault();
   const inputAmount = Number.parseInt(elements.moneyInput.value);
 
   if (!inputAmount || inputAmount <= 0) {
@@ -108,7 +110,6 @@ const handleMoneyInsert = () => {
 
   state.currentMoney += inputAmount;
   updateDisplayAmount(state.currentMoney);
-  console.log(state.currentMoney);
   addLog(`${formatNumber(inputAmount)}원이 투입되었습니다.`);
   elements.moneyInput.value = '';
 };
@@ -129,15 +130,10 @@ const initializeEventListeners = () => {
   elements.productGrid.addEventListener('click', handleGridEvent);
   elements.productGrid.addEventListener('mouseout', handleGridEvent);
 
-  const insertButton = document.querySelector('.button-insert');
+  elements.inputContainer.addEventListener('submit', handleMoneyInsert);
   const returnButton = document.querySelector('.button-return');
-
-  insertButton.addEventListener('click', handleMoneyInsert);
   returnButton.addEventListener('click', handleMoneyReturn);
   elements.moneyInput.addEventListener('input', handleInputValidation);
-  elements.moneyInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleMoneyInsert();
-  });
 };
 
 // 초기화
