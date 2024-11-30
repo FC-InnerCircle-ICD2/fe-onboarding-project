@@ -1,8 +1,9 @@
 import type { TCoinManager } from '../../entities/coin/model';
 import { insertCoin } from '../../features/coin/insertCoin';
 import { returnCoin } from '../../features/coin/returnCoin';
-import { updateProductWindow } from '../../features/products/updateProductWindow';
+import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
+import { updateDisplay } from '../../shared/updateDisplay';
 
 type TInitializeCoinProps = {
   coinManager: TCoinManager;
@@ -35,15 +36,13 @@ export const initializeCoinForm = ({
 
     formElement.reset();
 
-    const currentBalance = coinManager.getCoin();
-    updateProductWindow(window, currentBalance);
+      updateDisplay(window, formatCurrency(currentBalance));
   });
 
   returnButton!.addEventListener('click', () => {
     returnCoin(coinManager, logService);
 
     const currentBalance = coinManager.getCoin();
-
-    updateProductWindow(window, currentBalance);
+    updateDisplay(window, formatCurrency(currentBalance));
   });
 };

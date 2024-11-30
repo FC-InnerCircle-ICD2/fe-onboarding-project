@@ -5,9 +5,9 @@ import {
   products,
 } from '../../entities/products/model';
 import { purchaseProduct } from '../../features/products/purchaseProduct';
-import { updateProductWindow } from '../../features/products/updateProductWindow';
 import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
+import { updateDisplay } from '../../shared/updateDisplay';
 
 export const createProductButton = (product: TProduct) => {
   const button = document.createElement('button');
@@ -42,8 +42,6 @@ export const initializeProductButtons = ({
     createProductButton(product),
   );
 
-  if (!buttons) return;
-
   buttons.append(...productButtons);
 
   buttons.addEventListener('click', (event: MouseEvent) => {
@@ -60,8 +58,7 @@ export const initializeProductButtons = ({
 
     if (purchaseResponse.ok) {
       const currentCoin = coinManager.getCoin();
-
-      updateProductWindow(window, currentCoin);
+      updateDisplay(window, formatCurrency(currentCoin));
     }
   });
 
@@ -70,12 +67,12 @@ export const initializeProductButtons = ({
 
     if (!product) return;
 
-    updateProductWindow(window, product.price);
+    updateDisplay(window, formatCurrency(product.price));
   });
 
   buttons.addEventListener('mouseleave', () => {
     const currentBalance = coinManager.getCoin();
-    updateProductWindow(window, currentBalance);
+    updateDisplay(window, formatCurrency(currentBalance));
   });
 };
 

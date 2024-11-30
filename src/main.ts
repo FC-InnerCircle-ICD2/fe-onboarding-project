@@ -1,7 +1,8 @@
 import { createCoinManager } from './entities/coin/model';
 import { createProductManager } from './entities/products/model';
-import { updateProductWindow } from './features/products/updateProductWindow';
+import { formatCurrency } from './shared/currency';
 import { LogService } from './shared/log';
+import { updateDisplay } from './shared/updateDisplay';
 import { initializeCoinForm } from './widgets/coin/coinForm';
 import { initializeProductButtons } from './widgets/products/productButtons';
 
@@ -24,7 +25,7 @@ const coinManager = createCoinManager();
 const logService = new LogService(logWindowElement!);
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateProductWindow(productWindowElement!, 0);
+  updateDisplay(productWindowElement!, formatCurrency(0));
 
   initializeProductButtons({
     productManager,
