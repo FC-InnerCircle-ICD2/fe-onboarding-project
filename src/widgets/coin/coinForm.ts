@@ -4,18 +4,22 @@ import { returnCoin } from '../../features/coin/returnCoin';
 import { updateProductWindow } from '../../features/products/updateProductWindow';
 import { LogService } from '../../shared/log';
 
-const productWindowElement =
-  document.querySelector<HTMLDivElement>('.product-window');
-const coinFormElement = document.querySelector<HTMLFormElement>('.coin-form');
-const coinReturnButtonElement = document.querySelector<HTMLButtonElement>(
-  '.coin-return-button',
-);
+type TInitializeCoinProps = {
+  coinManager: TCoinManager;
+  logService: LogService;
+  elements: {
+    form: HTMLFormElement;
+    returnButton: HTMLButtonElement;
+    window: HTMLDivElement;
+  };
+};
 
-export const initializeCoinForm = (
-  coinManager: TCoinManager,
-  logService: LogService,
-) => {
-  coinFormElement!.addEventListener('submit', (event: SubmitEvent) => {
+export const initializeCoinForm = ({
+  coinManager,
+  logService,
+  elements: { form, returnButton, window },
+}: TInitializeCoinProps) => {
+  form.addEventListener('submit', (event: SubmitEvent) => {
     event.preventDefault();
 
     const formElement = event.target as HTMLFormElement;
@@ -32,14 +36,14 @@ export const initializeCoinForm = (
     formElement.reset();
 
     const currentBalance = coinManager.getCoin();
-    updateProductWindow(productWindowElement!, currentBalance);
+    updateProductWindow(window, currentBalance);
   });
 
-  coinReturnButtonElement!.addEventListener('click', () => {
+  returnButton!.addEventListener('click', () => {
     returnCoin(coinManager, logService);
 
     const currentBalance = coinManager.getCoin();
 
-    updateProductWindow(productWindowElement!, currentBalance);
+    updateProductWindow(window, currentBalance);
   });
 };

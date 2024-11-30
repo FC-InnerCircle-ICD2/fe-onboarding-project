@@ -9,11 +9,6 @@ import { updateProductWindow } from '../../features/products/updateProductWindow
 import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
 
-const productButtonsElement =
-  document.querySelector<HTMLDivElement>('.product-buttons');
-const productWindowElement =
-  document.querySelector<HTMLDivElement>('.product-window');
-
 export const createProductButton = (product: TProduct) => {
   const button = document.createElement('button');
 
@@ -27,20 +22,31 @@ export const createProductButton = (product: TProduct) => {
   return button;
 };
 
-export const initializeProductButtons = (
-  productManager: TProductManger,
-  coinManager: TCoinManager,
-  logService: LogService,
-) => {
+type TInitializeProductProps = {
+  productManager: TProductManger;
+  coinManager: TCoinManager;
+  logService: LogService;
+  elements: {
+    buttons: HTMLDivElement;
+    window: HTMLDivElement;
+  };
+};
+
+export const initializeProductButtons = ({
+  productManager,
+  coinManager,
+  logService,
+  elements: { buttons, window },
+}: TInitializeProductProps) => {
   const productButtons = products.map((product) =>
     createProductButton(product),
   );
 
-  if (!productButtonsElement) return;
+  if (!buttons) return;
 
-  productButtonsElement.append(...productButtons);
+  buttons.append(...productButtons);
 
-  productButtonsElement.addEventListener('click', (event: MouseEvent) => {
+  buttons.addEventListener('click', (event: MouseEvent) => {
     const product = findClickedProduct(event);
 
     if (!product) return;
@@ -55,21 +61,21 @@ export const initializeProductButtons = (
     if (purchaseResponse.ok) {
       const currentCoin = coinManager.getCoin();
 
-      updateProductWindow(productWindowElement!, currentCoin);
+      updateProductWindow(window, currentCoin);
     }
   });
 
-  productButtonsElement.addEventListener('mousedown', (event) => {
+  buttons.addEventListener('mousedown', (event) => {
     const product = findClickedProduct(event);
 
     if (!product) return;
 
-    updateProductWindow(productWindowElement!, product.price);
+    updateProductWindow(window, product.price);
   });
 
-  productButtonsElement.addEventListener('mouseleave', () => {
+  buttons.addEventListener('mouseleave', () => {
     const currentBalance = coinManager.getCoin();
-    updateProductWindow(productWindowElement!, currentBalance);
+    updateProductWindow(window, currentBalance);
   });
 };
 

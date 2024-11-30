@@ -7,9 +7,17 @@ import { initializeProductButtons } from './widgets/products/productButtons';
 
 import './style.css';
 
-const logWindowElement = document.querySelector<HTMLDivElement>('.log-window');
 const productWindowElement =
   document.querySelector<HTMLDivElement>('.product-window');
+const productButtonsElement =
+  document.querySelector<HTMLDivElement>('.product-buttons');
+
+const coinFormElement = document.querySelector<HTMLFormElement>('.coin-form');
+const coinReturnButtonElement = document.querySelector<HTMLButtonElement>(
+  '.coin-return-button',
+);
+
+const logWindowElement = document.querySelector<HTMLDivElement>('.log-window');
 
 const productManager = createProductManager();
 const coinManager = createCoinManager();
@@ -17,6 +25,24 @@ const logService = new LogService(logWindowElement!);
 
 document.addEventListener('DOMContentLoaded', () => {
   updateProductWindow(productWindowElement!, 0);
-  initializeProductButtons(productManager, coinManager, logService);
-  initializeCoinForm(coinManager, logService);
+
+  initializeProductButtons({
+    productManager,
+    coinManager,
+    logService,
+    elements: {
+      buttons: productButtonsElement!,
+      window: productWindowElement!,
+    },
+  });
+
+  initializeCoinForm({
+    coinManager,
+    logService,
+    elements: {
+      form: coinFormElement!,
+      returnButton: coinReturnButtonElement!,
+      window: productWindowElement!,
+    },
+  });
 });
