@@ -30,13 +30,12 @@ body {
 .content-wrapper {
   display: flex;
   gap: 1.5rem;
-  justify-content: center
+  justify-content: center;
 }
 
 .vending-body {
   display: flex;
   flex-direction: column;
-
 }
 
 .display-container {
@@ -107,8 +106,8 @@ body {
   gap: 1.5rem;
 }
 
-.control-container{
-  display:flex;
+.control-container {
+  display: flex;
   flex-direction: column;
   gap: 1.5rem;
   width: 350px;
@@ -175,7 +174,7 @@ body {
   border-radius: 8px;
 }
 
-.log-title{
+.log-title {
   text-align: center;
   margin-bottom: 0.1rem;
 }
@@ -205,7 +204,7 @@ body {
     flex-direction: column;
   }
 
-  .control-container{
+  .control-container {
     width: auto;
   }
 
