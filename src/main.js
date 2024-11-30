@@ -107,6 +107,11 @@ const handleMoneyInsert = (e) => {
     return;
   }
 
+  if (state.currentMoney + inputAmount > 100000000) {
+    addLog('1억원 이상은 투입할 수 없습니다.');
+    return;
+  }
+
   state.currentMoney += inputAmount;
   updateDisplayAmount(state.currentMoney);
   addLog(`${formatNumber(inputAmount)}원이 투입되었습니다.`);
