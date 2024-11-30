@@ -1,30 +1,24 @@
-const purchaseProduct = (product_id, displayed_balance) => {
+const purchaseProduct = (productId, displayedBalance) => {
   // 상품정의에서 해당 상품의 금액 불러오기
-  const price = products.find(product => product.id === product_id).price
+  const price = products.find(product => product.id === productId).price
 
-  if (displayed_balance === 0) {
-    // 잔액 0원시 1초간 상품금액 노출
-    document.querySelector("#product-price-display").innerHTML =
-      convertCurrencyFormat(price)
+  if (displayedBalance === 0) {
+    // TODO: 명세 분석 다시할것
+    updateElement("product-price-display", convertCurrencyFormat(price))
 
     setTimeout(() => {
-      document.querySelector("#product-price-display").innerHTML = 0
+      updateElement("product-price-display", 0)
     }, 1000)
-  } else if (displayed_balance >= price) {
-    // 상품 구매 = 잔액변동 + 화면변경 + 로그 추가
+  } else if (displayedBalance >= price) {
+    reduceBalance(price)
 
-    // 잔액 변동
-    changeAmount(price * -1)
-
-    // 잔액표시 화면변경
-    document.querySelector(".product-price-display").innerHTML =
-      convertCurrencyFormat(displayed_balance - price)
-
-    // 로그 추가
-    addLog("purchase", price, product_id)
-  } else {
-    alert(
-      `잔액이 ${convertCurrencyFormat(price - displayed_balance)}원 부족합니다`
+    updateElement(
+      "product-price-display",
+      convertCurrencyFormat(displayedBalance - price)
     )
+
+    addLog("purchase", price, productId)
+  } else {
+    addLog("insufficient", price - displayedBalance)
   }
 }

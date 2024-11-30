@@ -5,11 +5,11 @@ const resetBalance = () => (balance = 0)
 const insertMoney = amount => {
   if (isNaN(amount)) return
 
-  innerText("insert-input", "")
-
   increaseBalance(amount)
 
-  innerText("product-price-display", convertCurrencyFormat(balance))
+  updateElement("insert-input", "", "value")
+
+  updateElement("product-price-display", convertCurrencyFormat(balance))
 
   addLog("insert", amount)
 }
@@ -22,5 +22,5 @@ const returnMoney = () => {
 
   resetBalance(0)
 
-  innerText("product-price-display", 0)
+  updateElement("product-price-display", 0)
 }

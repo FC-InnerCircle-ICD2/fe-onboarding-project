@@ -1,4 +1,18 @@
 const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
 
-const innerText = (className, text) =>
-  (document.querySelector(`.${className}`).innerText = text)
+const updateElement = (className, value, type = "innerText") => {
+  const element = document.querySelector(`.${className}`)
+
+  switch (type) {
+    case "innerText":
+      element.innerText = value
+      break
+    case "value":
+      if ("value" in element) {
+        element.value = value
+      }
+      break
+    default:
+      return
+  }
+}
