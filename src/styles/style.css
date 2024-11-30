@@ -1,0 +1,206 @@
+:root {
+  /* color */
+  --gray50: #f9fafb;
+  --gray100: #f3f4f6;
+  --gray200: #e5e7eb;
+  --gray300: #d1d5db;
+  --gray400: #9ca3af;
+  --gray500: #6b7280;
+  --gray600: #4b5563;
+  --gray700: #374151;
+  --gray800: #1f2937;
+  --gray900: #111827;
+  --gray950: #030712;
+
+  --container-width: 960px;
+  --border: 1px solid var(--gray800);
+  --safe-mobile-padding-inline: 16px;
+
+  --form-height: 48px;
+}
+.container {
+  width: min(100%, var(--container-width));
+  margin-inline: auto;
+  padding-inline: var(--safe-mobile-padding-inline);
+  padding-block: 100px;
+  /* background-color: var(--gray100); */
+}
+
+.container h1 {
+  text-align: center;
+  padding-bottom: 50px;
+  font-size: 4rem;
+}
+.vendingMachine {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.product_container {
+  border-radius: 8px;
+  border: var(--border);
+  padding: 16px;
+}
+#priceDisplay {
+  font-size: 26px;
+  border-radius: 6px;
+  border: var(--border);
+  text-align: center;
+  padding: 8px;
+}
+
+#productGroup {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
+  gap: 1.2rem;
+  padding-block-start: 20px;
+}
+
+/* 자판기 버튼 클래스 */
+.vendingMachine_product_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 4px;
+  border: var(--border);
+  background-color: var(--gray300);
+  gap: 0.4rem;
+  padding: 2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* 자판기 버튼 클래스 - 물품 이름 */
+.vendingMachine_product_item_name {
+  color: var(--gray800);
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+/* 자판기 버튼 클래스 - 물품 가격 */
+.vendingMachine_product_item_price {
+  color: var(--gray800);
+  font-size: 1.5rem;
+}
+
+/* 자판기 버튼 disabled 상태 스타일 */
+.vendingMachine_product_item:disabled {
+  border-color: var(--gray300);
+  background-color: var(--gray100);
+  cursor: not-allowed;
+}
+.vendingMachine_product_item:disabled .vendingMachine_product_item_name,
+.vendingMachine_product_item:disabled .vendingMachine_product_item_price {
+  color: var(--gray300);
+}
+/* 자판기 버튼 hover 상태 스타일 */
+.vendingMachine_product_item:not(:disabled):hover {
+  border-color: var(--gray900);
+  background-color: var(--gray400);
+}
+.vendingMachine_product_item:not(:disabled):hover
+  .vendingMachine_product_item_name,
+.vendingMachine_product_item:not(:disabled):hover
+  .vendingMachine_product_item_price {
+  color: var(--gray900);
+}
+
+/* 자판기 버튼 active 상태 스타일 */
+.vendingMachine_product_item:not(:disabled):active {
+  scale: 0.95;
+}
+
+.control_container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+/* 컨트롤 스타일 */
+#conrtol {
+  display: flex;
+  gap: 6px;
+}
+
+#insertInput {
+  flex: 1;
+  height: var(--form-height);
+  font-size: 1.8rem;
+  border-radius: 6px;
+  border: var(--border);
+  text-align: right;
+  padding-inline: 8px;
+}
+#insertInput::placeholder {
+  color: var(--gray300);
+}
+.conrtol_button {
+  width: 80px;
+  font-size: 1.6rem;
+  color: var(--gray800);
+  border: var(--border);
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.conrtol_button:disabled {
+  cursor: not-allowed;
+  border-color: var(--gray300);
+  color: var(--gray300);
+}
+
+.conrtol_button:not(:disabled):hover {
+  border-color: var(--gray900);
+  background-color: var(--gray400);
+  color: var(--gray900);
+}
+.conrtol_button:active {
+  scale: 0.95;
+}
+
+#logsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: var(--border);
+  border-radius: 8px;
+  padding: 16px;
+
+  max-height: 60dvh;
+  overflow: auto;
+}
+#logsContainer:empty {
+  padding: 0;
+  border: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
+}
+#logsContainer li {
+  font-size: 1.6rem;
+  animation: fadeIn 0.3s ease-in forwards;
+  color: var(--gray500);
+}
+
+@media (width <= 900px) {
+  .container {
+    width: fit-content;
+  }
+  .vendingMachine {
+    flex-direction: column;
+  }
+  .control_container {
+    width: 100%;
+  }
+}
