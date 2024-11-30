@@ -1,13 +1,13 @@
 import './style.css';
 import { PRODUCTS } from './data/products.js';
 
-// 상태 관리
+/** 상태 관리를 위한 객체 */
 const state = {
   currentMoney: 0,
   displayAmount: 0,
 };
 
-// DOM 요소 참조
+/** DOM 요소 참조 */
 const elements = {
   moneyDisplay: document.querySelector('.money-display'),
   moneyInput: document.querySelector('.money-input'),
@@ -17,21 +17,33 @@ const elements = {
   returnButton: document.querySelector('.button-return'),
 };
 
-// 유틸리티 함수
+/**
+ * 숫자를 한국 로케일의 문자열로 포맷팅합니다.
+ * @param {number} number - 포맷팅할 숫자
+ * @returns {string} 포맷팅된 문자열
+ */
 const formatNumber = (number) => {
   return number.toLocaleString('ko-KR');
 };
 
+/**
+ * 요소를 스크롤하여 맨 아래로 이동시킵니다.
+ * @param {HTMLElement} element - 스크롤할 요소
+ */
 const scrollToBottom = (element) => {
   element.scrollTop = element.scrollHeight;
 };
 
-// 화면 업데이트 함수
+/** 화면에 표시되는 금액을 업데이트 */
 const updateDisplayAmount = (amount) => {
   state.displayAmount = amount;
   elements.moneyDisplay.textContent = formatNumber(state.displayAmount);
 };
 
+/**
+ * 로그 메시지를 추가합니다.
+ * @param {string} message - 추가할 로그 메시지
+ */
 const addLog = (message) => {
   const logEntry = document.createElement('p');
   logEntry.className = 'log-entry';
@@ -40,7 +52,12 @@ const addLog = (message) => {
   scrollToBottom(elements.logContainer);
 };
 
-// 상품 구매 처리
+/**
+ * 상품 구매를 처리합니다.
+ * @param {Object} product - 구매할 상품 정보
+ * @param {string} product.name - 상품 이름
+ * @param {number} product.price - 상품 가격
+ */
 const handleProductPurchase = (product) => {
   if (state.currentMoney < product.price) {
     addLog(
@@ -55,7 +72,7 @@ const handleProductPurchase = (product) => {
   addLog(`${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`);
 };
 
-// 상품 그리드 초기화
+/** 상품 그리드를 초기화 */
 const initializeProductGrid = () => {
   const template = document.querySelector('.product-template');
 
@@ -73,7 +90,7 @@ const initializeProductGrid = () => {
   });
 };
 
-// 이벤트 핸들러
+/** 그리드 이벤트를 처리 */
 const handleGridEvent = (e) => {
   const target = e.target.closest('.product-button');
   if (!target) return;
@@ -92,7 +109,7 @@ const handleGridEvent = (e) => {
   }
 };
 
-// 금액 처리 함수
+/** 금액 투입을 처리 */
 const handleMoneyInsert = (e) => {
   e.preventDefault();
   const inputAmount = elements.moneyInput.valueAsNumber;
@@ -118,6 +135,7 @@ const handleMoneyInsert = (e) => {
   elements.moneyInput.value = '';
 };
 
+/** 금액 반환을 처리 */
 const handleMoneyReturn = () => {
   if (state.currentMoney > 0) {
     addLog(`${formatNumber(state.currentMoney)}원이 반환되었습니다.`);
@@ -125,12 +143,21 @@ const handleMoneyReturn = () => {
   }
 };
 
+/**
+ * 입력값 유효성을 검사
+ * @param {Event} e - 이벤트 객체
+ */
 const handleInputValidation = (e) => {
   e.target.value = e.target.value.replace(/\D/g, '');
 };
 
-// 이벤트 리스너 설정
-const initializeEventListeners = ({ productGrid, inputContainer, moneyInput, returnButton }) => {
+/** 이벤트 리스너를 초기화 */
+const initializeEventListeners = ({
+  productGrid,
+  inputContainer,
+  moneyInput,
+  returnButton,
+}) => {
   productGrid.addEventListener('click', handleGridEvent);
   productGrid.addEventListener('mouseout', handleGridEvent);
 
@@ -139,7 +166,7 @@ const initializeEventListeners = ({ productGrid, inputContainer, moneyInput, ret
   moneyInput.addEventListener('input', handleInputValidation);
 };
 
-// 초기화
+/** 애플리케이션을 초기화 */
 const initialize = () => {
   initializeProductGrid();
   initializeEventListeners({
