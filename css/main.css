@@ -7,13 +7,22 @@
     justify-content: center;
 }
 
+.content-wrapper {
+    height: 100%;
+    min-height: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 1vw;
+}
+
+
 /* 자판기 스타일 */
 .vending-machine {
     border: 1px solid #000;
     padding: 20px !important;
     border-radius: 10px;
     min-width: 400px;
-    height: 100%;
+    min-height: fit-content;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -41,6 +50,10 @@
     margin-bottom: 10px;
 }
 
+.product {
+    min-width: 80px;
+}
+
 .product:hover {
     background-color: #33bbcd;
 }
@@ -49,15 +62,17 @@
     background-color: #018799de;
 }
 
+#products-list {
+    margin-bottom: 0 !important;
+}
+
 .input-wrapper {
-    border: 1px solid transparent;
-    padding: 20px !important;
     min-width: 400px;
-    height: 100%;
-    min-height: 390px !important;
-    margin: auto;
+    min-height: fit-content;
     display: flex;
     flex-direction: column;
+    border: 1px solid transparent;
+    padding: 20px !important;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -68,16 +83,25 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
+.input-boundary-top {
+    flex: 0 1 auto;
+}
+
 .input-amount {
     color: black; /* 텍스트 색상을 검정색으로 설정 */
 }
 
 .log {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #000;
     flex-grow: 1;
     overflow-y: auto;
     padding: 10px;
     border-radius: 10px;
+    min-height: 280px;
+    max-height: 280px;
 }
 
 .log p {
