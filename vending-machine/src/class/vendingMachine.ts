@@ -36,12 +36,6 @@ export class VendingMachine implements UIElement {
         this.#currentCoin = 0
     }
 
-    public init() {
-        if (!this.#root) return
-
-        this.#root.appendChild(this.getElement())
-    }
-
     getElement(): HTMLDivElement {
         this.#container = createElement({ tagName: 'div', className: ['container'] })
 
@@ -87,6 +81,20 @@ export class VendingMachine implements UIElement {
         info.appendChild(this.#logContainer)
 
         this.#container?.appendChild(info)
+    }
+
+    #addLog(log: string) {
+        if (!this.#logContainer) return
+
+        const li = createElement({ tagName: 'li', className: ['log-item'] })
+        li.textContent = log
+
+        this.#logContainer.appendChild(li)
+        this.#logContainer.scrollTop = this.#logContainer.scrollHeight
+    }
+
+    public getCurrentCoin() {
+        return this.#currentCoin
     }
 
     public buyItem(item: Item) {
@@ -139,19 +147,15 @@ export class VendingMachine implements UIElement {
     public returnCoin() {
         if (!this.#currentCoin || !this.#display) return
 
-        this.#addLog(`${this.#currentCoin.toLocaleString()}을 반환합니다.`)
+        this.#addLog(`${this.#currentCoin.toLocaleString()}원을 반환합니다.`)
 
         this.#currentCoin = 0
         this.#display.value = '0'
     }
 
-    #addLog(log: string) {
-        if (!this.#logContainer) return
+    public init() {
+        if (!this.#root) return
 
-        const li = createElement({ tagName: 'li', className: ['log-item'] })
-        li.innerText = log
-
-        this.#logContainer.appendChild(li)
-        this.#logContainer.scrollTop = this.#logContainer.scrollHeight
+        this.#root.appendChild(this.getElement())
     }
 }

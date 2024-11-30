@@ -56,10 +56,10 @@ export class DialContainer implements UIElement {
 
             btn && this.startAction(btn)
         })
-        container.addEventListener('mouseup', (e: Event) => {
+        container.addEventListener('mouseup', () => {
             this.stopAction()
         })
-        container.addEventListener('mouseleave', (e: Event) => {
+        container.addEventListener('mouseleave', () => {
             this.stopAction()
         })
 
