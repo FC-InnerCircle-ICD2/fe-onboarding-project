@@ -83,36 +83,45 @@ classDiagram
     VendingMachine --> ProductButtonManager
 
     class VendingMachine {
-        -currentBalanceManager: CurrentBalanceManager
-        -logManager: LogManager
-        -productButtonManager: ProductButtonManager
+        -#machineEl: HTMLElement
+        -#insertedMoneyInputEl: HTMLInputElement
+        -#currentBalanceManager: CurrentBalanceManager
+        -#logManager: LogManager
+        -#productButtonManager: ProductButtonManager
+        +constructor(machineId: string, products: Product[])
+        -#insertMoney()
+        -#returnChange()
+        -#updateBalanceDisplay(displayMoney?: number)
+        -#buyProduct(product: Product)
         +init()
-        +render()
     }
 
     class CurrentBalanceManager {
-        -balance: number
-        +add(amount: number)
-        +subtract(amount: number)
-        +returnChange()
-        +getBalance()
-        +canAfford(price: number)
-        +getNeededMoney(price: number)
+        -#balance: number
+        +getBalance(): number
+        +add(money: number): number
+        +subtract(money: number): boolean
+        +returnChange(): number
+        +canAfford(price: number): boolean
+        +getNeededMoney(price: number): number
     }
 
     class LogManager {
-        -logs: string[]
-        +add(message: string)
-        +getLogs()
+        -#logs: string[]
+        -#logsContainerEl: HTMLElement
+        +constructor(machineEl: HTMLElement)
+        +add(log: string)
+        -#render()
     }
 
     class ProductButtonManager {
-        -machineEl: HTMLElement
-        -products: Product[]
-        -handlers: Object
-        -productButtonListEl: HTMLElement
-        +createProductButtons()
-        +initEventListeners()
+        -#machineEl: HTMLElement
+        -#productButtonListEl: HTMLElement
+        -#products: Product[]
+        -#handlers: Object
+        +constructor(machineEl: HTMLElement, products: Product[], handlers: Object)
+        -#createProductButtons()
+        -#initEventListeners()
         +init()
     }
 ```
