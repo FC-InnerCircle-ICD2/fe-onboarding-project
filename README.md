@@ -86,7 +86,7 @@ classDiagram
         -currentBalanceManager: CurrentBalanceManager
         -logManager: LogManager
         -productButtonManager: ProductButtonManager
-        +initialize()
+        +init()
         +render()
     }
 
@@ -96,6 +96,8 @@ classDiagram
         +subtract(amount: number)
         +returnChange()
         +getBalance()
+        +canAfford(price: number)
+        +getNeededMoney(price: number)
     }
 
     class LogManager {
