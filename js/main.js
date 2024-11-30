@@ -19,26 +19,20 @@ async function init() {
 
 function setProducts(products) {
     const productsList = document.getElementById('products-list');
+    const template = document.getElementById('product-template');
 
     products.forEach(product => {
-        const buttonWrapper = document.createElement('div');
-        buttonWrapper.classList.add('col', 's4');
 
-        const button = document.createElement('button');
-        button.classList.add('btn', 'product');
+        const clone = template.content.cloneNode(true);
+        const button = clone.querySelector('.product');
+        const nameSpan = clone.querySelector('.product-name');
+        const priceSpan = clone.querySelector('.product-price');
+
         button.dataset.price = product.price;
-        // button.setAttribute('data-price', product.price);
-        button.textContent = product.name;
+        nameSpan.textContent = product.name; // 이름 설정
+        priceSpan.textContent = `${product.price.toLocaleString()}원`; // 가격 설정
 
-        const lineBreak = document.createElement('br'); // <br> 태그 생성
-        button.appendChild(lineBreak);
-
-        const priceSpan = document.createElement('span');
-        priceSpan.textContent = `${product.price.toLocaleString()}원`;
-        button.appendChild(priceSpan);
-
-        buttonWrapper.appendChild(button);
-        productsList.appendChild(buttonWrapper);
+        productsList.appendChild(clone);
     });
 }
 
