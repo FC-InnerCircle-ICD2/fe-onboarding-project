@@ -1,3 +1,5 @@
+import { LOG_ARIA_LABELS } from "../constants/vendingMachine";
+
 class LogManager {
   #logs;
   #logsContainerEl;
@@ -6,7 +8,9 @@ class LogManager {
     /** @type {string[]} */
     this.#logs = [];
     /** @type {HTMLElement} */
-    this.#logsContainerEl = machineEl.querySelector('[aria-label="로그"]');
+    this.#logsContainerEl = machineEl.querySelector(
+      `[aria-label="${LOG_ARIA_LABELS.BALANCE_LOGS_PANEL}"]`
+    );
   }
 
   add(log) {

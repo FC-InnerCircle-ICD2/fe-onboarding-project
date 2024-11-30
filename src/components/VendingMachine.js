@@ -1,3 +1,4 @@
+import { BALANCE_ARIA_LABELS } from "../constants/vendingMachine";
 import CurrentBalanceManager from "../managers/CurrentBalanceManager";
 import LogManager from "../managers/LogManager";
 import ProductButtonManager from "../managers/ProductButtonManager";
@@ -27,7 +28,7 @@ class VendingMachine {
   constructor(machineId, products) {
     this.#machineEl = document.querySelector(`#${machineId}`);
     this.#insertedMoneyInputEl = this.#machineEl.querySelector(
-      '[aria-label="투입 금액"]'
+      `[aria-label="${BALANCE_ARIA_LABELS.BALANCE_INPUT}"]`
     );
     this.#currentBalanceManager = new CurrentBalanceManager();
     this.#logManager = new LogManager(this.#machineEl);
@@ -75,7 +76,7 @@ class VendingMachine {
     displayMoney = this.#currentBalanceManager.getBalance()
   ) {
     const balanceBoardEl = this.#machineEl.querySelector(
-      '[aria-label="금액 표시판"]'
+      `[aria-label="${BALANCE_ARIA_LABELS.BALANCE_DISPLAY_PANEL}"]`
     );
     balanceBoardEl.textContent = displayMoney.toLocaleString();
   }
@@ -106,7 +107,7 @@ class VendingMachine {
   init() {
     // 투입 버튼 클릭 이벤트 추가
     const insertButtonEl = this.#machineEl.querySelector(
-      '[aria-label="금액 투입 버튼"]'
+      `[aria-label="${BALANCE_ARIA_LABELS.BALANCE_INSERT_BUTTON}"]`
     );
     insertButtonEl.addEventListener("click", () => {
       this.#insertMoney();
@@ -114,7 +115,7 @@ class VendingMachine {
 
     // 잔돈 반환 버튼 클릭 이벤트 추가
     const returnChangeButtonEl = this.#machineEl.querySelector(
-      '[aria-label="잔액 반환 버튼"]'
+      `[aria-label="${BALANCE_ARIA_LABELS.BALANCE_RETURN_BUTTON}"]`
     );
     returnChangeButtonEl.addEventListener("click", () => {
       this.#returnChange();
