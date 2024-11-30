@@ -14,6 +14,7 @@ const elements = {
   inputContainer: document.querySelector('.input-container'),
   logContainer: document.querySelector('.log-container'),
   productGrid: document.querySelector('.product-grid'),
+  returnButton: document.querySelector('.button-return'),
 };
 
 // 유틸리티 함수
@@ -57,7 +58,7 @@ const handleProductPurchase = (product) => {
 // 상품 그리드 초기화
 const initializeProductGrid = () => {
   const template = document.querySelector('.product-template');
-  
+
   PRODUCTS.forEach((product) => {
     const clone = template.content.cloneNode(true);
     const button = clone.querySelector('.product-button');
@@ -124,20 +125,24 @@ const handleInputValidation = (e) => {
 };
 
 // 이벤트 리스너 설정
-const initializeEventListeners = () => {
-  elements.productGrid.addEventListener('click', handleGridEvent);
-  elements.productGrid.addEventListener('mouseout', handleGridEvent);
+const initializeEventListeners = ({ productGrid, inputContainer, moneyInput, returnButton }) => {
+  productGrid.addEventListener('click', handleGridEvent);
+  productGrid.addEventListener('mouseout', handleGridEvent);
 
-  elements.inputContainer.addEventListener('submit', handleMoneyInsert);
-  const returnButton = document.querySelector('.button-return');
+  inputContainer.addEventListener('submit', handleMoneyInsert);
   returnButton.addEventListener('click', handleMoneyReturn);
-  elements.moneyInput.addEventListener('input', handleInputValidation);
+  moneyInput.addEventListener('input', handleInputValidation);
 };
 
 // 초기화
 const initialize = () => {
   initializeProductGrid();
-  initializeEventListeners();
+  initializeEventListeners({
+    productGrid: elements.productGrid,
+    inputContainer: elements.inputContainer,
+    moneyInput: elements.moneyInput,
+    returnButton: elements.returnButton,
+  });
 };
 
 initialize();
