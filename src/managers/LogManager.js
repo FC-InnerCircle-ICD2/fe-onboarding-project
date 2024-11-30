@@ -35,10 +35,14 @@ class LogManager {
       logEl.classList.add(logColor);
       this.#logsContainerEl.appendChild(logEl);
     });
-    this.#logsContainerEl.scrollTo({
-      top: this.#logsContainerEl.scrollHeight,
-      behavior: "smooth",
-    });
+
+    // scrollTo 메서드 존재 여부 확인 후 실행 (테스트환경에서 scrollTo 메서드 존재하지 않음)
+    if (this.#logsContainerEl.scrollTo) {
+      this.#logsContainerEl.scrollTo({
+        top: this.#logsContainerEl.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }
 }
 
