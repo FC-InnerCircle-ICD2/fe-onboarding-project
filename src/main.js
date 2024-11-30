@@ -56,21 +56,19 @@ const handleProductPurchase = (product) => {
 
 // 상품 그리드 초기화
 const initializeProductGrid = () => {
+  const template = document.querySelector('.product-template');
+  
   PRODUCTS.forEach((product) => {
-    const button = document.createElement('button');
-    button.className = 'product-button';
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'product-name';
-    const priceSpan = document.createElement('span');
-    priceSpan.className = 'product-price';
+    const clone = template.content.cloneNode(true);
+    const button = clone.querySelector('.product-button');
+    const nameSpan = clone.querySelector('.product-name');
+    const priceSpan = clone.querySelector('.product-price');
 
+    button.dataset.productId = product.id;
     nameSpan.textContent = product.name;
     priceSpan.textContent = `${formatNumber(product.price)}원`;
 
-    button.dataset.productId = product.id;
-
-    button.append(nameSpan, priceSpan);
-    elements.productGrid.appendChild(button);
+    elements.productGrid.appendChild(clone);
   });
 };
 
