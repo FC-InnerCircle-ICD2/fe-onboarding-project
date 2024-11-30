@@ -1,24 +1,24 @@
 export class VendingMachineProduct {
-  private _disabled: boolean;
-  private _item: HTMLButtonElement;
+  #disabled: boolean;
+  #item: HTMLButtonElement;
   constructor() {
-    this._disabled = false;
-    this._item = document.createElement("button");
+    this.#disabled = false;
+    this.#item = document.createElement("button");
   }
   get disabled() {
-    return this._disabled;
+    return this.#disabled;
   }
   set disabled(value: boolean) {
-    this._disabled = value;
+    this.#disabled = value;
   }
 
   get item() {
-    return this._item;
+    return this.#item;
   }
   setItemState({ disabled = false }: { disabled?: boolean }) {
-    this._item.disabled = disabled;
+    this.#item.disabled = disabled;
   }
   innerHTML(innerHTML: string) {
-    this._item.innerHTML = innerHTML;
+    this.#item.innerHTML = innerHTML;
   }
 }

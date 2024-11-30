@@ -1,53 +1,52 @@
+type VendingMachineStateKeys =
+  | "insertAmount"
+  | "remainingAmount"
+  | "displayPrice"
+  | "purchaseState";
+
 export class VendingMachineState {
-  private _listeners: (() => void)[];
-  private _insertAmout: number;
-  private _remainingAmount: number;
-  private _displayPrice: number;
-  /**자판기 사용 상태인지 */
-  private _purchaseState: boolean;
+  #state: Record<VendingMachineStateKeys, any>;
+  #initialState: Record<VendingMachineStateKeys, any>;
+  #listeners: (() => void)[];
 
   constructor() {
-    this._listeners = [];
-    this._insertAmout = 0;
-    this._remainingAmount = 0;
-    this._displayPrice = 0;
-    this._purchaseState = false;
+    this.#listeners = [];
+    this.#initialState = {
+      insertAmount: 0,
+      remainingAmount: 0,
+      displayPrice: 0,
+      purchaseState: false,
+    };
+
+    this.#state = new Proxy(this.#initialState, {
+      get: (target, prop: string) => {
+        if (prop in target) {
+          return target[prop as VendingMachineStateKeys];
+        }
+        throw new Error(`Property "${prop}" does not exist on state.`);
+      },
+      set: (target, prop: string, value) => {
+        if (prop in target) {
+          target[prop as VendingMachineStateKeys] = value;
+          this.notify();
+          return true;
+        }
+        throw new Error(`Cannot set unknown property "${prop}" on state.`);
+      },
+    });
   }
 
+  // 상태 변경 알림을 위한 리스너 관리
   addListener(listener: () => void) {
-    this._listeners.push(listener);
+    this.#listeners.push(listener);
   }
   private notify() {
-    console.log("this._listeners.length", this._listeners.length);
-    this._listeners.forEach((listener) => listener());
+    for (const listener of this.#listeners) {
+      listener();
+    }
   }
 
-  get insertAmount() {
-    return this._insertAmout;
-  }
-  set insertAmount(value: number) {
-    this._insertAmout = value;
-    this.notify();
-  }
-  get remainingAmount() {
-    return this._remainingAmount;
-  }
-  set remainingAmount(value: number) {
-    this._remainingAmount = value;
-    this.notify();
-  }
-  get displayPrice() {
-    return this._displayPrice;
-  }
-  set displayPrice(value: number) {
-    this._displayPrice = value;
-    this.notify();
-  }
-  get purchaseState() {
-    return this._purchaseState;
-  }
-  set purchaseState(value: boolean) {
-    this._purchaseState = value;
-    this.notify();
+  get state() {
+    return this.#state;
   }
 }
