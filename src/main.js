@@ -30,9 +30,7 @@ const updateDisplayAmount = (amount) => {
   elements.moneyDisplay.textContent = formatNumber(state.displayAmount);
 };
 
-const updateBalance = () => {
-  elements.moneyDisplay.textContent = formatNumber(state.currentMoney);
-};
+
 
 const addLog = (message) => {
   const logEntry = document.createElement('p');
@@ -54,7 +52,6 @@ const handleProductPurchase = (product) => {
   }
 
   state.currentMoney -= product.price;
-  updateBalance();
   addLog(`${product.name}를 구매했습니다. (${formatNumber(product.price)}원)`);
 };
 
@@ -115,7 +112,6 @@ const handleMoneyInsert = () => {
 
   state.currentMoney += inputAmount;
   updateDisplayAmount(state.currentMoney);
-  updateBalance();
   console.log(state.currentMoney);
   addLog(`${formatNumber(inputAmount)}원이 투입되었습니다.`);
   elements.moneyInput.value = '';
@@ -125,7 +121,6 @@ const handleMoneyReturn = () => {
   if (state.currentMoney > 0) {
     addLog(`${formatNumber(state.currentMoney)}원이 반환되었습니다.`);
     state.currentMoney = 0;
-    updateBalance();
   }
 };
 
