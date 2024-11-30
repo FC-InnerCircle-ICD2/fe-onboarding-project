@@ -86,5 +86,17 @@ describe("VendingMachine", () => {
       const { input } = testElements;
       expect(input).toHaveFocus();
     });
+
+    it("input에 값을 입력하고 Enter 키를 눌러도 금액이 투입되는 것을 확인", () => {
+      const { input, balanceManager } = testElements;
+      input.value = "1000";
+      const enterEvent = new KeyboardEvent("keypress", {
+        key: "Enter",
+        bubbles: true,
+      });
+      input.dispatchEvent(enterEvent);
+
+      expect(balanceManager.getBalance()).toBe(2000);
+    });
   });
 });
