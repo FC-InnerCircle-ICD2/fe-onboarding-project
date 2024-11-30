@@ -36,7 +36,7 @@ class VendingMachine {
       this.#machineEl,
       products,
       {
-        onBuyProduct: this.#buyProduct.bind(this),
+        onBuyProduct: (product) => this.#buyProduct(product),
         onProductMouseDown: (price) => {
           if (!this.#currentBalanceManager.canAfford(price)) {
             this.#updateBalanceDisplay(price);
