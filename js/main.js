@@ -78,19 +78,20 @@ function insertAmount() {
     const inputField = document.getElementById('inputAmount');
     const amount = parseInt(inputField.value);
     
-    if (isNaN(amount) || amount <= 0) {
+    if (!isValidAmount(amount)) {
         logAction('숫자를 입력해주세요.'); // 요구사항엔 없지만 사용자에게 알리면 좋을 정보라 추가
         return;
     }
-        totalAmount += amount;
-        updateDisplay();
-        logAction(`${amount.toLocaleString()}원을 투입했습니다.`);
-        inputField.value = ''; // 입력란 초기화
+    
+    totalAmount += amount;
+    updateDisplay();
+    logAction(`${addCommasToNumber(amount)}원을 투입했습니다.`);
+    inputField.value = ''; // 입력란 초기화
 }
 
 function returnAmount() {
     if (totalAmount > 0) {
-        logAction(`${totalAmount.toLocaleString()}원을 반환합니다.`);
+        logAction(`${addCommasToNumber(totalAmount)}원을 반환합니다.`);
         totalAmount = 0;
         updateDisplay();
     } else {
@@ -100,6 +101,11 @@ function returnAmount() {
 
 function purchaseProduct(productPrice, productName) {
 
+    if (!isValidAmount(productPrice)) {
+        logAction('유효하지 않은 금액이빈다.'); // 요구사항엔 없지만 사용자에게 알리면 좋을 정보라 추가
+        return;
+    }
+
     totalAmount -= productPrice;
     updateDisplay();
     logAction(`${productName}를 구매했습니다.`);
@@ -108,12 +114,12 @@ function purchaseProduct(productPrice, productName) {
 
 function updateDisplay() {
     const display = document.getElementById('display');
-    display.innerText = totalAmount.toLocaleString();
+    display.innerText = addCommasToNumber(totalAmount);
 }
 
 function updateDisplayWithPrice(price) {
     const display = document.getElementById('display');
-    display.innerText = price.toLocaleString(); // 상품 가격 표시
+    display.innerText = addCommasToNumber(price); // 상품 가격 표시
 }
 
 function logAction(message) {
@@ -122,4 +128,20 @@ function logAction(message) {
     logEntry.innerText = message;
     log.appendChild(logEntry);
     log.scrollTop = log.scrollHeight; // 자동 스크롤
+}
+
+function addCommasToNumber(input) {
+
+    let number = typeof input === 'string' ? parseInt(input, 10) : input;
+
+    if (typeof number !== 'number' || isNaN(number) || !Number.isInteger(number)) {
+        console.error('유효하지 않은 정수입니다.');
+        return;
+    }
+
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function isValidAmount(amount) {
+    return !isNaN(amount) && amount > 0;
 }
