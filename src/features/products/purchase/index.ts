@@ -1,8 +1,11 @@
-import type { TCoinManager } from '../../entities/coin/model';
-import type { TProduct, TProductManger } from '../../entities/products/model';
-import { formatCurrency } from '../../shared/currency';
-import { TLogService } from '../../shared/log';
-import type { TResponse } from '../../shared/response';
+import type { TCoinManager } from '../../../entities/coin/model';
+import type {
+  TProduct,
+  TProductManger,
+} from '../../../entities/products/model';
+import { formatCurrency } from '../../../shared/currency';
+import { TLogService } from '../../../shared/log';
+import type { TResponse } from '../../../shared/response';
 
 export const purchaseProduct = (
   product: TProduct,

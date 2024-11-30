@@ -4,7 +4,7 @@ import {
   type TProductManger,
   products,
 } from '../../entities/products/model';
-import { purchaseProduct } from '../../features/products/purchaseProduct';
+import { purchaseProduct } from '../../features/products/purchase';
 import { formatCurrency } from '../../shared/currency';
 import { TLogService } from '../../shared/log';
 import { updateDisplay } from '../../shared/updateDisplay';

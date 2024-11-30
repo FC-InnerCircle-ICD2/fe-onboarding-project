@@ -1,6 +1,6 @@
 import type { TCoinManager } from '../../entities/coin/model';
-import { insertCoin } from '../../features/coin/insertCoin';
-import { returnCoin } from '../../features/coin/returnCoin';
+import { insertCoin } from '../../features/coin/insert';
+import { returnCoin } from '../../features/coin/return';
 import { formatCurrency } from '../../shared/currency';
 import { TLogService } from '../../shared/log';
 import { updateDisplay } from '../../shared/updateDisplay';

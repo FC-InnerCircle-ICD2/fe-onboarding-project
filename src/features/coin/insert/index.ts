@@ -1,7 +1,7 @@
-import type { TCoin, TCoinManager } from '../../entities/coin/model';
-import { formatCurrency } from '../../shared/currency';
-import { TLogService } from '../../shared/log';
-import { TResponse } from '../../shared/response';
+import type { TCoin, TCoinManager } from '../../../entities/coin/model';
+import { formatCurrency } from '../../../shared/currency';
+import { TLogService } from '../../../shared/log';
+import { TResponse } from '../../../shared/response';
 
 export const insertCoin = (
   coin: TCoin,

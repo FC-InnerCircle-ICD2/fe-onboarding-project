@@ -1,6 +1,6 @@
-import type { TCoinManager } from '../../entities/coin/model';
-import { formatCurrency } from '../../shared/currency';
-import { TLogService } from '../../shared/log';
+import type { TCoinManager } from '../../../entities/coin/model';
+import { formatCurrency } from '../../../shared/currency';
+import { TLogService } from '../../../shared/log';
 
 export const returnCoin = (
   coinManager: TCoinManager,
