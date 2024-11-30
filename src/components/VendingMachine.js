@@ -13,8 +13,6 @@ class VendingMachine {
   #machineEl;
   /** @type {CurrentBalanceManager} */
   #currentBalance;
-  /** @type {string} */
-  #insertedMoney;
   /** @type {LogManager} */
   #logManager;
   /** @type {HTMLInputElement} */
@@ -29,7 +27,6 @@ class VendingMachine {
   constructor(machineId, products) {
     this.#machineEl = document.querySelector(`#${machineId}`);
     this.#currentBalance = new CurrentBalanceManager();
-    this.#insertedMoney = "0";
     this.#logManager = new LogManager(this.#machineEl);
     this.#insertedMoneyInputEl = this.#machineEl.querySelector(
       '[aria-label="투입 금액"]'
