@@ -11,11 +11,11 @@ class ProductButtonManager {
    */
   constructor(machineEl, products, handlers) {
     this.#machineEl = machineEl;
-    this.#products = products;
-    this.#handlers = handlers;
     this.#productButtonListEl = this.#machineEl.querySelector(
       ".product-button-list"
     );
+    this.#products = products;
+    this.#handlers = handlers;
   }
 
   #createProductButtons() {
