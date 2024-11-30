@@ -1,33 +1,37 @@
 import type { TCoinManager } from '../../entities/coin/model';
 import { insertCoin } from '../../features/coin/insertCoin';
 import { returnCoin } from '../../features/coin/returnCoin';
-import { updateCoinInput } from '../../features/coin/updateCoinInput';
 import { updateProductWindow } from '../../features/products/updateProductWindow';
 import { LogService } from '../../shared/log';
 
 const productWindowElement =
   document.querySelector<HTMLDivElement>('.product-window');
-const coinInputElement =
-  document.querySelector<HTMLInputElement>('.coin-input');
-const coinInsertButtonElement = document.querySelector<HTMLButtonElement>(
-  '.coin-insert-button',
-);
+const coinFormElement = document.querySelector<HTMLFormElement>('.coin-form');
 const coinReturnButtonElement = document.querySelector<HTMLButtonElement>(
   '.coin-return-button',
 );
 
-export const initializeCoinButtons = (
+export const initializeCoinForm = (
   coinManager: TCoinManager,
   logService: LogService,
 ) => {
-  coinInsertButtonElement!.addEventListener('click', () => {
-    const coin = parseInt(coinInputElement!.value);
+  coinFormElement!.addEventListener('submit', (event: SubmitEvent) => {
+    event.preventDefault();
+
+    const formElement = event.target as HTMLFormElement;
+    const formData = new FormData(formElement);
+    const coinInFormData = formData.get('coin') as string;
+    const coin = parseInt(coinInFormData);
+
+    if (isNaN(coin)) {
+      return;
+    }
 
     insertCoin(coin, coinManager, logService);
 
-    const currentBalance = coinManager.getCoin();
+    formElement.reset();
 
-    updateCoinInput(coinInputElement!, 0);
+    const currentBalance = coinManager.getCoin();
     updateProductWindow(productWindowElement!, currentBalance);
   });
 
