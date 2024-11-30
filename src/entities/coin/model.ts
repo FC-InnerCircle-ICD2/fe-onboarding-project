@@ -21,6 +21,10 @@ export const createCoinManager = (): TCoinManager => {
       balance += newCoin;
     },
     useCoin: (price: TProduct['price']) => {
+      if (balance < price) {
+        return;
+      }
+
       balance -= price;
     },
     returnCoin: () => {
