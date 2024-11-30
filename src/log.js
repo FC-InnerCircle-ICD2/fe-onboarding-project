@@ -1,5 +1,3 @@
-const logLists = document.querySelector(".log-lists")
-
 const switchLogType = (type, amount, productId) => {
   switch (type) {
     case "insert":
