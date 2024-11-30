@@ -26,7 +26,8 @@ function setProducts(products) {
 
         const button = document.createElement('button');
         button.classList.add('btn', 'product');
-        button.setAttribute('data-price', product.price);
+        button.dataset.price = product.price;
+        // button.setAttribute('data-price', product.price);
         button.textContent = product.name;
 
         const lineBreak = document.createElement('br'); // <br> 태그 생성
