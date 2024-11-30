@@ -30,8 +30,6 @@ const updateDisplayAmount = (amount) => {
   elements.moneyDisplay.textContent = formatNumber(state.displayAmount);
 };
 
-
-
 const addLog = (message) => {
   const logEntry = document.createElement('p');
   logEntry.className = 'log-entry';
@@ -85,10 +83,8 @@ const handleGridEvent = (e) => {
 
   switch (e.type) {
     case 'click':
-      handleProductPurchase(product);
-      break;
-    case 'mouseover':
       updateDisplayAmount(product.price);
+      handleProductPurchase(product);
       break;
     case 'mouseout':
       updateDisplayAmount(state.currentMoney);
@@ -131,7 +127,6 @@ const handleInputValidation = (e) => {
 // 이벤트 리스너 설정
 const initializeEventListeners = () => {
   elements.productGrid.addEventListener('click', handleGridEvent);
-  elements.productGrid.addEventListener('mouseover', handleGridEvent);
   elements.productGrid.addEventListener('mouseout', handleGridEvent);
 
   const insertButton = document.querySelector('.button-insert');
