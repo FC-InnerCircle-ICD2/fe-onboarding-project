@@ -1,4 +1,3 @@
-
 window.onload = function () {
     attachEventListeners();
 };
@@ -23,8 +22,12 @@ function attachEventListeners() {
     const inputDisplay = document.getElementById('input-display'); // 금액 투입 박스 
     const inputControls = document.querySelector('.input-controls'); // 투입,반환버튼 
     const amountDisplay = document.getElementById('amount-display'); // 상품 금액 표시 화면 
+    const productButtons = document.querySelectorAll('.product-button'); // 상품 버튼들 
 
-    // 금액을 투입 할 때
+    let currentAmount = 0; // 현재 금액 (초기값은 0)
+    let depositAmount = 0; // 투입된 금액
+
+    // 금액을 투입할 때
     inputDisplay.addEventListener('input', function () {
         const formattedAmount = formatAmount(inputDisplay.value);
         inputDisplay.value = formattedAmount;
@@ -36,8 +39,7 @@ function attachEventListeners() {
             const action = event.target.getAttribute('data-action');
 
             if (action === 'deposit') {
-                let currentAmount = parseInt(amountDisplay.textContent.replace(/,/g, '')) || 0; // 현재 금액
-                let depositAmount = parseInt(inputDisplay.value.replace(/,/g, '')) || 0; // 투입된 금액
+                depositAmount = parseInt(inputDisplay.value.replace(/,/g, '')) || 0; // 투입된 금액
 
                 if (depositAmount > 0) {
                     currentAmount += depositAmount;
@@ -45,9 +47,40 @@ function attachEventListeners() {
                     inputDisplay.value = '';
                 }
             } else if (action === 'return') {
+                currentAmount = 0;
                 amountDisplay.textContent = '0';
-                inputDisplay.value = '';
+                inputDisplay.value = ''; 
             }
         }
+    });
+
+    // 상품 버튼 클릭 시 처리
+    productButtons.forEach(button => {
+        const productPrice = parseInt(button.getAttribute('data-price')); 
+
+        // 상품 버튼을 눌렀을 때
+        button.addEventListener('mousedown', function () {
+            if (currentAmount < productPrice) {
+                // 투입된 금액이 부족하면 상품 가격을 표시
+                amountDisplay.textContent = formatAmount(productPrice); 
+                amountDisplay.style.color = 'red';
+            }
+        });
+
+        // 상품 버튼에서 손을 뗐을 때
+        button.addEventListener('mouseup', function () {
+            // 버튼을 뗄 때는 다시 투입된 금액을 표시
+            amountDisplay.textContent = formatAmount(currentAmount);
+            amountDisplay.style.color = '';
+        });
+
+        // 상품 구매 처리
+        button.addEventListener('click', function () {
+            if (currentAmount >= productPrice) {
+                // 금액이 충분하면 상품을 구매하고 금액 차감
+                currentAmount -= productPrice;
+                amountDisplay.textContent = formatAmount(currentAmount);
+            } 
+        });
     });
 }
