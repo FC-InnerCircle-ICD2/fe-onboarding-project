@@ -31,14 +31,17 @@ export const initializeCoinForm = ({
       return;
     }
 
-    insertCoin(coin, coinManager, logService);
+    const response = insertCoin(coin, coinManager, logService);
 
     form.reset();
 
+    if (response.ok) {
+      const currentBalance = coinManager.getCoin();
       updateDisplay(window, formatCurrency(currentBalance));
+    }
   });
 
-  returnButton!.addEventListener('click', () => {
+  returnButton.addEventListener('click', () => {
     returnCoin(coinManager, logService);
 
     const currentBalance = coinManager.getCoin();
