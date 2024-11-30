@@ -1,4 +1,5 @@
 import type { TCoin, TCoinManager } from '../../entities/coin/model';
+import { formatCurrency } from '../../shared/currency';
 import { LogService } from '../../shared/log';
 
 export const insertCoin = (
@@ -13,5 +14,5 @@ export const insertCoin = (
   }
 
   coinManager.insertCoin(coin);
-  logService.track(`${coin}을 투입합니다.`);
+  logService.track(`${formatCurrency(coin)}원을 투입합니다.`);
 };

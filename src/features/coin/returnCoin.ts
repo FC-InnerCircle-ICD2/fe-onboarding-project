@@ -8,7 +8,5 @@ export const returnCoin = (
 ) => {
   const returnedCoin = coinManager.returnCoin();
 
-  logService.track(`${returnedCoin}을 반환합니다.`);
-
-  alert(`${formatCurrency(returnedCoin)}원이 반환되었습니다.`);
+  logService.track(`${formatCurrency(returnedCoin)}원이 반환되었습니다.`);
 };
