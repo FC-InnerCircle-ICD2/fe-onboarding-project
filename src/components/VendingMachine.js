@@ -1,6 +1,6 @@
-import CurrentBalanceManager from "./CurrentBalanceManager";
-import LogManager from "./LogManager";
-import ProductButtonManager from "./ProductButtonManager";
+import CurrentBalanceManager from "../managers/CurrentBalanceManager";
+import LogManager from "../managers/LogManager";
+import ProductButtonManager from "../managers/ProductButtonManager";
 
 /**
  * @typedef {Object} Product

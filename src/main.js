@@ -1,5 +1,5 @@
-import "./style.css";
-import VendingMachine from "./VendingMachine";
+import "./styles/base.css";
+import VendingMachine from "./components/VendingMachine";
 
 // 자판기 생성
 const vendingMachine1 = new VendingMachine("machine-1", [
@@ -37,7 +37,7 @@ const vendingMachine3 = new VendingMachine("machine-3", [
 ]);
 const machineList = [vendingMachine1, vendingMachine2, vendingMachine3];
 
-// 이벤트 초기화
+// 자판기 설치
 machineList.forEach((machine) => {
   machine.init();
 });
