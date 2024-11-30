@@ -33,7 +33,7 @@ function init() {
             });
 
             productEventHandler(productsList);
-
+            setupAmountButtonEvents();
 
         })
         .catch(error => console.error('Error loading products:', error));
@@ -62,6 +62,14 @@ function productEventHandler(productsList) {
             updateDisplay(); // 버튼을 떼면 원래 잔액 표시
         }
     });
+}
+
+function setupAmountButtonEvents() {
+    const insertButton = document.getElementById('insertAmountButton'); // 금액 투입 버튼
+    const returnButton = document.getElementById('returnAmountButton'); // 금액 반환 버튼
+
+    insertButton.addEventListener('click', insertAmount); // 금액 투입 동작 연결
+    returnButton.addEventListener('click', returnAmount); // 금액 반환 동작 연결
 }
 
 function isAffordable(productPrice) {
