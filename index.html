@@ -41,57 +41,6 @@
       </div>
     </section>
 
-    <!-- 상품 정의 -->
-    <script type="text/javascript" src="src/products.js"></script>
-    <!-- 공통 함수 -->
-    <script type="text/javascript" src="src/common.js"></script>
-    <!-- 금액 변동 로직 -->
-    <script type="text/javascript" src="src/amount.js"></script>
-    <!-- 상품 구매 로직 -->
-    <script type="text/javascript" src="src/purchase.js"></script>
-    <!-- 로그 로직 -->
-    <script type="text/javascript" src="src/log.js"></script>
-
-    <script>
-      let balance = 0
-
-      products.forEach(product => {
-        const clone = selectNode(".product-template").content.cloneNode(true)
-        const liElement = clone.querySelector(".product")
-        const productName = clone.querySelector(".product-name")
-        const productPrice = clone.querySelector(".product-price")
-
-        productName.innerText = product.name
-        productPrice.innerText = convertCurrencyFormat(product.price)
-
-        liElement.addEventListener("click", () =>
-          purchaseProduct(product.id, balance)
-        )
-
-        liElement.addEventListener("mousedown", () => {
-          if (balance === 0) {
-            updateElement(
-              "product-price-display",
-              convertCurrencyFormat(product.price)
-            )
-          }
-        })
-
-        liElement.addEventListener("mouseup", () => {
-          if (balance === 0) {
-            updateElement("product-price-display", 0)
-          }
-        })
-
-        selectNode(".product-lists").appendChild(clone)
-      })
-
-      selectNode(".insert-money").addEventListener("click", () => {
-        const insertInputValue = selectNode(".insert-input").valueAsNumber
-        insertMoney(insertInputValue)
-      })
-
-      selectNode(".return-money").addEventListener("click", returnMoney)
-    </script>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>

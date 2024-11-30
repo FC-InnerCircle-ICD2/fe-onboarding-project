@@ -7,7 +7,7 @@ class Product {
   }
 }
 
-const products = [
+export const products = [
   new Product("쿨라", 1500),
   new Product("속이사이다", 1700),
   new Product("판타지판타", 1500),
