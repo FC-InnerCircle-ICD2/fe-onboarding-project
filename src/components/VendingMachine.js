@@ -11,12 +11,12 @@ import ProductButtonManager from "../managers/ProductButtonManager";
 class VendingMachine {
   /** @type {HTMLElement} */
   #machineEl;
+  /** @type {HTMLInputElement} */
+  #insertedMoneyInputEl;
   /** @type {CurrentBalanceManager} */
   #currentBalance;
   /** @type {LogManager} */
   #logManager;
-  /** @type {HTMLInputElement} */
-  #insertedMoneyInputEl;
   /** @type {ProductButtonManager} */
   #productButtonManager;
 
@@ -26,11 +26,11 @@ class VendingMachine {
    */
   constructor(machineId, products) {
     this.#machineEl = document.querySelector(`#${machineId}`);
-    this.#currentBalance = new CurrentBalanceManager();
-    this.#logManager = new LogManager(this.#machineEl);
     this.#insertedMoneyInputEl = this.#machineEl.querySelector(
       '[aria-label="투입 금액"]'
     );
+    this.#currentBalance = new CurrentBalanceManager();
+    this.#logManager = new LogManager(this.#machineEl);
     this.#productButtonManager = new ProductButtonManager(
       this.#machineEl,
       products,
