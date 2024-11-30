@@ -118,7 +118,7 @@ export class VendingMachineManager {
   //자판기 아이템 생성
   generatorProducts() {
     const productItemsRender = () => {
-      this.productData.forEach((data) => {
+      for (const data of this.productData) {
         const node = { product: new VendingMachineProduct(), data };
         const { name, price } = data;
         node.product.item.classList.add("vendingMachine_product_item");
@@ -133,7 +133,7 @@ export class VendingMachineManager {
 
         this.productGroupData.push(node);
         this.productGroup?.append(node.product.item);
-      });
+      }
     };
 
     const productEventHandler = () => {
@@ -180,19 +180,19 @@ export class VendingMachineManager {
       };
 
       // 부모 요소에 단일 이벤트 리스너 등록
-      if (this.productGroup) {
-        [
-          "click",
-          "mousedown",
-          "mouseup",
-          "mouseleave",
-          "keypress",
-          "keyup",
-          "touchstart",
-          "touchend",
-        ].forEach((eventType) => {
-          this.productGroup?.addEventListener(eventType, handleEvent);
-        });
+      const eventTypes = [
+        "click",
+        "mousedown",
+        "mouseup",
+        "mouseleave",
+        "keypress",
+        "keyup",
+        "touchstart",
+        "touchend",
+      ];
+
+      for (const eventType of eventTypes) {
+        this.productGroup?.addEventListener(eventType, handleEvent);
       }
     };
     productEventHandler();
@@ -204,13 +204,14 @@ export class VendingMachineManager {
       if (!this.returnButton) return;
 
       console.log("state", this.state);
-      this.productGroupData.forEach((product) => {
+
+      for (const product of this.productGroupData) {
         product.product.setItemState({
           disabled: this.state.purchaseState
             ? product.data.price > this.state.remainingAmount
             : false,
         });
-      });
+      }
 
       this.insertButton.disabled =
         this.insertInput?.value === "0" || this.insertInput?.value === "";
