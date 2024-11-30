@@ -25,13 +25,8 @@ export const initializeCoinForm = ({
 
     const formData = new FormData(form);
     const coinInFormData = formData.get('coin') as string;
-    const coin = parseInt(coinInFormData);
 
-    if (isNaN(coin)) {
-      return;
-    }
-
-    const response = insertCoin(coin, coinManager, logService);
+    const response = insertCoin(coinInFormData, coinManager, logService);
 
     form.reset();
 
