@@ -75,10 +75,10 @@ describe("VendingMachine", () => {
     });
 
     it("input에 0원 이하의 값을 입력하면 잔액이 변경되지 않고, input이 0으로 초기화되는 것을 확인", () => {
-      const { input, displayPanel, insertButton } = testElements;
+      const { input, balanceManager, insertButton } = testElements;
       input.value = "-1000";
       insertButton.click();
-      expect(displayPanel).toHaveTextContent("1,000");
+      expect(balanceManager.getBalance()).toBe(1000);
       expect(input.value).toBe("0");
     });
 
