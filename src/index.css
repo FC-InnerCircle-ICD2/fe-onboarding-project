@@ -50,7 +50,7 @@ li {
   margin: 0 auto;
 }
 
-.product {
+/* .product {
   border: 1px solid black;
   width: 90px;
   height: 90px;
@@ -76,6 +76,33 @@ li {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   background-color: #e6e6e6;
   transition: transform 0.1s ease;
+} */
+
+.product,
+.button {
+  border: none;
+  background-color: #ebebeb;
+  width: 90px;
+  height: 90px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 8px 8px 16px #c5c5c5, -8px -8px 16px #ffffff;
+  transition: all 0.3s ease;
+}
+
+.product:hover {
+  box-shadow: inset 2px 2px 4px #c5c5c5, inset -2px -2px 4px #ffffff;
+}
+
+.product:active,
+.button:active {
+  box-shadow: inset 4px 4px 8px #c5c5c5, inset -4px -4px 8px #ffffff;
 }
 
 /* ========= 우측 가격부 ========= */
@@ -103,9 +130,7 @@ li {
 .button {
   width: 32px;
   height: 30px;
-  border: 1px solid black;
-  border-radius: 8px;
-  cursor: pointer;
+  display: inline;
 }
 
 .log {
