@@ -1,11 +1,11 @@
 import { createCoinManager } from './entities/coin/model';
 import { createProductManager } from './entities/products/model';
 import { formatCurrency } from './shared/currency';
-import { LogService } from './shared/log';
 import { updateDisplay } from './shared/updateDisplay';
 import { initializeCoinForm } from './widgets/coin/coinForm';
 import { initializeProductButtons } from './widgets/products/productButtons';
 
+import { createLogService } from './shared/log';
 import './style.css';
 
 const productWindowElement =
@@ -22,7 +22,7 @@ const logWindowElement = document.querySelector<HTMLDivElement>('.log-window');
 
 const productManager = createProductManager();
 const coinManager = createCoinManager();
-const logService = new LogService(logWindowElement!);
+const logService = createLogService(logWindowElement!);
 
 document.addEventListener('DOMContentLoaded', () => {
   updateDisplay(productWindowElement!, formatCurrency(0));

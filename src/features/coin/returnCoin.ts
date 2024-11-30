@@ -1,10 +1,10 @@
 import type { TCoinManager } from '../../entities/coin/model';
 import { formatCurrency } from '../../shared/currency';
-import { LogService } from '../../shared/log';
+import { TLogService } from '../../shared/log';
 
 export const returnCoin = (
   coinManager: TCoinManager,
-  logService: LogService,
+  logService: TLogService,
 ) => {
   const returnedCoin = coinManager.returnCoin();
 

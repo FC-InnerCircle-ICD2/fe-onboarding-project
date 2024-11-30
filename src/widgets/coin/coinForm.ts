@@ -2,12 +2,12 @@ import type { TCoinManager } from '../../entities/coin/model';
 import { insertCoin } from '../../features/coin/insertCoin';
 import { returnCoin } from '../../features/coin/returnCoin';
 import { formatCurrency } from '../../shared/currency';
-import { LogService } from '../../shared/log';
+import { TLogService } from '../../shared/log';
 import { updateDisplay } from '../../shared/updateDisplay';
 
 type TInitializeCoinProps = {
   coinManager: TCoinManager;
-  logService: LogService;
+  logService: TLogService;
   elements: {
     form: HTMLFormElement;
     returnButton: HTMLButtonElement;

@@ -1,24 +1,27 @@
-export class LogService {
-  private logs: Array<string> = [];
-  logWindowElement: HTMLDivElement;
+export type TLogService = {
+  track: (log: string) => void;
+};
 
-  constructor(element: HTMLDivElement) {
-    this.logWindowElement = element;
-  }
+export const createLogService = (
+  logWindowElement: HTMLDivElement,
+): TLogService => {
+  const logs: Array<string> = [];
 
-  track(log: string) {
-    this.logs.push(log);
+  const track = (log: string) => {
+    logs.push(log);
     console.log(log);
-    this._show(log);
-  }
+    show(log);
+  };
 
-  _show(log: string) {
+  const show = (log: string) => {
     const p = document.createElement('p');
 
     p.className = 'log-window_paragraph';
     p.innerHTML = log;
 
-    this.logWindowElement.appendChild(p);
-    this.logWindowElement.scrollTop = this.logWindowElement.scrollHeight;
-  }
-}
+    logWindowElement.appendChild(p);
+    logWindowElement.scrollTop = logWindowElement.scrollHeight;
+  };
+
+  return { track };
+};

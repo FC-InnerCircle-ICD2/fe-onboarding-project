@@ -6,7 +6,7 @@ import {
 } from '../../entities/products/model';
 import { purchaseProduct } from '../../features/products/purchaseProduct';
 import { formatCurrency } from '../../shared/currency';
-import { LogService } from '../../shared/log';
+import { TLogService } from '../../shared/log';
 import { updateDisplay } from '../../shared/updateDisplay';
 
 export const createProductButton = (product: TProduct) => {
@@ -25,7 +25,7 @@ export const createProductButton = (product: TProduct) => {
 type TInitializeProductProps = {
   productManager: TProductManger;
   coinManager: TCoinManager;
-  logService: LogService;
+  logService: TLogService;
   elements: {
     buttons: HTMLDivElement;
     window: HTMLDivElement;
