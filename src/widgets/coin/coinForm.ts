@@ -23,8 +23,7 @@ export const initializeCoinForm = ({
   form.addEventListener('submit', (event: SubmitEvent) => {
     event.preventDefault();
 
-    const formElement = event.target as HTMLFormElement;
-    const formData = new FormData(formElement);
+    const formData = new FormData(form);
     const coinInFormData = formData.get('coin') as string;
     const coin = parseInt(coinInFormData);
 
@@ -34,7 +33,7 @@ export const initializeCoinForm = ({
 
     insertCoin(coin, coinManager, logService);
 
-    formElement.reset();
+    form.reset();
 
       updateDisplay(window, formatCurrency(currentBalance));
   });
