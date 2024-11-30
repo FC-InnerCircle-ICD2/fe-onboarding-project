@@ -44,6 +44,11 @@ class LogManager {
       });
     }
   }
+
+  // 테스트 시에만 사용(복사본을 반환하여 캡슐화 유지)
+  getLogs() {
+    return [...this.#logs];
+  }
 }
 
 export default LogManager;
