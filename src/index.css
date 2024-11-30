@@ -33,7 +33,7 @@ li {
   border-radius: 8px;
 }
 
-#product-price-display {
+.product-price-display {
   width: 300px;
   height: 30px;
   line-height: 30px;
@@ -92,7 +92,7 @@ li {
   align-items: center;
 }
 
-#insert-input {
+.insert-input {
   outline: none;
   border: none;
   height: 30px;

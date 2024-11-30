@@ -16,24 +16,16 @@
           width="300"
           height="400"
         />
-        <p id="product-price-display">0</p>
+        <p class="product-price-display">0</p>
         <ul class="product-lists"></ul>
       </div>
 
       <div class="amount-container">
         <div class="change-amount">
           <form>
-            <input type="number" id="insert-input" min="1" />
-            <button
-              type="button"
-              class="button"
-              onclick="insertMoney(document.querySelector('#insert-input').valueAsNumber)"
-            >
-              투입
-            </button>
-            <button type="button" class="button" onclick="returnMoney()">
-              반환
-            </button>
+            <input type="number" class="insert-input" min="1" />
+            <button type="button" class="button insert-money">투입</button>
+            <button type="button" class="button return-money">반환</button>
           </form>
         </div>
         <ul class="log-lists"></ul>
@@ -81,6 +73,16 @@
 
         productContainer.appendChild(liElement)
       })
+
+      document.querySelector(".insert-money").addEventListener("click", () => {
+        const insertInputValue =
+          document.querySelector(".insert-input").valueAsNumber
+        insertMoney(insertInputValue)
+      })
+
+      document
+        .querySelector(".return-money")
+        .addEventListener("click", returnMoney)
     </script>
   </body>
 </html>

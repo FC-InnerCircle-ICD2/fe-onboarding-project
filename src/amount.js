@@ -14,13 +14,13 @@ const changeAmount = amount => {
 
 const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
 
-const priceDisplay = document.querySelector("#product-price-display")
+const priceDisplay = document.querySelector(".product-price-display")
 
 const insertMoney = amount => {
-  if (parseInt(amount) === 0 || amount === "") return
+  if (isNaN(amount)) return
 
   // 투입금액 입력창 초기화
-  document.querySelector("#insert-input").value = ""
+  document.querySelector(".insert-input").value = ""
 
   // 잔액 변동
   changeAmount(amount)

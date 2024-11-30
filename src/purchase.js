@@ -17,7 +17,7 @@ const purchaseProduct = (product_id, displayed_balance) => {
     changeAmount(price * -1)
 
     // 잔액표시 화면변경
-    document.querySelector("#product-price-display").innerHTML =
+    document.querySelector(".product-price-display").innerHTML =
       convertCurrencyFormat(displayed_balance - price)
 
     // 로그 추가
