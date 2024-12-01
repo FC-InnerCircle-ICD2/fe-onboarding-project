@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="public/assets/image/vendingmachine.ico"
+    />
+    <link rel="stylesheet" href="/public/assets/css/reset.css" />
+    <link rel="stylesheet" href="/public/assets/css/custom.css" />
+    <link rel="stylesheet" href="/public/assets/css/atomic.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InnerCircle Onboarding</title>
+  </head>
+  <body>
+    <div class="body_wrapper">
+      <div class="container">
+        <div class="vending_wrap">
+          <input readonly id="currentMoney" class="cash_input" value="0" />
+          <div class="btn_wrap"></div>
+        </div>
+        <div class="control_area_wrap">
+          <div class="insert_return_space">
+            <input
+              type="text"
+              id="insertMoney"
+              class="cash_input w250"
+              placeholder="Please Insert Money"
+            />
+            <button id="insertBtn" class="item_btn btn_deep_color">
+              <p class="item_name">투입</p>
+            </button>
+            <button id="returnBtn" class="item_btn btn_pale_color">
+              <p class="item_name">반환</p>
+            </button>
+          </div>
+          <div class="log_area">
+            <pre id="log_text"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
