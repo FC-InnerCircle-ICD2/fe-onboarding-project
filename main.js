@@ -75,7 +75,7 @@ const itemBtnMousedownHandler = (event) => {
   moneyInputOriginValue = currentMoney; // 전역 변수에 값 저장
 
   if (currentMoney <= 0 || currentMoney - insertedMoney < 0) {
-    moneyInput.value = insertedMoney;
+    moneyInput.value = formatNumber(insertedMoney);
     moneyInput.className += " item_pressed_text";
   }
 };
@@ -86,7 +86,7 @@ const itemBtnMousedownHandler = (event) => {
 const itemBtnMouseleaveHandler = () => {
   if (isMousedown) {
     // mousedown에서 가격 보여주는 event로 인해 바뀐 값, class 초기화
-    moneyInput.value = moneyInputOriginValue;
+    moneyInput.value = formatNumber(moneyInputOriginValue);
     moneyInput.classList.remove("item_pressed_text");
   }
 };
@@ -115,6 +115,8 @@ const itemBtnMouseupHandler = (event) => {
     const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
     logTextPre.innerText += `${event.currentTarget.name + adj} 구매했습니다.\n`;
     logAreaDiv.scrollTop = logTextPre.scrollHeight;
+  } else {
+    moneyInput.value = formatNumber(moneyInputOriginValue);
   }
 };
 
