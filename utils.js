@@ -16,4 +16,14 @@ const checkBatchimEnding = (word) => {
   return (uni - 44032) % 28 !== 0;
 };
 
-export { checkBatchimEnding };
+/**
+ * 입력 값 포맷팅 함수
+ * @param {string | number} value
+ * @returns string
+ */
+const formatNumber = (value) => {
+  if (value === "" || isNaN(Number(value))) return "";
+  return Number(value).toLocaleString(); // 쉼표 추가
+};
+
+export { checkBatchimEnding, formatNumber };

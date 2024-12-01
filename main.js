@@ -1,5 +1,5 @@
 import { vendingContents } from "./data.js";
-import { checkBatchimEnding } from "./utils.js";
+import { checkBatchimEnding, formatNumber } from "./utils.js";
 
 /*************************************************************
  * 전역
@@ -22,30 +22,41 @@ const fragment = document.createDocumentFragment();
 let moneyInputOriginValue = 0;
 let isMousedown = false;
 
-/**
- * input 전역에 쉼표 적용
- */
-document.addEventListener("input", (event) => {
-  const target = event.target;
-  if (target.tagName === "INPUT" && target.type === "text") {
-    // 커서 위치 저장
-    const cursorPosition = target.selectionStart;
+// Input 쉼표 포맷팅 관리를 위한 Proxy를 생성해주는 함수
+const createInputProxy = (inputElement) => {
+  return new Proxy(inputElement, {
+    get(target, prop) {
+      if (prop === "value") {
+        // 숫자만 남기고 나머지는 제거
+        const numericValue = Number(target[prop].replace(/[^\d]/g, ""));
+        return numericValue;
+      }
+    },
+    set(target, prop, value) {
+      if (prop === "value") {
+        // 숫자만 남기고 나머지는 제거
+        const numericValue = value.replace(/[^\d]/g, "");
+        // 쉼표 추가
+        const formattedValue = formatNumber(numericValue);
+        target[prop] = formattedValue;
+      } else {
+        target[prop] = value;
+      }
+      return true;
+    },
+  });
+};
 
-    // 원본 값에서 숫자만 추출
-    const originalValue = target.value;
-    const numericValue = originalValue.replace(/[^0-9.]/g, ""); // 숫자와 소수점만 남김
+// Proxy를 사용하여 input의 입력 값 처리
+const insertInputProxy = createInputProxy(insertInput);
+const moneyInputProxy = createInputProxy(moneyInput);
 
-    // 쉼표를 추가한 값 생성
-    const formattedValue = Number(numericValue).toLocaleString();
-
-    // 값 갱신
-    target.value = formattedValue;
-
-    // 커서 위치 계산 및 복원
-    const newCursorPosition =
-      formattedValue.length - (originalValue.length - cursorPosition);
-    target.setSelectionRange(newCursorPosition, newCursorPosition);
-  }
+// 이벤트 리스너로 입력 값 처리
+insertInput.addEventListener("input", (event) => {
+  insertInputProxy.value = event.target.value; // Proxy를 통해 값 설정
+});
+moneyInput.addEventListener("input", (event) => {
+  moneyInputProxy.value = event.target.value; // Proxy를 통해 값 설정
 });
 
 /*************************************************************
@@ -58,11 +69,13 @@ document.addEventListener("input", (event) => {
 const itemBtnMousedownHandler = (event) => {
   isMousedown = true; // 마우스 버튼 눌림
 
-  const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
-  moneyInputOriginValue = currentMoney;
+  const currentMoney = moneyInputProxy.value;
+  const insertedMoney = event.currentTarget.value;
 
-  if (currentMoney <= 0 || currentMoney - event.currentTarget.value < 0) {
-    moneyInput.value = event.currentTarget.value;
+  moneyInputOriginValue = currentMoney; // 전역 변수에 값 저장
+
+  if (currentMoney <= 0 || currentMoney - insertedMoney < 0) {
+    moneyInput.value = insertedMoney;
     moneyInput.className += " item_pressed_text";
   }
 };
@@ -90,12 +103,13 @@ const itemBtnMouseupHandler = (event) => {
   moneyInput.classList.remove("item_pressed_text");
 
   // 계산 및 log 출력
-  const currentMoney = Number(moneyInput.value);
-  if (currentMoney - event.currentTarget.value > 0) {
+  const currentMoney = moneyInputProxy.value;
+  const insertedMoney = event.currentTarget.value;
+  if (currentMoney - insertedMoney > 0) {
     // 값 계산
-    const calculatedValue = currentMoney - event.currentTarget.value;
-    moneyInputOriginValue = calculatedValue;
-    moneyInput.value = calculatedValue.toLocaleString();
+    const calculatedValue = currentMoney - insertedMoney;
+    moneyInputOriginValue = calculatedValue; // 전역 변수에 값 저장
+    moneyInput.value = formatNumber(calculatedValue);
 
     // log text 생성
     const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
@@ -135,21 +149,20 @@ buttonWrap.appendChild(fragment); // Fragment를 한 번에 추가
  *************************************************************/
 /**
  * 투입 button 클릭 했을 때 실행되는 함수
- * @param {MouseEvent} MouseEvent
  */
-const insertBtnClickHandler = (event) => {
-  const insertMoney = Number(insertInput.value.replace(/[^0-9.]/g, ""));
+const insertBtnClickHandler = () => {
+  const insertMoney = insertInputProxy.value;
 
   if (insertMoney < 0) {
     alert("금액은 양수만 입력할 수 있습니다!");
     insertInput.value = null;
   } else {
     // 값 계산
-    const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
-    moneyInput.value = (currentMoney + insertMoney).toLocaleString();
+    const currentMoney = moneyInputProxy.value;
+    moneyInput.value = formatNumber(currentMoney + insertMoney);
 
     // log text 생성, scroll 설정, input 초기화
-    logTextPre.innerText += `${insertMoney.toLocaleString()}원을 투입했습니다.\n`;
+    logTextPre.innerText += `${formatNumber(insertMoney)}원을 투입했습니다.\n`;
     logAreaDiv.scrollTop = logTextPre.scrollHeight;
     insertInput.value = null;
   }
@@ -161,9 +174,8 @@ insertButton.addEventListener("click", insertBtnClickHandler);
  *************************************************************/
 /**
  * 반환 button 클릭 했을 때 실행되는 함수
- * @param {MouseEvent} MouseEvent
  */
-const returnBtnClickHandler = (event) => {
+const returnBtnClickHandler = () => {
   // log text 생성, scroll 설정, 값 초기화
   logTextPre.innerText += `${moneyInput.value}원을 반환했습니다.\n`;
   logAreaDiv.scrollTop = logAreaDiv.scrollHeight;
