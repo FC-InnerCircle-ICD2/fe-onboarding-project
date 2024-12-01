@@ -1,17 +1,19 @@
 /**
  * 문자열 마지막 글자에 받침이 있는지 확인해주는 함수
  * @param {string} word
- * @returns boolean
+ * @returns boolean | null
  */
 const checkBatchimEnding = (word) => {
   if (typeof word !== "string") return null;
 
-  let lastLetter = word[word.length - 1];
-  let uni = lastLetter.charCodeAt(0);
+  const lastLetter = word[word.length - 1];
+  const uni = lastLetter.charCodeAt(0);
+  const startOfKorean = 44032; // 한국어 첫 글자 '가'의 코드
+  const endOfKorean = 55203; // 한국어 마지막 글자 '힣'의 코드
 
-  if (uni < 44032 || uni > 55203) return null;
+  if (uni < startOfKorean || uni > endOfKorean) return null;
 
-  return (uni - 44032) % 28 != 0;
+  return (uni - 44032) % 28 !== 0;
 };
 
 export { checkBatchimEnding };

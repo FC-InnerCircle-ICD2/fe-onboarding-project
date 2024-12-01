@@ -30,11 +30,9 @@
           <div class="insert_return_space">
             <input
               type="text"
-              data-type="number"
               id="insertMoney"
               class="cash_input w250"
               placeholder="Please Insert Money"
-              min="0"
             />
             <button id="insertBtn" class="item_btn btn_deep_color">
               <p class="item_name">투입</p>
@@ -43,7 +41,9 @@
               <p class="item_name">반환</p>
             </button>
           </div>
-          <div class="log_area"></div>
+          <div class="log_area">
+            <pre id="log_text"></pre>
+          </div>
         </div>
       </div>
     </div>

@@ -5,15 +5,29 @@ import { checkBatchimEnding } from "./utils.js";
  * 전역
  *************************************************************/
 /**
+ * Element 전역 선언
+ */
+const moneyInput = document.querySelector("#currentMoney");
+const insertInput = document.querySelector("#insertMoney");
+const logAreaDiv = document.querySelector(".log_area");
+const logTextPre = document.querySelector("#log_text");
+const insertButton = document.querySelector("#insertBtn");
+const returnButton = document.querySelector("#returnBtn");
+
+// 자판기 Button 들 랜더링을 위한 변수
+const buttonWrap = document.querySelector(".btn_wrap");
+const fragment = document.createDocumentFragment();
+
+// 전역 사용 변수
+let moneyInputOriginValue = 0;
+let isMousedown = false;
+
+/**
  * input 전역에 쉼표 적용
  */
 document.addEventListener("input", (event) => {
   const target = event.target;
-  if (
-    target.tagName === "INPUT" &&
-    target.type === "text" &&
-    target.dataset.type === "number"
-  ) {
+  if (target.tagName === "INPUT" && target.type === "text") {
     // 커서 위치 저장
     const cursorPosition = target.selectionStart;
 
@@ -37,20 +51,13 @@ document.addEventListener("input", (event) => {
 /*************************************************************
  * Item Button
  *************************************************************/
-// 자판기 Button 들 랜더링
-const buttonWrap = document.querySelector(".btn_wrap");
-const fragment = document.createDocumentFragment();
-
-let moneyInputOriginValue = 0;
-let isMousedown = false;
 /**
  * item button에서 mousedown 했을 때 실행되는 함수
- * @param {event} event
+ * @param {MouseEvent} MouseEvent
  */
 const itemBtnMousedownHandler = (event) => {
   isMousedown = true; // 마우스 버튼 눌림
 
-  const moneyInput = document.querySelector("#currentMoney");
   const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
   moneyInputOriginValue = currentMoney;
 
@@ -64,9 +71,6 @@ const itemBtnMousedownHandler = (event) => {
  * item button에서 mouseleave 했을 때 실행되는 함수
  */
 const itemBtnMouseleaveHandler = () => {
-  // HTML Element 선택
-  const moneyInput = document.querySelector("#currentMoney");
-
   if (isMousedown) {
     // mousedown에서 가격 보여주는 event로 인해 바뀐 값, class 초기화
     moneyInput.value = moneyInputOriginValue;
@@ -76,14 +80,10 @@ const itemBtnMouseleaveHandler = () => {
 
 /**
  * item button에서 mouseup 했을 때 실행되는 함수
- * @param {event} event
+ * @param {MouseEvent} MouseEvent
  */
 const itemBtnMouseupHandler = (event) => {
   isMousedown = false; // 마우스 버튼 떼어짐
-
-  // HTML Element 선택
-  const moneyInput = document.querySelector("#currentMoney");
-  const logArea = document.querySelector(".log_area");
 
   // mousedown에서 가격 보여주는 event로 인해 바뀐 값, class 초기화
   moneyInput.value = moneyInputOriginValue;
@@ -92,12 +92,15 @@ const itemBtnMouseupHandler = (event) => {
   // 계산 및 log 출력
   const currentMoney = Number(moneyInput.value);
   if (currentMoney - event.currentTarget.value > 0) {
+    // 값 계산
     const calculatedValue = currentMoney - event.currentTarget.value;
     moneyInputOriginValue = calculatedValue;
     moneyInput.value = calculatedValue.toLocaleString();
+
+    // log text 생성
     const adj = checkBatchimEnding(event.currentTarget.name) ? "을" : "를";
-    logArea.innerHTML += `${event.currentTarget.name + adj} 구매했습니다.<br/>`;
-    logArea.scrollTop = logArea.scrollHeight;
+    logTextPre.innerText += `${event.currentTarget.name + adj} 구매했습니다.\n`;
+    logAreaDiv.scrollTop = logTextPre.scrollHeight;
   }
 };
 
@@ -130,25 +133,24 @@ buttonWrap.appendChild(fragment); // Fragment를 한 번에 추가
 /*************************************************************
  * Insert Button
  *************************************************************/
-const insertButton = document.querySelector("#insertBtn");
 /**
  * 투입 button 클릭 했을 때 실행되는 함수
- * @param {event} event
+ * @param {MouseEvent} MouseEvent
  */
 const insertBtnClickHandler = (event) => {
-  const insertInput = document.querySelector("#insertMoney");
-  const moneyInput = document.querySelector("#currentMoney");
-  const logArea = document.querySelector(".log_area");
   const insertMoney = Number(insertInput.value.replace(/[^0-9.]/g, ""));
 
   if (insertMoney < 0) {
     alert("금액은 양수만 입력할 수 있습니다!");
     insertInput.value = null;
   } else {
+    // 값 계산
     const currentMoney = Number(moneyInput.value.replace(/[^0-9.]/g, ""));
     moneyInput.value = (currentMoney + insertMoney).toLocaleString();
-    logArea.innerHTML += `${insertMoney.toLocaleString()}원을 투입했습니다.<br/>`;
-    logArea.scrollTop = logArea.scrollHeight;
+
+    // log text 생성, scroll 설정, input 초기화
+    logTextPre.innerText += `${insertMoney.toLocaleString()}원을 투입했습니다.\n`;
+    logAreaDiv.scrollTop = logTextPre.scrollHeight;
     insertInput.value = null;
   }
 };
@@ -157,16 +159,14 @@ insertButton.addEventListener("click", insertBtnClickHandler);
 /*************************************************************
  * Return Button
  *************************************************************/
-const returnButton = document.querySelector("#returnBtn");
 /**
  * 반환 button 클릭 했을 때 실행되는 함수
- * @param {event} event
+ * @param {MouseEvent} MouseEvent
  */
 const returnBtnClickHandler = (event) => {
-  const moneyInput = document.querySelector("#currentMoney");
-  const logArea = document.querySelector(".log_area");
-  logArea.innerHTML += `${moneyInput.value}원을 반환했습니다.<br/>`;
-  logArea.scrollTop = logArea.scrollHeight;
+  // log text 생성, scroll 설정, 값 초기화
+  logTextPre.innerText += `${moneyInput.value}원을 반환했습니다.\n`;
+  logAreaDiv.scrollTop = logAreaDiv.scrollHeight;
   moneyInput.value = 0;
 };
 returnButton.addEventListener("click", returnBtnClickHandler);
