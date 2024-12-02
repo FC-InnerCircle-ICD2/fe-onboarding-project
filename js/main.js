@@ -19,6 +19,26 @@ function formatAmount(amount) {
     return formattedAmount;
 }
 
+// 상품 버튼 생성 함수
+function createProductButton(product) {
+    const button = document.createElement('button');
+    button.classList.add('product-button');
+    button.setAttribute('data-price', product.price);
+
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('product-name');
+    nameDiv.textContent = product.name;
+
+    const priceDiv = document.createElement('div');
+    priceDiv.classList.add('product-price');
+    priceDiv.textContent = `${formatAmount(product.price)}원`;
+
+    button.appendChild(nameDiv);
+    button.appendChild(priceDiv);
+
+    return button;
+}
+
 // 이벤트 리스너 등록 및 처리 함수
 function attachEventListeners() {
     const inputDisplay = document.getElementById('input-display'); // 금액 투입 박스 
@@ -64,39 +84,24 @@ function attachEventListeners() {
 
     // 상품 버튼 동적으로 생성 및 클릭 시 처리
     products.forEach(product => {
-        const button = document.createElement('button');
-        button.classList.add('product-button');
-        button.setAttribute('data-price', product.price);
-
-        const nameDiv = document.createElement('div');
-        nameDiv.classList.add('product-name');
-        nameDiv.textContent = product.name;
-
-        const priceDiv = document.createElement('div');
-        priceDiv.classList.add('product-price');
-        priceDiv.textContent = `${formatAmount(product.price)}원`;
-
-        button.appendChild(nameDiv);
-        button.appendChild(priceDiv);
+        const button = createProductButton(product); // 상품 버튼 생성
         productButtonsContainer.appendChild(button);
 
-        // 상품 버튼을 눌렀을 때
+        // 상품 버튼을 눌렀을 때 (금액 부족 시 색상 변경)
         button.addEventListener('mousedown', function () {
             if (currentAmount < product.price) {
-                // 투입된 금액이 부족하면 상품 가격을 표시
-                amountDisplay.textContent = formatAmount(product.price); 
+                amountDisplay.textContent = formatAmount(product.price);
                 amountDisplay.style.color = 'red';
             }
         });
 
-        // 상품 버튼에서 손을 뗐을 때
+        // 상품 버튼에서 손을 뗐을 때 (금액 표시 복원)
         button.addEventListener('mouseup', function () {
-            // 버튼을 뗄 때는 다시 투입된 금액을 표시
             amountDisplay.textContent = formatAmount(currentAmount);
             amountDisplay.style.color = '';
         });
 
-        // 상품 구매 처리
+        // 상품 버튼 클릭 시 처리
         button.addEventListener('click', function () {
             if (currentAmount >= product.price) {
                 // 금액이 충분하면 상품을 구매하고 금액 차감
