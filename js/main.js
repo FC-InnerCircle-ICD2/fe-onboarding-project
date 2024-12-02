@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
         template: document.getElementById('product-template'),
         display: document.getElementById('display'),
         log: document.getElementById('log'),
-        inputField: document.getElementById('inputAmount'),
-        insertButton: document.getElementById('insertAmountButton'),
-        returnButton: document.getElementById('returnAmountButton'),
+        inputField: document.getElementById('input-amount'),
+        insertButton: document.getElementById('insert-amount-button'),
+        returnButton: document.getElementById('return-amount-button'),
 	};
 	VendingMachineController.init(state,UILayer, VendingMachineService)
 });

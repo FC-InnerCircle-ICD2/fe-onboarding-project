@@ -47,7 +47,7 @@ const VendingMachineController = (() => {
   const handleInsertAmount = (state, ui, service) => {
       const amount = Number.parseInt(state.inputField.value);
       if (Number.isNaN(amount) || amount <= 0) {
-          ui.logAction(state.log, '올바른 금액을 입력해주세요.');
+          ui.logAction(state.log, '올바른 금액을 입력해주세요.');  // 요구사항엔 없지만 사용자 편의셩을 위해 추가
           return;
       }
 
@@ -66,7 +66,7 @@ const VendingMachineController = (() => {
           state.totalAmount = 0;
           ui.updateDisplay(state.display, state.totalAmount);
       } else {
-          ui.logAction(log, '반환할 금액이 없습니다.');
+          ui.logAction(log, '반환할 금액이 없습니다.'); // 요구사항엔 없지만 사용자 편의셩을 위해 추가
       }
   };
 
