@@ -42,11 +42,15 @@ function attachEventListeners() {
                 depositAmount = parseInt(inputDisplay.value.replace(/,/g, '')) || 0; // 투입된 금액
 
                 if (depositAmount > 0) {
+                    addLog(`${formatAmount(depositAmount)}원을 투입 했습니다.`);
                     currentAmount += depositAmount;
                     amountDisplay.textContent = formatAmount(currentAmount);
                     inputDisplay.value = '';
                 }
             } else if (action === 'return') {
+                if (currentAmount > 0) {
+                    addLog(`${formatAmount(currentAmount)}원을 반환 했습니다.`);  // 반환 로그 추가
+                }
                 currentAmount = 0;
                 amountDisplay.textContent = '0';
                 inputDisplay.value = ''; 
@@ -78,9 +82,18 @@ function attachEventListeners() {
         button.addEventListener('click', function () {
             if (currentAmount >= productPrice) {
                 // 금액이 충분하면 상품을 구매하고 금액 차감
+                addLog(`${button.querySelector('.product-name').textContent}을(를) 구매 했습니다.`);
                 currentAmount -= productPrice;
                 amountDisplay.textContent = formatAmount(currentAmount);
             } 
         });
     });
+
+    // 로그 추가 함수
+    function addLog(message) {
+        const logList = document.getElementById('log-list');
+        const logItem = document.createElement('li');
+        logItem.textContent = message;
+        logList.appendChild(logItem);
+    }
 }
