@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자판기</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="machine">
+        <input id="screen" readonly></input>
+        <template id="items">
+          <button id="btn">
+            <div id="product"></div>
+            <div id="price"></div>
+          </button>
+        </template>
+      </div>
+      <div id="calc">
+        <div>
+          <input
+                  id="inMoney"
+                  type="text"
+                  oninput="this.value = Number(this.value.replace(/[^0-9]/g,'')).toLocaleString();"
+          />
+          <button id="inputMoneyBtn">투입</button>
+          <button id="outMoneyBtn">반환</button>
+        </div>
+        <textarea id="moneyLog" readonly></textarea>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
