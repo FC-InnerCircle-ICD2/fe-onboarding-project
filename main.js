@@ -1,8 +1,5 @@
 import './style.css'
 
-
-
-
 const screen = document.querySelector("#screen");
 const itemBtns = document.querySelectorAll(".btn");
 const inputBtn = document.querySelector("#in_btn");
@@ -15,30 +12,36 @@ let logs = [];
 
 
 
-const itemList = {
-    "쿨라" : 1500,
-    "속이사이다" : 1700,
-    "판타지판타" : 1500,
-    "오뎅국물" : 1800,
-    "부장라떼" : 800,
-    "레드뿔" : 2500,
-    "핫세븐" : 1900
-}
+const itemList = [
+    { name: "쿨라", price: 1500 },
+    { name: "속이사이다", price: 1700 },
+    { name: "판타지판타", price: 1500 },
+    { name: "오뎅국물", price: 1800 },
+    { name: "부장라떼", price: 800 },
+    { name: "판타지판타", price: 1500 },
+    { name: "레드뿔", price: 2500 },
+    { name: "핫세븐", price: 1900 },
+    { name: "커피우유", price: 1400 },
+];
 
-const products = document.querySelectorAll(".product");
-const prices = document.querySelectorAll(".price");
 
-for (let i = 0; i < products.length; i++) {
-    products[i].innerText = itemList[i];
-}
 
-for (let i = 0; i < prices.length; i++) {
-    prices[i].innerText = `${itemList[i]}원`;
-}
+itemList.forEach(item => {
+    const template = document.querySelector('#items');
+    const clone = document.importNode(template.content, true);
+    const productDiv = clone.querySelector('#product');
+    const priceDiv = clone.querySelector('#price');
+
+    productDiv.textContent = item.name;
+    priceDiv.textContent = `${item.price} 원`;
+
+    template.appendChild(clone);
+});
+
+
 
 screen.value = 0;
 inMoney.value = 0;
-
 
 
 // 상품 버튼 클릭 이벤트

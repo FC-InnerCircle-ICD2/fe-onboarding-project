@@ -35,7 +35,7 @@ body {
   margin-top: 20px;
 }
 
-.btn {
+#btn {
   background-color: aquamarine;
   padding: 20px;
   border-radius: 10px;
@@ -47,13 +47,13 @@ body {
   }
 }
 
-.product {
+#product {
   font-size: 15px;
   white-space: nowrap;
   font-weight: bold;
 }
 
-.price {
+#price {
   font-size: 12px;
   margin-top: 5px;
 }
@@ -66,20 +66,20 @@ body {
   align-items: center;
 }
 
-#in_money {
+#inMoney {
   height: 50px;
   border-radius: 10px;
   text-align: center;
 }
 
-#in_btn, #out_btn {
+#inBtn, #outBtn {
   height: 55px;
   width: 60px;
   background-color: aquamarine;
   border-radius: 10px;
 }
 
-#money_log {
+#moneyLog {
   height: 300px;
   width: 350px;
   resize: none;
