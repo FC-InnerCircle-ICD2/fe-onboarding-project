@@ -91,9 +91,13 @@ function attachEventListeners() {
 
     // 로그 추가 함수
     function addLog(message) {
+        const logBox = document.querySelector('.log-box');
         const logList = document.getElementById('log-list');
         const logItem = document.createElement('li');
+
         logItem.textContent = message;
         logList.appendChild(logItem);
+
+        logBox.scrollTop = logList.scrollHeight;
     }
 }
