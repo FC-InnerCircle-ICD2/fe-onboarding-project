@@ -98,7 +98,7 @@ button:focus-visible {
   }
 }
 
- /* xl 크기 (예: 1200px 이상) */
+/* xl 크기 (예: 1200px 이상) */
 @media (min-width: 1200px) {
   .content-wrapper {
     height: 100%;
@@ -118,45 +118,45 @@ button:focus-visible {
   }
 }
 
- /* l 크기 (예: 992px 이상) */
+/* l 크기 (예: 992px 이상) */
 @media (min-width: 992px) and (max-width: 1199px) {
-    .content-wrapper {
-      height: 100%;
-      flex-direction: row;
-   }
-    .btn {
-      font-size: 16px !important;
-    }
-    .btn span {
-      font-size: 14px !important;
-    }
-    .input-button {
-      padding: 2px !important;
-    }
-    .input-button button {
-      font-size: 14px !important;
-    }
+  .content-wrapper {
+    height: 100%;
+    flex-direction: row;
+  }
+  .btn {
+    font-size: 16px !important;
+  }
+  .btn span {
+    font-size: 14px !important;
+  }
+  .input-button {
+    padding: 2px !important;
+  }
+  .input-button button {
+    font-size: 14px !important;
+  }
 }
 
- /* m 크기 (예: 768px 이상) */
+/* m 크기 (예: 768px 이상) */
 @media (min-width: 768px) and (max-width: 991px) {
-    .content-wrapper {
-      max-height: 100% !important;
-      flex-direction: column;
-      gap: 1vh;
-    }
-    .btn {
-      font-size: 14px !important;
-    }
-    .btn span {
-      font-size: 12px !important;
-    }
-    .input-button {
-      padding: 2px !important;
-    }
+  .content-wrapper {
+    max-height: 100% !important;
+    flex-direction: column;
+    gap: 1vh;
+  }
+  .btn {
+    font-size: 14px !important;
+  }
+  .btn span {
+    font-size: 12px !important;
+  }
+  .input-button {
+    padding: 2px !important;
+  }
 }
 
- /* s 크기 (예: 0px 이상) */
+/* s 크기 (예: 0px 이상) */
 @media (max-width: 767px) {
   .content-wrapper {
     max-height: 100% !important;

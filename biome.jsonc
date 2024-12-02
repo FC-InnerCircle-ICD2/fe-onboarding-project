@@ -1,0 +1,42 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  // 스키마 정의: 이 설정 파일에 대한 스키마 URL. Biome이 설정 파일의 유효성을 검사할 때 사용됨.
+
+  "vcs": {
+    "enabled": false, // 버전 관리 시스템(VCS) 사용 여부: 'false'로 설정되면 VCS 기능은 비활성화됨.
+    "clientKind": "git", // 사용하는 버전 관리 시스템 종류: 여기서는 'git'을 사용하도록 설정됨.
+    "useIgnoreFile": false // gitignore 파일을 사용할지 여부: 'false'는 ignore 파일을 사용하지 않도록 설정.
+  },
+
+  "files": {
+    "ignoreUnknown": false, // 알려지지 않은 파일 타입을 무시할지 여부: 'false'이면 알려지지 않은 파일도 체크함.
+    "ignore": ["node_modules", ".vite"] // 특정 파일 또는 폴더를 무시할 목록: 이 배열에 추가된 파일은 Biome에서 처리하지 않음.
+  },
+
+  "formatter": {
+    "enabled": true, // 포맷터 활성화 여부: 'true'이면 자동 포맷팅 기능이 활성화됨.
+    "lineWidth": 80, // 한 줄의 최대 길이: 80자 이상이면 자동으로 줄바꿈이 적용됨.
+    "indentStyle": "space", // 들여쓰기 방식: 'space'는 공백을 사용, 'tab'은 탭을 사용.
+    "indentWidth": 2 // 들여쓰기 크기: 들여쓰기에 사용할 공백의 수 (여기서는 2칸).
+  },
+
+  "organizeImports": {
+    "enabled": true // import 정리 기능 활성화 여부: 'true'이면 사용하지 않는 import를 자동으로 정리함.
+  },
+
+  "linter": {
+    "enabled": true, // 린터 활성화 여부: 'true'이면 코드에서 스타일과 오류를 체크하는 린터가 활성화됨.
+    "rules": {
+      "recommended": true, // Biome에서 추천하는 린터 규칙을 활성화함.
+      "correctness": {
+        "noUnusedImports": "error"
+      }
+    }
+  },
+
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double" // 문자열을 쌍따옴표 (double quotes)로 감싸도록 설정.
+    }
+  }
+}
