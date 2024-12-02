@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest --environment=jsdom"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "vite": "^6.0.2",
+    "vitest": "^2.1.7"
+  }
+}
