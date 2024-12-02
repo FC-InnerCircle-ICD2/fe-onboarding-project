@@ -1,9 +1,7 @@
 import './style.css'
 
 const screen = document.querySelector("#screen");
-const inputBtn = document.querySelector("#inBtn");
 const inMoney = document.querySelector("#inMoney");
-
 
 let money = 0;
 let logs = [];
@@ -46,13 +44,20 @@ itemList.forEach(item => {
 
 
     button.addEventListener('click', () => {
-        if(money < item.price) {
-            screen.value = Number(priceDiv.textContent).toLocaleString();
 
-            setTimeout(function () {
+        if(money < item.price || money === 0) {
+
+
+            button.addEventListener('mousedown', () => {
+                screen.value = item.price.toLocaleString();
+            })
+
+            button.addEventListener('mouseup', () => {
                 Log(`돈이 부족합니다.`)
+                screen.value = 0;
+            })
 
-            },1000);
+
 
         }
         else {
@@ -67,8 +72,7 @@ itemList.forEach(item => {
 
 
 
-// 돈 투입 버튼
-inputBtn.addEventListener('click', () => {
+document.querySelector("#inputMoneyBtn").addEventListener('click', () => {
     const result = inMoney.value.replace(/,/g, '')
     money =  money + parseInt(result);
 
