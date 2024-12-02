@@ -29,6 +29,10 @@ export const UILayer = (() => {
     };
 
     const formatNumber = (number) => {
+        if (typeof number !== 'number' || Number.isNaN(number)) {
+            console.error('Invalid number:', number);
+            return;
+        }
         return number.toLocaleString('ko-KR');  // 한국 로케일 사용
     }
 
