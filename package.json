@@ -4,6 +4,9 @@
     "test": "vitest --environment=jsdom"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.5.2",
     "jsdom": "^25.0.1",
     "vite": "^6.0.2",
     "vitest": "^2.1.7"
