@@ -1,5 +1,8 @@
-//상품명과 금액 변경 시 여기서 수정 
-
+/**
+ * 상품 목록을 나타내는 배열 
+ * 각 상품은 이름과 가격을 포함 합니다  
+ * @type {Array<{name: string, price: number}>} 
+ */
 export const products = [
     { name: '콜라', price: 1500 },
     { name: '속이사이다', price: 1700 },

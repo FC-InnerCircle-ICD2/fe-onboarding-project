@@ -4,7 +4,12 @@ window.addEventListener('DOMContentLoaded', () => {
     attachEventListeners();
 });
 
-// 금액 포맷 함수: 항상 숫자만을 표기(양수만 입력가능),세 자리마다 쉼표를 표시합니다.
+/**
+ * 금액 포맷해 세 자리마다 쉼표를 추가하고 양수로만 표기 합니다.
+ * 
+ * @param {*} amount 1000 단위가 넘어가면 쉼표를 포함한 문자열로 받음 
+ * @returns {string} 금액을 쉼표로 구분한 문자열 형태로 반환
+ */
 function formatAmount(amount) {
     if (typeof amount === 'string') {
         amount = amount.replace(/,/g, '');
@@ -19,7 +24,11 @@ function formatAmount(amount) {
     return formattedAmount;
 }
 
-// 상품 버튼 생성 함수
+/**
+ * 상품 버튼 생성 함수 
+ * @param {object} product 상품 정보를 포함하는 객체  
+ * @returns {HTMLButtonElement} 생성된 상품 버튼 
+ */
 function createProductButton(product) {
     const button = document.createElement('button');
     button.classList.add('product-button');
@@ -39,7 +48,10 @@ function createProductButton(product) {
     return button;
 }
 
-// 이벤트 리스너 등록 및 처리 함수
+/**
+ * 이벤트 리스너를 등록 및 처리 
+ * 금액 투입, 반환 및 상품 버튼 클릭 등의 동작을 처리합니다.
+ */
 function attachEventListeners() {
     const inputDisplay = document.getElementById('input-display'); // 금액 투입 박스 
     const inputControls = document.querySelector('.input-controls'); // 투입,반환버튼 
@@ -112,7 +124,12 @@ function attachEventListeners() {
         });
     });
 
-    // 로그 추가 함수
+    /**
+     * 로그 항목을 생성해 로그 리스트에 추가하는 함수 
+     * 금액 투입, 상품 구매, 잔돈 반환 등의 메시지를 받아 해당 메시지를 로그에 추가
+     * @param {string} message 
+     * @returns {void} 반환값 없이 로그 항목이 화면에 추가 됩니다.
+     */
     function addLog(message) {
         const logItem = document.createElement('li');
 
