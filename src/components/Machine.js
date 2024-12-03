@@ -7,7 +7,7 @@ export default class Machine {
     this.machine = document.createElement("article");
     this.machine.className = `machine ${version}`;
 
-    document.querySelector("body").appendChild(this.machine);
+    document.body.appendChild(this.machine);
   }
 
   on() {
