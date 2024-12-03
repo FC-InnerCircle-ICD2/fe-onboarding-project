@@ -1,13 +1,11 @@
 import { inputInfo } from "../../utils/inputInfo.js";
+import Element from "../common/Element.js";
 import InputFieldButton from "./InputFieldButton.js";
 import InputFieldText from "./InputFieldText.js";
 
-export default class InputField {
-  constructor(version) {
-    this.version = version;
-    this.element = document.createElement("div");
-    this.element.className = `inputField ${version}`;
-
+export default class InputField extends Element {
+  constructor(tag, parent, className, version) {
+    super(tag, parent, className, version);
     this.element.appendChild(new InputFieldText(version).element);
     this.element.appendChild(this.makeButtons());
   }
