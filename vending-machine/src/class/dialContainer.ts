@@ -1,7 +1,7 @@
 import { Item } from '../data'
 import { UIElement } from '../interface/UIElement'
 import { createElement } from '../util/elementFactory'
-import { DialButtons } from './dialButtons'
+import { DialButton } from './dialButton'
 import { VendingMachine } from './vendingMachine'
 
 export class DialContainer implements UIElement {
@@ -45,9 +45,9 @@ export class DialContainer implements UIElement {
 
     getElement(): HTMLDivElement {
         const container = createElement({ tagName: 'div', className: ['dial-container'] })
-
+        container.setAttribute('data-role', 'dial-container')
         this.#items.map((item) => {
-            container.appendChild(new DialButtons(item).getElement())
+            container.appendChild(new DialButton(item).getElement())
         })
 
         // 마우스 이벤트

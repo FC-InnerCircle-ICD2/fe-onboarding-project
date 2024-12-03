@@ -13,6 +13,8 @@ export class InsertButton implements UIElement {
         const button = createElement({ tagName: 'button', className: ['insert-coin', 'button'] })
 
         button.innerText = '투입'
+        button.setAttribute('data-role', 'insert-button')
+
         button.addEventListener('click', () => {
             this.#vendingMachine.insertCoin()
         })

@@ -9,6 +9,8 @@ export class DisplayInput implements UIElement {
             className: ['input', 'default-cursor', 'align-center'],
         })
         input.setAttribute('readonly', 'true')
+        input.setAttribute('data-role', 'display')
+
         input.value = '0'
 
         return input

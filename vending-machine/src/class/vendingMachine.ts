@@ -93,6 +93,10 @@ export class VendingMachine implements UIElement {
         this.#logContainer.scrollTop = this.#logContainer.scrollHeight
     }
 
+    public getDialContainer(): HTMLDivElement {
+        return this.#container?.querySelector('.dial-container') as HTMLDivElement
+    }
+
     public getCurrentCoin() {
         return this.#currentCoin
     }

@@ -12,6 +12,7 @@ export class ReturnButton implements UIElement {
     getElement(): HTMLButtonElement {
         const button = createElement({ tagName: 'button', className: ['return-coin', 'button'] })
         button.innerText = '반환'
+        button.setAttribute('data-role', 'return-button')
 
         button.addEventListener('click', () => {
             this.#vendingMachine.returnCoin()

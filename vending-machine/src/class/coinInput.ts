@@ -5,6 +5,7 @@ export class CoinInput implements UIElement {
     getElement(): HTMLInputElement {
         const input = createElement({ tagName: 'input', className: ['coin-input', 'input'] })
         input.setAttribute('maxlength', '9')
+        input.setAttribute('data-role', 'coin-input')
 
         input.addEventListener('input', (e: Event) => {
             const target = e.target as HTMLInputElement

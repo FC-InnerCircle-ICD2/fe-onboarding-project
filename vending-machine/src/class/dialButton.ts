@@ -2,16 +2,16 @@ import { Item } from '../data'
 import { UIElement } from '../interface/UIElement'
 import { createElement } from '../util/elementFactory'
 
-export class DialButtons implements UIElement {
+export class DialButton implements UIElement {
     #item: Item
 
     constructor(item: Item) {
         this.#item = item
     }
 
-    getElement(): HTMLDivElement {
-        const btn = createElement({ tagName: 'div', className: ['dial-item'] })
-        btn.setAttribute('role', 'button')
+    getElement(): HTMLButtonElement {
+        const btn = createElement({ tagName: 'button', className: ['dial-item'] })
+        btn.setAttribute('data-role', 'dial-item')
 
         btn.dataset.name = this.#item.name
         btn.dataset.price = String(this.#item.price)
