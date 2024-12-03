@@ -1,33 +1,33 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { createCoinManager } from './model';
 
 describe('createCoinManager', () => {
+  let coinManager: ReturnType<typeof createCoinManager>;
+
+  beforeEach(() => {
+    coinManager = createCoinManager();
+  });
+
   it('기본적으로 balance는 0원이다.', () => {
-    const coinManager = createCoinManager();
     expect(coinManager.getCoin()).toBe(0);
   });
 
   it('10,000원을 투입하면 balance가 10,000원이 된다.', () => {
-    const coinManager = createCoinManager();
     coinManager.insertCoin(10000);
     expect(coinManager.getCoin()).toEqual(10000);
   });
 
   it('-10,000원을 투입하면 무시된다.', () => {
-    const coinManager = createCoinManager();
     coinManager.insertCoin(-10000);
     expect(coinManager.getCoin()).toEqual(0);
   });
 
   it('0원을 투입하면 무시된다.', () => {
-    const coinManager = createCoinManager();
     coinManager.insertCoin(0);
     expect(coinManager.getCoin()).toEqual(0);
   });
 
   it('1,500원을 사용하면 balance가 8,500원이 된다.', () => {
-    const coinManager = createCoinManager();
-
     coinManager.insertCoin(10000);
     expect(coinManager.getCoin()).toEqual(10000);
 
@@ -36,8 +36,6 @@ describe('createCoinManager', () => {
   });
 
   it('0원을 사용하면 balance가 10,000원이 된다.', () => {
-    const coinManager = createCoinManager();
-
     coinManager.insertCoin(10000);
     expect(coinManager.getCoin()).toEqual(10000);
 
@@ -46,8 +44,6 @@ describe('createCoinManager', () => {
   });
 
   it('여러 번 사용해도 balance가 올바르게 변경된다.', () => {
-    const coinManager = createCoinManager();
-
     coinManager.insertCoin(10000);
     expect(coinManager.getCoin()).toEqual(10000);
 
@@ -60,8 +56,6 @@ describe('createCoinManager', () => {
   });
 
   it('balance보다 높은 금액을 사용하면 무시된다.', () => {
-    const coinManager = createCoinManager();
-
     coinManager.insertCoin(10000);
     expect(coinManager.getCoin()).toEqual(10000);
 
@@ -70,8 +64,6 @@ describe('createCoinManager', () => {
   });
 
   it('반환하면 balance가 0이 된다.', () => {
-    const coinManager = createCoinManager();
-
     const coin = 10000;
 
     coinManager.insertCoin(coin);

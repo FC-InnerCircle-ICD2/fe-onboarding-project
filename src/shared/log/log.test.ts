@@ -2,25 +2,42 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { createLogService } from '.';
 
 describe('createLogService', () => {
-  const logWindowElement = document.createElement('div');
+  let logWindowElement: HTMLDivElement;
+  let logService: ReturnType<typeof createLogService>;
+  let logParagraphElements: NodeListOf<HTMLParagraphElement>;
+
+  beforeEach(() => {
+    logWindowElement = document.createElement('div');
+    logService = createLogService(logWindowElement);
+  });
 
   it('track 메서드는 로그를 기록하고, logWindowElement에 표시한다.', () => {
-    const logService = createLogService(logWindowElement);
-
     logService.track('첫 번째 로그');
     logService.track('두 번째 로그');
 
-    const paragraphs = logWindowElement.querySelectorAll(
-      '.log-window_paragraph',
-    );
+    logParagraphElements =
+      logWindowElement.querySelectorAll<HTMLParagraphElement>(
+        '.log-window_paragraph',
+      );
 
-    expect(paragraphs.length).toBe(2);
-    expect(paragraphs[0].innerHTML).toBe('첫 번째 로그');
-    expect(paragraphs[1].innerHTML).toBe('두 번째 로그');
+    expect(logParagraphElements.length).toBe(2);
+    expect(logParagraphElements[0].textContent).toBe('첫 번째 로그');
+    expect(logParagraphElements[1].textContent).toBe('두 번째 로그');
+  });
+
+  it('문자열이 아닌 로그를 track하면, 무시된다.', () => {
+    logService.track(0 as unknown as string);
+
+    logParagraphElements =
+      logWindowElement.querySelectorAll<HTMLParagraphElement>(
+        '.log-window_paragraph',
+      );
+
+    expect(logParagraphElements.length).toBe(0);
   });
 
   it('로그가 추가되면 logWindowElement 하단으로 스크롤한다.', () => {
@@ -34,8 +51,11 @@ describe('createLogService', () => {
       writable: true,
     });
 
-    const logService = createLogService(logWindowElement);
-
+    logService.track('스크롤 테스트 로그');
+    logService.track('스크롤 테스트 로그');
+    logService.track('스크롤 테스트 로그');
+    logService.track('스크롤 테스트 로그');
+    logService.track('스크롤 테스트 로그');
     logService.track('스크롤 테스트 로그');
     logService.track('스크롤 테스트 로그');
 

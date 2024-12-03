@@ -35,49 +35,65 @@ describe('createProductButton', () => {
 });
 
 describe('initializeProductButtons', () => {
-  document.body.innerHTML = `
-      <section class="product-panel">
-        <div class="product-window"></div>
-        <div class="product-buttons"></div>
-      </section>
-      <div class="log-window"></div>
-    `;
+  let productPanelElement: HTMLElement;
+  let productWindowElement: HTMLDivElement;
+  let productButtonsElement: HTMLDivElement;
+  let logWindowElement: HTMLDivElement;
 
-  const productManager = createProductManager();
-  const coinManager = createCoinManager();
-  const logService = createLogService(
-    document.querySelector<HTMLDivElement>('.log-window')!,
-  );
-
-  const buttons = document.querySelector<HTMLDivElement>('.product-buttons')!;
-  const windowElement =
-    document.querySelector<HTMLDivElement>('.product-window')!;
+  let productManager: ReturnType<typeof createProductManager>;
+  let coinManager: ReturnType<typeof createCoinManager>;
+  let logService: ReturnType<typeof createLogService>;
 
   beforeEach(() => {
+    productPanelElement = document.createElement('div');
+    productPanelElement.className = 'product-panel';
+
+    productWindowElement = document.createElement('div');
+    productWindowElement.className = 'product-window';
+
+    productButtonsElement = document.createElement('div');
+    productButtonsElement.className = 'product-buttons';
+
+    logWindowElement = document.createElement('div');
+    logWindowElement.className = 'log-window';
+
+    document.body.appendChild(productPanelElement);
+    document.body.appendChild(productWindowElement);
+    document.body.appendChild(productButtonsElement);
+    document.body.appendChild(logWindowElement);
+
+    productManager = createProductManager();
+    coinManager = createCoinManager();
+    logService = createLogService(logWindowElement);
+
     initializeProductButtons({
       productManager,
       coinManager,
       logService,
       elements: {
-        buttons,
-        window: windowElement,
+        buttons: productButtonsElement,
+        window: logWindowElement,
       },
     });
   });
 
-  it('상품 버튼 9개가 정상적으로 렌더링 된다.', () => {
-    const renderedButtons = buttons.querySelectorAll('.product-button');
+  it('상품 버튼 9개가 정상적으로 표시된다.', () => {
+    const renderedButtons =
+      productButtonsElement.querySelectorAll('.product-button');
+
     expect(renderedButtons.length).toBe(products.length);
   });
 
-  it('특정 버튼을 클릭하면 상품 구매가 이루어지고, 잔액이 소모되고 금액창에 남은 잔액이 표시된다.', () => {
+  it('맥주 버튼을 클릭하면 상품 구매가 이루어지고, 4,500원이 소모되고 금액창에 남은 잔액, 6,500원이 표시된다.', () => {
     coinManager.insertCoin(10000);
-    const product = products[0];
+    expect(coinManager.getCoin()).toBe(10000);
 
-    const productButton = buttons.querySelector<HTMLButtonElement>(
-      `[data-product-id="${product.id}"]`,
-    )!;
+    const product = products[8];
 
+    const productButton =
+      productButtonsElement.querySelector<HTMLButtonElement>(
+        `[data-product-id="${product.id}"]`,
+      )!;
     const clickEvent = new MouseEvent('click', {
       bubbles: true,
       cancelable: true,
@@ -85,8 +101,53 @@ describe('initializeProductButtons', () => {
     productButton.dispatchEvent(clickEvent);
 
     expect(coinManager.getCoin()).toBe(10000 - product.price);
-    expect(windowElement.textContent).toBe(
+    expect(logWindowElement.textContent).toBe(
       `${formatCurrency(10000 - product.price)}`,
+    );
+  });
+
+  it('상품 버튼을 눌렀는데, 선택한 상품 id가 등록된 상품에 존재하지 않는 경우 구매가 무시된다.', () => {
+    const invalidButton = document.createElement('button');
+    invalidButton.dataset.productId = 'invalid-id';
+    productButtonsElement.appendChild(invalidButton);
+
+    invalidButton.click();
+
+    expect(productWindowElement.textContent).toBe('');
+
+    invalidButton.remove();
+  });
+
+  it('사이다 버튼을 누르고 있는 동안 해당 상품의 가격이 금액창에 표시되고, 떼는 순간 잔액이 표시된다.', () => {
+    coinManager.insertCoin(10000);
+    expect(coinManager.getCoin()).toBe(10000);
+
+    const product = products[1];
+
+    const productButton =
+      productButtonsElement.querySelector<HTMLButtonElement>(
+        `[data-product-id="${product.id}"]`,
+      )!;
+
+    const mouseDownEvent = new MouseEvent('mousedown', {
+      bubbles: true,
+      cancelable: true,
+    });
+    productButton.dispatchEvent(mouseDownEvent);
+
+    expect(productWindowElement.textContent).toBe(
+      `${formatCurrency(product.price)}`,
+    );
+
+    const mouseLeaveEvent = new MouseEvent('mouseleave', {
+      bubbles: true,
+      cancelable: true,
+    });
+    productButton.dispatchEvent(mouseLeaveEvent);
+
+    const currentBalance = coinManager.getCoin();
+    expect(productWindowElement.textContent).toBe(
+      `${formatCurrency(currentBalance)}`,
     );
   });
 });
