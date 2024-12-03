@@ -1,8 +1,8 @@
 import { products } from './products.js'
 
-window.onload = function () {
+window.addEventListener('DOMContentLoaded', () => {
     attachEventListeners();
-};
+});
 
 // 금액 포맷 함수: 항상 숫자만을 표기(양수만 입력가능),세 자리마다 쉼표를 표시합니다.
 function formatAmount(amount) {
