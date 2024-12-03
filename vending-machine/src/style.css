@@ -1,0 +1,180 @@
+/* Eric Meyer CSS Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: sans-serif;
+}
+
+body {
+    line-height: 1;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    height: 320px;
+    margin-block: 100px;
+    margin-inline: auto;
+
+    .calculator {
+        width: 340px;
+        height: 100%;
+        background-color: #b3f1ff;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+
+        .current-coin {
+            width: 100%;
+            padding-bottom: 20px;
+        }
+
+        .dial-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            column-gap: 10px;
+            row-gap: 8px;
+
+            .dial-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                max-width: 100%;
+                height: 60px;
+                padding-inline: 10px;
+                background-color: skyblue;
+                border: 1px solid black;
+                border-radius: 6px;
+                box-sizing: border-box;
+                overflow-x: auto;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgb(98, 200, 241);
+                }
+
+                .title {
+                    padding-bottom: 4px;
+                    font-size: 1rem;
+                }
+
+                .price {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 340px;
+        height: 100%;
+        padding: 20px 10px;
+
+        .operation-container {
+            display: flex;
+            gap: 10px;
+
+            .input {
+                flex: 1;
+            }
+
+            .button {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .log-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            height: calc(100% - 74px);
+            padding: 10px;
+            list-style: none;
+            border-radius: 6px;
+            border: 1px solid black;
+            overflow-y: auto;
+        }
+    }
+}
+
+.input {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 1.6rem;
+    outline: none;
+    text-align: right;
+}
+
+input.error-text {
+    color: red;
+}
+
+.button {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    padding-inline: 10px;
+    background-color: skyblue;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    overflow-x: auto;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(98, 200, 241);
+    }
+}
+
+.button_active {
+    animation: buttonActiveAnimation 0.3s ease forwards;
+}
+
+/* 눌렀을 때 애니메이션 정의 */
+@keyframes buttonActiveAnimation {
+    0% {
+        transform: scale(1); /* 초기 크기 */
+    }
+    50% {
+        transform: scale(1.05); /* 버튼이 커지는 효과 */
+    }
+    100% {
+        transform: scale(1); /* 원래 크기로 돌아오는 효과 */
+    }
+}
+
+.default-cursor {
+    cursor: default;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
