@@ -1,0 +1,152 @@
+/* 기본 스타일 설정 */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* 스크롤을 방지 */
+}
+
+/* 자판기 전체 레이아웃 */
+.vending-machine {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .vending-machine {
+    flex-direction: column;
+    gap: 15px;
+    padding: 0px;
+  }
+}
+
+/* 왼쪽 섹션: display + products */
+.left-section {
+  padding: 10px;
+}
+/* 금액 표시창 스타일 */
+.display {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  background: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* 상품 버튼 그리드 */
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+button.product {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 1rem;
+  text-align: center;
+  transition: background 0.3s;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button.product:hover {
+  background: #e0f7fa;
+}
+
+button.product:active {
+  background: #b2ebf2;
+}
+
+/* 오른쪽 섹션: 금액 투입구 + 로그 */
+.right-section {
+  height: 100%;
+  padding: 10px;
+}
+
+/* 금액 투입 구역 스타일 */
+.input-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-section input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input-section input:focus {
+  outline: none;
+  border-color: #009688;
+}
+
+.input-section button {
+  padding: 8px;
+  font-size: 1rem;
+  background: #009688;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.input-section button:hover {
+  background: #00796b;
+}
+
+.input-section button:active {
+  background: #004d40;
+}
+
+/* 로그 창 스타일 */
+.log {
+  width: 100%;
+  flex: 1;
+  height: 150px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.log div {
+  margin-bottom: 5px;
+}
+
+/* 스크롤바 스타일 (웹 브라우저 지원 범위에 따라 동작) */
+.log::-webkit-scrollbar {
+  width: 8px;
+}
+
+.log::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.log::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
