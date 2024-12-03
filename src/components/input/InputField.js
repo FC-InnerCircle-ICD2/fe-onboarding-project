@@ -6,7 +6,14 @@ import InputFieldText from "./InputFieldText.js";
 export default class InputField extends Element {
   constructor(tag, parent, className, version) {
     super(tag, parent, className, version);
-    this.element.appendChild(new InputFieldText(version).element);
+    this.element.appendChild(
+      new InputFieldText(
+        "div",
+        this.element,
+        `inputField_inputText ${version}`,
+        version
+      ).element
+    );
     this.element.appendChild(this.makeButtons());
   }
 
@@ -15,7 +22,14 @@ export default class InputField extends Element {
     buttons.classList.add("inputField_buttons");
     inputInfo.forEach((item) => {
       buttons.appendChild(
-        new InputFieldButton(this.version, item.label, item.price).element
+        new InputFieldButton(
+          "button",
+          this.element,
+          `inputField_buttons_button ${this.version}`,
+          this.version,
+          item.label,
+          item.price
+        ).element
       );
     });
 
