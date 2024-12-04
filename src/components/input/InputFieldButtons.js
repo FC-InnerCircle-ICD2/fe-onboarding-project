@@ -1,4 +1,5 @@
 import { inputInfo } from "../../utils/inputInfo.js";
+import { numberFormatting } from "../../utils/numberFormatting.js";
 import Element from "../common/Element.js";
 import InputFieldButton from "./InputFieldButton.js";
 
@@ -31,10 +32,10 @@ export default class InputFieldButtons extends Element {
           behavior: "smooth",
         });
 
-        inputText.innerText = (inputNum - value).toLocaleString();
+        inputText.innerText = numberFormatting(inputNum - value);
         inputText.dataset.value = inputNum - value;
       } else {
-        inputText.innerText = value.toLocaleString();
+        inputText.innerText = numberFormatting(value);
       }
     });
 
@@ -46,7 +47,7 @@ export default class InputFieldButtons extends Element {
       const inputNum = Number(inputText.dataset.value);
       const value = Number(e.target.value);
       if (value > inputNum) {
-        inputText.innerText = Number(inputText.dataset.value).toLocaleString();
+        inputText.innerText = numberFormatting(inputText.dataset.value);
       }
     });
   }

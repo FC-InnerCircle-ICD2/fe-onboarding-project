@@ -1,3 +1,4 @@
+import { numberFormatting } from "../../utils/numberFormatting.js";
 import Element from "../common/Element.js";
 import OutputFieldButton from "./OutputFieldButton.js";
 
@@ -45,10 +46,10 @@ export default class OutputFieldButtons extends Element {
         version,
         `${outputText.value}원이 투입되었습니다.<br />`
       );
-      inputText.innerText = (
+      inputText.innerText = numberFormatting(
         Number(inputText.innerText.replaceAll(",", "")) +
-        Number(outputText.value)
-      ).toLocaleString();
+          Number(outputText.value)
+      );
       inputText.dataset.value =
         Number(inputText.dataset.value) + Number(outputText.value);
       outputText.value = "";
