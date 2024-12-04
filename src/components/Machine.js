@@ -1,19 +1,14 @@
+import Element from "./common/Element.js";
 import InputField from "./input/InputField.js";
 import OutputField from "./output/OutputField.js";
 
-export default class Machine {
+export default class Machine extends Element {
   constructor(version) {
-    this.version = version;
-    this.machine = document.createElement("article");
-    this.machine.className = `machine ${version}`;
-
-    document.body.appendChild(this.machine);
+    super("section", document.body, `machine ${version}`, version);
   }
 
   on() {
-    const inputField = new InputField(this.version);
-    const outputField = new OutputField(this.version);
-    this.machine.appendChild(inputField.element);
-    this.machine.appendChild(outputField.element);
+    new InputField(this.element, this.version);
+    new OutputField(this.element, this.version);
   }
 }
