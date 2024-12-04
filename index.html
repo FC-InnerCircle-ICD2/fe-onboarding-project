@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자판기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="left-box">
+            <!-- 상품금액 표시 화면 -->
+            <div class="amount-display">
+                <span id="amount-display">0</span> 
+            </div>
+            <!-- 상품 버튼 -->
+            <div class="product-buttons">
+                <template id="product-button-template">
+                    <button class="product-button">
+                        <div class="product-name"></div>
+                        <div class="product-price"></div>
+                    </button>
+                </template>
+            </div>
+        </div>
+
+        <div class="right-box">
+            <!-- 투입 금액 표시 화면 -->
+            <div class="input-group">
+                <div class="input-display">
+                    <input type="text" id="input-display" placeholder="0"></span>
+                </div>
+                <!-- 투입,반환 버튼 -->
+                <div class="input-controls">
+                    <button class="control-btn" data-action="deposit">투입</button>
+                    <button class="control-btn" data-action="return">반환</button>
+                </div>
+            </div>
+            <!-- 로그 출력 창 -->
+            <div class="log-box">
+                <ul id="log-list">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
