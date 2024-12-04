@@ -17,7 +17,7 @@ export default class OutputFieldButtons extends Element {
 
     this.element.addEventListener("click", (e) => {
       const inputText = document.querySelector(
-        `.inputField_inputText.${version}`
+        `.${Classname.INPUT_FIELD_TEXT}.${version}`
       );
       if (e.target.innerText === "투입") {
         this.handleInsertEvent(inputText, version);

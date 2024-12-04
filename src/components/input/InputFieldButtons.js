@@ -6,7 +6,7 @@ import InputFieldButton from "./InputFieldButton.js";
 
 export default class InputFieldButtons extends Element {
   constructor(parent, version) {
-    super("div", parent, "inputField_buttons", version);
+    super("div", parent, Classname.INPUT_FIELD_BUTTONS, version);
 
     inputInfo.forEach((item) => {
       this.element.appendChild(
@@ -16,9 +16,9 @@ export default class InputFieldButtons extends Element {
     });
 
     this.element.addEventListener("mousedown", (e) => {
-      if (e.target.className === "inputField_buttons") return;
+      if (e.target.className === Classname.INPUT_FIELD_BUTTONS) return;
       const inputText = document.querySelector(
-        `.inputField_inputText.${this.version}`
+        `.${Classname.INPUT_FIELD_TEXT}.${this.version}`
       );
       const inputNum = Number(inputText.innerText.replaceAll(",", ""));
       const value = Number(e.target.value);
@@ -41,9 +41,9 @@ export default class InputFieldButtons extends Element {
     });
 
     this.element.addEventListener("mouseup", (e) => {
-      if (e.target.className === "inputField_buttons") return;
+      if (e.target.className === Classname.INPUT_FIELD_BUTTONS) return;
       const inputText = document.querySelector(
-        `.inputField_inputText.${this.version}`
+        `.${Classname.INPUT_FIELD_TEXT}.${this.version}`
       );
       const inputNum = Number(inputText.dataset.value);
       const value = Number(e.target.value);
