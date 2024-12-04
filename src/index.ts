@@ -1,5 +1,5 @@
 import { VendingMachineData } from "./mock/VendingMachineData";
-import { VendingMachineState } from "./model/VendingMachineState";
+import { StateManager } from "./model/StateManager";
 import { VendingMachineManager } from "./model/VendingMachineManager";
 import "./styles/reset.css";
 import "./styles/style.css";
@@ -16,7 +16,20 @@ const returnButton = document.getElementById(
 ) as HTMLButtonElement | null;
 const logsContainer = document.getElementById("logsContainer");
 
-const state = new VendingMachineState();
+export type InitialStateType = {
+  insertAmount: number;
+  remainingAmount: number;
+  displayPrice: number;
+  purchaseState: boolean;
+};
+
+const initialState = {
+  insertAmount: 0,
+  remainingAmount: 0,
+  displayPrice: 0,
+  purchaseState: false,
+};
+const state = new StateManager<InitialStateType>(initialState);
 const controller = new VendingMachineManager({
   productData: VendingMachineData,
   state,

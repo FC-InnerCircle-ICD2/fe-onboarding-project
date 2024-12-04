@@ -1,33 +1,23 @@
-type VendingMachineStateKeys =
-  | "insertAmount"
-  | "remainingAmount"
-  | "displayPrice"
-  | "purchaseState";
-
-export class VendingMachineState {
-  #state: Record<VendingMachineStateKeys, any>;
-  #initialState: Record<VendingMachineStateKeys, any>;
+// 오브젝트 형태로 타입 제한
+export class StateManager<T extends Record<string, any>> {
+  #state: T;
+  #initialState: T;
   #listeners: (() => void)[];
 
-  constructor() {
+  constructor(initialState: T) {
     this.#listeners = [];
-    this.#initialState = {
-      insertAmount: 0,
-      remainingAmount: 0,
-      displayPrice: 0,
-      purchaseState: false,
-    };
+    this.#initialState = initialState;
 
     this.#state = new Proxy(this.#initialState, {
       get: (target, prop: string) => {
         if (prop in target) {
-          return target[prop as VendingMachineStateKeys];
+          return target[prop as keyof T];
         }
         throw new Error(`Property "${prop}" does not exist on state.`);
       },
       set: (target, prop: string, value) => {
         if (prop in target) {
-          target[prop as VendingMachineStateKeys] = value;
+          target[prop as keyof T] = value;
           this.notify();
           return true;
         }

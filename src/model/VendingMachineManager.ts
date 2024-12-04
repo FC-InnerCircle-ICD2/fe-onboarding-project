@@ -1,3 +1,4 @@
+import { InitialStateType } from "..";
 import { convertPriceFormat } from "../shared/priceFormat";
 import type {
   ControllerComponentType,
@@ -5,12 +6,12 @@ import type {
   VendingMachineControllerType,
   VendingMachineItemType,
 } from "../types";
+import { StateManager } from "./StateManager";
 import { VendingMachineProduct } from "./VendingMachineProduct";
-import { VendingMachineState } from "./VendingMachineState";
 
 export class VendingMachineManager {
   #productData: VendingMachineItemType[];
-  #state: VendingMachineState;
+  #state: StateManager<InitialStateType>;
   #component: ControllerComponentType;
   #insertInput: ControllerComponentType["insertInput"];
   #priceDisplay: ControllerComponentType["priceDisplay"];
