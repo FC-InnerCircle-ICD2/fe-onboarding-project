@@ -1,6 +1,7 @@
-export default class OutputFieldTextArea {
-  constructor(version) {
-    this.element = document.createElement("p");
-    this.element.className = `outputField_textarea ${version}`;
+import Element from "../common/Element.js";
+
+export default class OutputFieldTextArea extends Element {
+  constructor(parent, version) {
+    super("p", parent, `outputField_textarea ${version}`, version);
   }
 }

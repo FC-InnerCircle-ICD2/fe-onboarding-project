@@ -1,13 +1,17 @@
+import Element from "../common/Element.js";
 import OutputFieldButton from "./OutputFieldButton.js";
 
-export default class OutputFieldButtons {
-  constructor(version) {
+export default class OutputFieldButtons extends Element {
+  constructor(parent, version) {
+    super("div", parent, "outputField_buttons", version);
     this.version = version;
-    this.element = document.createElement("div");
-    this.element.className = "outputField_buttons";
 
-    this.element.appendChild(new OutputFieldButton("투입").element);
-    this.element.appendChild(new OutputFieldButton("반환").element);
+    this.element.appendChild(
+      new OutputFieldButton(this.element, version, "투입").element
+    );
+    this.element.appendChild(
+      new OutputFieldButton(this.element, version, "반환").element
+    );
 
     this.element.addEventListener("click", (e) => {
       const inputText = document.querySelector(
