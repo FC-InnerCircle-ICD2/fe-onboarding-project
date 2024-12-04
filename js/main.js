@@ -30,20 +30,17 @@ function formatAmount(amount) {
  * @returns {HTMLButtonElement} 생성된 상품 버튼 
  */
 function createProductButton(product) {
-    const button = document.createElement('button');
-    button.classList.add('product-button');
-    button.setAttribute('data-price', product.price);
+    const template = document.getElementById('product-button-template');
+    const clone = template.content.cloneNode(true); 
 
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('product-name');
+    const nameDiv = clone.querySelector('.product-name');
     nameDiv.textContent = product.name;
 
-    const priceDiv = document.createElement('div');
-    priceDiv.classList.add('product-price');
+    const priceDiv = clone.querySelector('.product-price');
     priceDiv.textContent = `${formatAmount(product.price)}원`;
 
-    button.appendChild(nameDiv);
-    button.appendChild(priceDiv);
+    const button = clone.querySelector('button');
+    button.dataset.price = product.price
 
     return button;
 }
