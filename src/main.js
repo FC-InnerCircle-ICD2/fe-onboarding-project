@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 자판기 틀 복제
   for (let i = 1; i <= 3; i++) {
     const vendingMachine = template.content.cloneNode(true);
-    const article = vendingMachine.querySelector("article");
-    article.id = `machine-${i}`;
+    const vendingMachineContainer =
+      vendingMachine.querySelector(`[aria-label="자판기"]`);
+    vendingMachineContainer.id = `machine-${i}`;
     main.appendChild(vendingMachine);
   }
 
