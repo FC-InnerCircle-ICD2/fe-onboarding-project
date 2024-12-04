@@ -19,7 +19,7 @@ function formatAmount(amount) {
         return '';
     }
     // 금액을 세 자리마다 쉼표를 넣어서 포맷
-    let formattedAmount = Number(amount).toLocaleString('en-US');
+    const formattedAmount = Number(amount).toLocaleString('en-US');
 
     return formattedAmount;
 }
