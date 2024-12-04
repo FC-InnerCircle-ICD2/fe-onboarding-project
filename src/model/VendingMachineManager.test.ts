@@ -101,7 +101,6 @@ describe("VendingMachineManager 클래스 테스트", () => {
     const productButtons = mockComponent.productGroup.querySelectorAll(
       '[data-testid="product-item"]'
     );
-
     expect(productButtons.length).toBe(productData.length);
 
     const firstProduct = productButtons[0];

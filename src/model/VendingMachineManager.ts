@@ -118,90 +118,92 @@ export class VendingMachineManager {
     if (!this.#priceDisplay) return;
     this.#priceDisplay.innerText = convertPriceFormat(String(price));
   }
+
+  productItemsRender = () => {
+    for (const data of this.#productData) {
+      const node = { product: new VendingMachineProduct(), data };
+      const { name, price } = data;
+      node.product.item.classList.add("vendingMachine_product_item");
+      node.product.item.dataset.productName = name;
+      node.product.item.dataset.productPrice = String(price);
+      // 테스트 식별용 data-testid 속성 추가
+      node.product.item.setAttribute("data-testid", "product-item");
+      node.product.innerHTML(`
+      <strong class="vendingMachine_product_item_name">${data.name}</strong>
+      <span class="vendingMachine_product_item_price">${convertPriceFormat(
+        String(data.price)
+      )}원</span>
+      `);
+
+      this.#productGroupData.push(node);
+      this.#productGroup?.append(node.product.item);
+    }
+  };
+
+  productEventHandler = () => {
+    const handleEvent = (event: Event) => {
+      const target = event.target as HTMLElement;
+      const productItem = target.closest<HTMLButtonElement>(
+        '[data-testid="product-item"]'
+      );
+
+      const name = productItem?.dataset.productName;
+      const price = Number(productItem?.dataset.productPrice);
+
+      if (!name || isNaN(price)) return;
+
+      if (this.#state.state.purchaseState) {
+        // 구매 상태인 경우 클릭 이벤트 처리
+        if (event.type === "click") {
+          this.purchase({ name, price });
+        }
+      } else {
+        // 구매 상태가 아닌 경우 이벤트 유형에 따른 처리
+        switch (event.type) {
+          case "mousedown":
+          case "touchstart":
+            this.displayPrice(price);
+            break;
+          case "mouseup":
+          case "mouseleave":
+          case "touchend":
+            this.displayPrice(0);
+            break;
+          case "keypress":
+            if ((event as KeyboardEvent).key === "Enter") {
+              this.displayPrice(price);
+            }
+            break;
+          case "keyup":
+            if ((event as KeyboardEvent).key === "Enter") {
+              this.displayPrice(0);
+            }
+            break;
+        }
+      }
+    };
+
+    // 부모 요소에 단일 이벤트 리스너 등록
+    const eventTypes = [
+      "click",
+      "mousedown",
+      "mouseup",
+      "mouseleave",
+      "keypress",
+      "keyup",
+      "touchstart",
+      "touchend",
+    ];
+
+    for (const eventType of eventTypes) {
+      this.#productGroup?.addEventListener(eventType, handleEvent);
+    }
+  };
+
   //자판기 아이템 생성
   generatorProducts() {
-    const productItemsRender = () => {
-      for (const data of this.#productData) {
-        const node = { product: new VendingMachineProduct(), data };
-        const { name, price } = data;
-        node.product.item.classList.add("vendingMachine_product_item");
-        node.product.item.dataset.productName = name;
-        node.product.item.dataset.productPrice = String(price);
-        // 테스트 식별용 data-testid 속성 추가
-        node.product.item.setAttribute("data-testid", "product-item");
-        node.product.innerHTML(`
-        <strong class="vendingMachine_product_item_name">${data.name}</strong>
-        <span class="vendingMachine_product_item_price">${convertPriceFormat(
-          String(data.price)
-        )}원</span>
-        `);
-
-        this.#productGroupData.push(node);
-        this.#productGroup?.append(node.product.item);
-      }
-    };
-
-    const productEventHandler = () => {
-      const handleEvent = (event: Event) => {
-        const target = event.target as HTMLElement;
-        const productItem = target.closest<HTMLButtonElement>(
-          ".vendingMachine_product_item"
-        );
-
-        const name = productItem?.dataset.productName;
-        const price = Number(productItem?.dataset.productPrice);
-
-        if (!name || isNaN(price)) return;
-
-        if (this.#state.state.purchaseState) {
-          // 구매 상태인 경우 클릭 이벤트 처리
-          if (event.type === "click") {
-            this.purchase({ name, price });
-          }
-        } else {
-          // 구매 상태가 아닌 경우 이벤트 유형에 따른 처리
-          switch (event.type) {
-            case "mousedown":
-            case "touchstart":
-              this.displayPrice(price);
-              break;
-            case "mouseup":
-            case "mouseleave":
-            case "touchend":
-              this.displayPrice(0);
-              break;
-            case "keypress":
-              if ((event as KeyboardEvent).key === "Enter") {
-                this.displayPrice(price);
-              }
-              break;
-            case "keyup":
-              if ((event as KeyboardEvent).key === "Enter") {
-                this.displayPrice(0);
-              }
-              break;
-          }
-        }
-      };
-
-      // 부모 요소에 단일 이벤트 리스너 등록
-      const eventTypes = [
-        "click",
-        "mousedown",
-        "mouseup",
-        "mouseleave",
-        "keypress",
-        "keyup",
-        "touchstart",
-        "touchend",
-      ];
-
-      for (const eventType of eventTypes) {
-        this.#productGroup?.addEventListener(eventType, handleEvent);
-      }
-    };
-    productEventHandler();
-    productItemsRender();
+    this.productEventHandler();
+    this.productItemsRender();
   }
   updateState() {
     this.#state.addListener(() => {
