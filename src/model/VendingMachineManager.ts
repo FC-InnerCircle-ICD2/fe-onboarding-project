@@ -46,7 +46,6 @@ export class VendingMachineManager {
       target.value = formattedValue;
       // console.log({ value: onlyNumbers, formattedValue });
       this.#state.state.insertAmount = Number(onlyNumbers);
-      console.log({ insertAmount: this.#state.state.insertAmount });
     });
   }
   //금액 투입
@@ -120,14 +119,19 @@ export class VendingMachineManager {
   }
 
   productItemsRender = () => {
+    if (!this.#productGroup) return;
+
+    this.#productGroupData = [];
+    this.#productGroup.innerHTML = "";
+
     for (const data of this.#productData) {
       const node = { product: new VendingMachineProduct(), data };
       const { name, price } = data;
       node.product.item.classList.add("vendingMachine_product_item");
       node.product.item.dataset.productName = name;
       node.product.item.dataset.productPrice = String(price);
-      // 테스트 식별용 data-testid 속성 추가
-      node.product.item.setAttribute("data-testid", "product-item");
+      // 테스트 식별용 data-testId 속성 추가
+      node.product.item.setAttribute("data-testId", "product-item");
       node.product.innerHTML(`
       <strong class="vendingMachine_product_item_name">${data.name}</strong>
       <span class="vendingMachine_product_item_price">${convertPriceFormat(
@@ -144,7 +148,7 @@ export class VendingMachineManager {
     const handleEvent = (event: Event) => {
       const target = event.target as HTMLElement;
       const productItem = target.closest<HTMLButtonElement>(
-        '[data-testid="product-item"]'
+        '[data-testId="product-item"]'
       );
 
       const name = productItem?.dataset.productName;
@@ -209,8 +213,6 @@ export class VendingMachineManager {
     this.#state.addListener(() => {
       if (!this.#insertButton) return;
       if (!this.#returnButton) return;
-
-      // console.log("state", this.#state.state);
 
       for (const item of this.#productGroupData) {
         item.product.setItemState({

@@ -51,6 +51,8 @@ describe("VendingMachineManager 클래스 테스트", () => {
     });
 
     // 기본 초기화
+    mockComponent.priceDisplay.innerText = "0"; // 초기화
+    mockComponent.productGroup.innerHTML = ""; // 기존 제품 제거
     manager.build();
   });
 
@@ -96,16 +98,59 @@ describe("VendingMachineManager 클래스 테스트", () => {
     expect(log?.innerText).toBe("3,000원이 반환되었습니다.");
   });
 
-  it("generatorProducts(): 제품이 렌더링되고 이벤트가 바인딩되어야 한다", () => {
-    // "data-testid"를 사용하여 요소 식별
+  it("productItemsRender(): 제품이 올바르게 렌더링 되여야함", () => {
+    manager.productItemsRender();
+
     const productButtons = mockComponent.productGroup.querySelectorAll(
-      '[data-testid="product-item"]'
+      '[data-testId="product-item"]'
     );
+
     expect(productButtons.length).toBe(productData.length);
 
-    const firstProduct = productButtons[0];
-    expect(firstProduct.dataset.productName).toBe("콜라");
-    expect(firstProduct.dataset.productPrice).toBe("1000");
+    productData.forEach((product, index) => {
+      const productButton = productButtons[index];
+      expect(productButton.dataset.productName).toBe(product.name);
+      expect(productButton.dataset.productPrice).toBe(String(product.price));
+    });
+  });
+  it("productEventHandler(): 이벤트가 올바르게 바인딩되고 상태가 업데이트되어야 한다", () => {
+    // Mock purchase() 함수 호출 추적
+    const purchaseSpy = jest.spyOn(manager, "purchase");
+
+    // 제품 렌더링
+    manager.productItemsRender();
+    // 이벤트 바인딩
+    manager.productEventHandler();
+
+    const productGroup = mockComponent.productGroup;
+    const firstProduct = productGroup.querySelector(
+      '[data-testId="product-item"]'
+    );
+    // 상태 업데이트 전: 구매 상태가 false
+    mockState.state.purchaseState = false;
+
+    const eventConfig = {
+      bubbles: true,
+      cancelable: true,
+    };
+    // MouseDown 이벤트 테스트
+    firstProduct?.dispatchEvent(new MouseEvent("mousedown", eventConfig));
+    expect(mockComponent.priceDisplay.innerText).toBe("1,000"); // 가격 표시 확인
+
+    // MouseUp 이벤트 테스트
+    firstProduct.dispatchEvent(new MouseEvent("mouseup", eventConfig));
+    expect(mockComponent.priceDisplay.innerText).toBe("0"); // 초기화 확인
+
+    // 구매 상태 true로 설정 후 클릭 이벤트 테스트
+    mockState.state.purchaseState = true;
+    firstProduct.dispatchEvent(new MouseEvent("click", eventConfig));
+
+    expect(purchaseSpy).toHaveBeenCalledWith({
+      name: "콜라",
+      price: 1000,
+    });
+
+    purchaseSpy.mockRestore();
   });
 
   it("purchase(): 상품 구매 후 상태와 로그가 업데이트되어야 한다", () => {
