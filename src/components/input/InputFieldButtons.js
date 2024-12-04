@@ -1,3 +1,4 @@
+import { Classname } from "../../utils/constant.js";
 import { inputInfo } from "../../utils/inputInfo.js";
 import { numberFormatting } from "../../utils/numberFormatting.js";
 import Element from "../common/Element.js";
@@ -23,7 +24,7 @@ export default class InputFieldButtons extends Element {
       const value = Number(e.target.value);
       if (inputNum >= value) {
         const outputTextarea = document.querySelector(
-          `.outputField_textarea.${this.version}`
+          `.${Classname.OUTPUT_FIELD_TEXTAREA}.${this.version}`
         );
 
         outputTextarea.innerHTML += `${e.target.dataset.label}을 구매했습니다.<br />`;

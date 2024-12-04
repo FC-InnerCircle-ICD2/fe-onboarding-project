@@ -1,10 +1,11 @@
+import { Classname } from "../../utils/constant.js";
 import { numberFormatting } from "../../utils/numberFormatting.js";
 import Element from "../common/Element.js";
 import OutputFieldButton from "./OutputFieldButton.js";
 
 export default class OutputFieldButtons extends Element {
   constructor(parent, version) {
-    super("div", parent, "outputField_buttons", version);
+    super("div", parent, Classname.OUTPUT_FIELD_BUTTONS, version);
     this.version = version;
 
     this.element.appendChild(
@@ -28,7 +29,7 @@ export default class OutputFieldButtons extends Element {
 
   changeOutputTextarea(version, value) {
     const outputTextarea = document.querySelector(
-      `.outputField_textarea.${version}`
+      `.${Classname.OUTPUT_FIELD_TEXTAREA}.${version}`
     );
     outputTextarea.innerHTML += value;
     outputTextarea.scrollTo({
@@ -39,7 +40,7 @@ export default class OutputFieldButtons extends Element {
 
   handleInsertEvent(inputText, version) {
     const outputText = document.querySelector(
-      `.outputField_inputText.${version}`
+      `.${Classname.OUTPUT_FIELD_TEXT}.${version}`
     );
     if (outputText.value !== "0" && outputText.value !== "") {
       this.changeOutputTextarea(

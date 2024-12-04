@@ -1,3 +1,4 @@
+import { Classname } from "../../utils/constant.js";
 import Element from "../common/Element.js";
 
 export default class OutputFieldButton extends Element {
@@ -5,7 +6,7 @@ export default class OutputFieldButton extends Element {
     super(
       "button",
       parent,
-      `outputField_buttons_button ${
+      `${Classname.OUTPUT_FIELD_BUTTONS_BUTTON} ${
         innerText === "투입" ? "insert" : "return"
       }`,
       version
