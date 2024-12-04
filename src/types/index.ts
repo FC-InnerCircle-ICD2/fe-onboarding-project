@@ -1,6 +1,6 @@
+import { VendingMachineStateType } from "../model/VendingMachineManager";
 import { VendingMachineProduct } from "../model/VendingMachineProduct";
 
-import { VendingMachineState } from "../model/StateManager";
 export type ControllerComponentType = {
   insertInput: HTMLInputElement | null;
   priceDisplay: HTMLElement | null;
@@ -11,7 +11,7 @@ export type ControllerComponentType = {
 };
 export type VendingMachineControllerType = {
   productData: VendingMachineItemType[];
-  state: VendingMachineState;
+  state: VendingMachineStateType;
   component: ControllerComponentType;
 };
 export type VendingMachineItemType = {

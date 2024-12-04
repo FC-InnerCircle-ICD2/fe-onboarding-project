@@ -9,9 +9,10 @@ import type {
 import { StateManager } from "./StateManager";
 import { VendingMachineProduct } from "./VendingMachineProduct";
 
+export type VendingMachineStateType = StateManager<InitialStateType>;
 export class VendingMachineManager {
   #productData: VendingMachineItemType[];
-  #state: StateManager<InitialStateType>;
+  #state: VendingMachineStateType;
   #component: ControllerComponentType;
   #insertInput: ControllerComponentType["insertInput"];
   #priceDisplay: ControllerComponentType["priceDisplay"];
@@ -94,10 +95,10 @@ export class VendingMachineManager {
     const li = document.createElement("li");
     li.innerText = `${log}`;
     this.#logsContainer.append(li);
-    console.log({
-      scrollHeight: this.#logsContainer.scrollHeight,
-      clientHeight: this.#logsContainer.clientHeight,
-    });
+    // console.log({
+    //   scrollHeight: this.#logsContainer.scrollHeight,
+    //   clientHeight: this.#logsContainer.clientHeight,
+    // });
     const scrollHeight = this.#logsContainer.scrollHeight;
     this.#logsContainer.scrollTo({
       left: 0,
@@ -126,6 +127,8 @@ export class VendingMachineManager {
         node.product.item.classList.add("vendingMachine_product_item");
         node.product.item.dataset.productName = name;
         node.product.item.dataset.productPrice = String(price);
+        // 테스트 식별용 data-testid 속성 추가
+        node.product.item.setAttribute("data-testid", "product-item");
         node.product.innerHTML(`
         <strong class="vendingMachine_product_item_name">${data.name}</strong>
         <span class="vendingMachine_product_item_price">${convertPriceFormat(
@@ -205,7 +208,7 @@ export class VendingMachineManager {
       if (!this.#insertButton) return;
       if (!this.#returnButton) return;
 
-      console.log("state", this.#state.state);
+      // console.log("state", this.#state.state);
 
       for (const item of this.#productGroupData) {
         item.product.setItemState({

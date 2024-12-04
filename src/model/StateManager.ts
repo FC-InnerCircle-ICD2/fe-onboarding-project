@@ -1,4 +1,4 @@
-// 오브젝트 형태로 타입 제한
+// proxy는 객체타입에서만 작동하기 때문에 객체 형태로 타입 제한
 export class StateManager<T extends Record<string, any>> {
   #state: T;
   #initialState: T;
