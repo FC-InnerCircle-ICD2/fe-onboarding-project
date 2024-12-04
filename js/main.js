@@ -71,8 +71,8 @@ function attachEventListeners() {
 
     // 투입, 반환 버튼 클릭할 때
     inputControls.addEventListener('click', function (event) {
-        if (event.target && event.target.matches('button.control-btn')) {
-            const action = event.target.getAttribute('data-action');
+        if (event.target?.matches('button.control-btn')) {
+            const action = event.target.dataset.action;
 
             if (action === 'deposit') {
                 depositAmount = parseInt(inputDisplay.value.replace(/,/g, '')) || 0; // 투입된 금액
