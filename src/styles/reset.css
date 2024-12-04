@@ -1,0 +1,158 @@
+/* styles/reset.css */
+
+/* [@layer base]
+개념: base 레이어는 기본적인 스타일을 정의하는 곳입니다. 여기에는 HTML 요소에 적용되는 초기 스타일이나 리셋 스타일이 포함됩니다. 기본 폰트 크기, 기본 마진 및 패딩, 초기화 스타일 등을 설정합니다.
+특징:
+	- 모든 HTML 요소에 적용되는 기본 스타일을 설정합니다.
+	- 프로젝트 전반에 걸쳐 일관된 초기 스타일을 보장합니다. */
+
+@layer base {
+  html {
+    font-size: 62.5%; /* 1rem = 10px */
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video,
+  div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    word-break: keep-all;
+    font-size: 1.4rem;
+    vertical-align: baseline;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  blockquote,
+  q {
+    quotes: none;
+  }
+
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
+    content: "";
+    content: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  img {
+    display: block;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    cursor:pointer &:visited,
+    &:link {
+      color: white;
+    }
+  }
+
+  button {
+    padding: 0;
+    padding-block: 0;
+    padding-inline: 0;
+    border: 0;
+
+    /* outline: none; */
+    background-color: transparent;
+  }
+
+  [role="button"],
+  [type="button"] {
+    cursor: pointer;
+  }
+
+  *:focus-visible {
+    /* outline: none; */
+  }
+
+  input[type="text"] {
+    padding-block: 0;
+    padding-inline: 0;
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "fe-onboarding-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FC-InnerCircle-ICD2/fe-onboarding-project.git",
+  "author": "devsewoonjin <jinsewoon.dev@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/webpack-env": "^1.18.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "style-loader": "^4.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}
