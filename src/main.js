@@ -90,23 +90,20 @@ const initializeProductGrid = () => {
   });
 };
 
-/** 그리드 이벤트를 처리 */
-const handleGridEvent = (e) => {
-  const target = e.target.closest('.product-button');
-  if (!target) return;
+const getProductById = (productId) => {
+  return PRODUCTS.find((product) => product.id === productId);
+};
 
-  const productId = Number.parseInt(target.dataset.productId);
-  const product = PRODUCTS.find((product) => product.id === productId);
+const handleClick = ({ target }) => {
+  const productButton = target.closest('.product-button');
+  if (!productButton) return;
+  const product = getProductById(Number.parseInt(productButton.dataset.productId));
+  updateDisplayAmount(product.price);
+  handleProductPurchase(product);
+};
 
-  switch (e.type) {
-    case 'click':
-      updateDisplayAmount(product.price);
-      handleProductPurchase(product);
-      break;
-    case 'mouseout':
-      updateDisplayAmount(state.currentMoney);
-      break;
-  }
+const handleMouseLeave = ({ target }) => {
+  updateDisplayAmount(state.currentMoney);
 };
 
 /** 금액 투입을 처리 */
@@ -158,8 +155,8 @@ const initializeEventListeners = ({
   moneyInput,
   returnButton,
 }) => {
-  productGrid.addEventListener('click', handleGridEvent);
-  productGrid.addEventListener('mouseout', handleGridEvent);
+  productGrid.addEventListener('click', handleClick);
+  productGrid.addEventListener('mouseleave', handleMouseLeave, true);
 
   inputContainer.addEventListener('submit', handleMoneyInsert);
   returnButton.addEventListener('click', handleMoneyReturn);
