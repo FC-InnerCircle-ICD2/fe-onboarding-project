@@ -6,7 +6,8 @@ import {
   resetBalance,
   balance,
   switchLogType,
-  insertMoney
+  insertMoney,
+  returnMoney
 } from "./main"
 
 beforeEach(() => {
@@ -20,7 +21,7 @@ beforeEach(() => {
   `
 })
 
-// 단위 테스트 - 금액변동 테스트
+// ===== 단위 테스트 - 금액변동 테스트 =====
 test("잔액을 1000원 증가시킵니다", () => {
   expect(increaseBalance(1000)).toBe(1000)
 })
@@ -34,7 +35,7 @@ test("잔액을 반환합니다", () => {
   expect(balance).toBe(0)
 })
 
-// 단위 테스트 - 로그 테스트
+// ===== 단위 테스트 - 로그 테스트 =====
 test("1000원을 투입했을 때 생성되는 로그입니다", () => {
   expect(switchLogType("insert", 1000)).toBe("1,000원을 투입했습니다.")
 })
@@ -51,12 +52,11 @@ test("금액이 600원 모자랄 때 생성되는 로그입니다", () => {
   expect(switchLogType("insufficient", 600)).toBe("600원이 부족합니다.")
 })
 
-// 유닛 테스트
-test("insertMoney 함수가 금액을 올바르게 처리하고 DOM을 업데이트하는지 테스트", () => {
+// ===== 유닛 테스트 =====
+test("insertMoney 함수가 잔액을 올바르게 변경하고, 화면을 변경하는지 테스트합니다", () => {
   const amount = 1000
 
   insertMoney(amount)
-
   expect(balance).toBe(amount)
 
   const insertInput = document.querySelector(".insert-input")
@@ -68,4 +68,21 @@ test("insertMoney 함수가 금액을 올바르게 처리하고 DOM을 업데이
 
   const logLists = document.querySelector(".log-lists")
   expect(logLists.textContent.trim()).toBe("1,000원을 투입했습니다.")
+})
+
+test("returnMoney 함수가 잔액을 올바르게 변경하고, 화면을 변경하는지 테스트합니다", () => {
+  resetBalance()
+  increaseBalance(1000)
+
+  returnMoney()
+
+  const logLists = document.querySelector(".log-lists")
+  expect(logLists.textContent.trim()).toBe("1,000원을 반환합니다.")
+
+  expect(balance).toBe(0)
+
+  const productPriceDisplay = document.querySelector(".product-price-display")
+  expect(productPriceDisplay.textContent.trim()).toBe(
+    balance.toLocaleString("ko-kr")
+  )
 })

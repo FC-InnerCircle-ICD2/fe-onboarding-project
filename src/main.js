@@ -36,7 +36,7 @@ export const insertMoney = amount => {
   addLog("insert", amount)
 }
 
-const returnMoney = () => {
+export const returnMoney = () => {
   if (balance === 0) return
   addLog("return", balance)
   resetBalance()
