@@ -16,7 +16,7 @@ export default class ProductButton extends Component {
     const { onSelect, onMouseDown, onMouseUp, product, balance } = this.props;
 
     // 가격이 부족할 때만 mousedown/mouseup 이벤트 등록
-    if (onMouseDown && balance < product.price) {
+    if (balance < product.price) {
       this.addEvent('mousedown', '.product-button', () => {
         onMouseDown(product);
       });
@@ -30,7 +30,11 @@ export default class ProductButton extends Component {
         const button = e.target.closest('.product-button');
         if (!button) return;
         const productId = Number(button.dataset.id);
-        onSelect(productId);
+
+        // 잔액이 충분한 경우에만 상품 선택
+        if (balance >= product.price) {
+          onSelect(productId);
+        }
       });
     }
   }

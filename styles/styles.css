@@ -27,7 +27,7 @@
 
 .amount {
   font-size: 2rem;
-  text-align: right;
+  text-align: center;
   font-family: monospace;
 }
 
@@ -38,6 +38,7 @@
 }
 
 .product-button {
+  min-width: 100px;
   aspect-ratio: 1;
   border: 2px solid #ddd;
   border-radius: 8px;
@@ -49,4 +50,52 @@
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.product-button:hover {
+  background-color: #4caf50;
+}
+
+.product-button:active {
+  background-color: #869387;
+}
+
+.log-panel {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-item {
+  margin-bottom: 0.25rem;
+  padding: 0.25rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.money-control {
+  display: flex;
+  gap: 5px;
+}
+
+.money-actions {
+  display: flex;
+}
+
+.money-actions button {
+  padding: 0.5em 1em;
+  min-width: 60px;
+}
+
+.money-actions button:hover {
+  background-color: #869387;
+}
+
+.money-actions button:active {
+  background-color: #a3b4a4;
 }
