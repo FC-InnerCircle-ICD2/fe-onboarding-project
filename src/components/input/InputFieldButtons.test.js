@@ -21,9 +21,15 @@ describe("inputFieldButtons", () => {
   });
 
   it("버튼 요소 생성 테스트", () => {
-    inputInfo.map((info) => {
+    inputInfo.forEach((info) => {
       const button = screen.getAllByText(`${info.price}원`);
-      expect(button).not.toBeNull();
+      if (button.length > 1) {
+        button.forEach((item) => {
+          expect(item.innerHTML).toEqual(`${info.price}원`);
+        });
+      } else {
+        expect(button[0].innerHTML).toEqual(`${info.price}원`);
+      }
     });
   });
 });
