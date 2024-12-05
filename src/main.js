@@ -1,9 +1,10 @@
 import { products } from "./constants/products"
 
 // ===== 공통 함수 =====
-const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
+export const convertCurrencyFormat = number =>
+  parseInt(number).toLocaleString("ko-kr")
 
-const selectNode = node => document.querySelector(`${node}`)
+export const selectNode = node => document.querySelector(`${node}`)
 
 export const updateElement = (selector, value, type = "innerText") => {
   const element = document.querySelector(`${selector}`)
@@ -59,7 +60,7 @@ export const switchLogType = (type, amount, productId) => {
   }
 }
 
-const addLog = (type, amount, productId) => {
+export const addLog = (type, amount, productId) => {
   const clone = selectNode(".log-template").content.cloneNode(true)
   const logList = clone.querySelector(".log")
   logList.textContent = switchLogType(type, amount, productId)
@@ -69,7 +70,7 @@ const addLog = (type, amount, productId) => {
 }
 
 // ===== 상품 구매 로직 =====
-const purchaseProduct = (productId, displayedBalance) => {
+export const purchaseProduct = (productId, displayedBalance) => {
   if (displayedBalance === 0) return
 
   const product = products.find(product => product.id === productId)
