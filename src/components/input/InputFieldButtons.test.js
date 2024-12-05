@@ -1,9 +1,9 @@
-import { beforeAll, describe, it, expect, beforeEach } from "vitest";
+import { beforeAll, describe, it, expect } from "vitest";
 import Machine from "../Machine";
 import InputFieldButtons from "./InputFieldButtons";
 import { Classname } from "../../utils/constant";
-import { fireEvent, screen } from "@testing-library/dom";
-import OutputFieldTextArea from "../output/OutputFieldTextArea";
+import { inputInfo } from "../../utils/inputInfo";
+import { screen } from "@testing-library/dom";
 
 describe("inputFieldButtons", () => {
   let machine;
@@ -12,20 +12,18 @@ describe("inputFieldButtons", () => {
   beforeAll(() => {
     version = "one";
     machine = new Machine(version);
+    new InputFieldButtons(machine.element, version);
   });
 
-  it("버튼 생성 테스트", () => {
-    new InputFieldButtons(machine.element, version);
+  it("버튼 그룹 생성 테스트", () => {
     const buttons = document.querySelector(`.${Classname.INPUT_FIELD_BUTTONS}`);
     expect(buttons).not.toBeNull();
   });
 
-  beforeEach(() => {
-    new OutputFieldTextArea(machine.element, version);
-  });
-
-  it("버튼 투입 이벤트", () => {
-    const insert = screen.getByText("2500원");
-    fireEvent.click(insert);
+  it("버튼 요소 생성 테스트", () => {
+    inputInfo.map((info) => {
+      const button = screen.getAllByText(`${info.price}원`);
+      expect(button).not.toBeNull();
+    });
   });
 });
