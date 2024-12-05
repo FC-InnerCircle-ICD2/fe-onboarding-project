@@ -1,4 +1,4 @@
-import { products } from "./products"
+import { products } from "./constants/products"
 
 // ===== 공통 함수 =====
 const convertCurrencyFormat = number => parseInt(number).toLocaleString("ko-kr")
@@ -28,7 +28,7 @@ export const increaseBalance = amount => (balance += amount)
 export const reduceBalance = amount => increaseBalance(amount * -1)
 export const resetBalance = () => (balance = 0)
 
-const insertMoney = amount => {
+export const insertMoney = amount => {
   if (isNaN(amount)) return
   increaseBalance(amount)
   updateElement(".insert-input", "", "value")
@@ -87,38 +87,40 @@ const purchaseProduct = (productId, displayedBalance) => {
 }
 
 // ===== 초기화 로직 =====
-products.forEach(product => {
-  const clone = selectNode(".product-template").content.cloneNode(true)
-  const liElement = clone.querySelector(".product")
-  const productName = clone.querySelector(".product-name")
-  const productPrice = clone.querySelector(".product-price")
+document.addEventListener("DOMContentLoaded", () => {
+  products.forEach(product => {
+    const clone = selectNode(".product-template").content.cloneNode(true)
+    const liElement = clone.querySelector(".product")
+    const productName = clone.querySelector(".product-name")
+    const productPrice = clone.querySelector(".product-price")
 
-  productName.innerText = product.name
-  productPrice.innerText = convertCurrencyFormat(product.price)
+    productName.innerText = product.name
+    productPrice.innerText = convertCurrencyFormat(product.price)
 
-  liElement.addEventListener("click", () =>
-    purchaseProduct(product.id, balance)
-  )
+    liElement.addEventListener("click", () =>
+      purchaseProduct(product.id, balance)
+    )
 
-  liElement.addEventListener("mousedown", () => {
-    if (balance === 0) {
-      updateElement(
-        ".product-price-display",
-        convertCurrencyFormat(product.price)
-      )
-    }
+    liElement.addEventListener("mousedown", () => {
+      if (balance === 0) {
+        updateElement(
+          ".product-price-display",
+          convertCurrencyFormat(product.price)
+        )
+      }
+    })
+
+    liElement.addEventListener("mouseup", () => {
+      if (balance === 0) updateElement(".product-price-display", 0)
+    })
+
+    selectNode(".product-lists").appendChild(clone)
   })
 
-  liElement.addEventListener("mouseup", () => {
-    if (balance === 0) updateElement(".product-price-display", 0)
+  selectNode(".insert-money").addEventListener("click", () => {
+    const insertInputValue = selectNode(".insert-input").valueAsNumber
+    insertMoney(insertInputValue)
   })
 
-  selectNode(".product-lists").appendChild(clone)
+  selectNode(".return-money").addEventListener("click", returnMoney)
 })
-
-selectNode(".insert-money").addEventListener("click", () => {
-  const insertInputValue = selectNode(".insert-input").valueAsNumber
-  insertMoney(insertInputValue)
-})
-
-selectNode(".return-money").addEventListener("click", returnMoney)
