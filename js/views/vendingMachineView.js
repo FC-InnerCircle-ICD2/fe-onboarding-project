@@ -29,7 +29,7 @@ export const UILayer = (() => {
     };
 
     const formatNumber = (number) => {
-        if (typeof number !== 'number' || Number.isNaN(number) || number <= 0|| !Number.isInteger(number)) {
+        if (typeof number !== 'number' || Number.isNaN(number) || number < 0|| !Number.isInteger(number)) {
             console.error('Invalid number:', number);
             return;
         }

@@ -13,12 +13,16 @@ const VendingMachineController = (() => {
 
   const setupEvents = (state, ui, service) => {
 
+    state.productsList.addEventListener('click', (event) =>
+        handleProductClick(event, state, ui, service)
+    );
+
       state.productsList.addEventListener('mousedown', (event) =>
-          handleProductClick(event, state, ui, service)
+        displayProductPriceIfUnaffordable(event, state, ui, service)
       );
 
       state.productsList.addEventListener('mouseup', () =>
-          ui.updateDisplay(state)
+          ui.updateDisplay(state.display, state.totalAmount)
       );
 
       state.insertButton.addEventListener('click', () =>
@@ -42,6 +46,17 @@ const VendingMachineController = (() => {
           ui.logAction(state.log, `${productName}를 구매했습니다.`);
           ui.updateDisplay(state.display, state.totalAmount);
       } 
+  };
+
+  const displayProductPriceIfUnaffordable = (event, state, ui, service) => {   
+      const button = event.target;
+      if (!button.classList.contains('product')) return;
+
+      const productPrice = Number.parseInt(button.dataset.price);
+
+      if (!service.isAffordable(state.totalAmount, productPrice)) {
+        ui.updateDisplay(state.display, productPrice);
+    } 
   };
 
   const handleInsertAmount = (state, ui, service) => {
