@@ -2,9 +2,9 @@ export default {
     transform: {
       "^.+\\.jsx?$": "babel-jest"
     },
-    testEnvironment: 'node',
-    testMatch: ["<rootDir>/js/test/**/*.test.js"],
+    testMatch: ["<rootDir>/js/tests/**/*.test.js"],
     moduleNameMapper: {
       '\\.(css|less)$': 'identity-obj-proxy'
-    }
+    },
+    testEnvironment: 'jsdom',
   };
