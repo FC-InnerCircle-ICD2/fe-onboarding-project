@@ -4,6 +4,7 @@ import { formatNumber } from '../utils/helpers.js';
 /** 금액 입력 컴포넌트 */
 export default class MoneyInput extends Component {
   constructor($target, props) {
+    props.inputAmount = props.inputAmount.replace(/[^\d]/g, '');
     super($target, props);
     this.inputRef = null;
   }
@@ -35,14 +36,16 @@ export default class MoneyInput extends Component {
   }
 
   handleInput(event) {
+    const inputElement = event.target;
+
     // 입력된 값에서 숫자가 아닌 문자 제거
     const rawValue = event.target.value.replace(/[^\d]/g, '');
 
     // 포맷팅된 값으로 input 업데이트
-    event.target.value = formatNumber(Number(rawValue));
+    inputElement.value = formatNumber(Number(rawValue));
 
     // 실제 raw 값을 data-raw-value 속성에 저장
-    event.target.setAttribute('data-raw-value', rawValue);
+    inputElement.setAttribute('data-raw-value', rawValue);
 
     // props 업데이트 (부모 컴포넌트에 알림)
     this.props.onInputChange?.(rawValue);
