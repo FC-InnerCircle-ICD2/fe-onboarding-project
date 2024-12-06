@@ -1,5 +1,5 @@
 export const UILayer = (() => {
-    const renderProducts = (productsList, template, products) => {
+    const renderProducts = (productsList, template, products = []) => {
         productsList.innerHTML = ''; // 기존 리스트 초기화
 
         // biome-ignore lint/complexity/noForEach: <explanation>
@@ -29,10 +29,11 @@ export const UILayer = (() => {
     };
 
     const formatNumber = (number) => {
-        if (typeof number !== 'number' || Number.isNaN(number)) {
+        if (typeof number !== 'number' || Number.isNaN(number) || number <= 0|| !Number.isInteger(number)) {
             console.error('Invalid number:', number);
             return;
         }
+
         return number.toLocaleString('ko-KR');  // 한국 로케일 사용
     }
 
