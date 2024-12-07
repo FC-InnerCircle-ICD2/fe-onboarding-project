@@ -1,10 +1,10 @@
 import { products } from "./constants/products"
 
 // ===== 공통 함수 =====
-export const convertCurrencyFormat = number =>
+export const formatNumberToKoreanLocale = number =>
   parseInt(number).toLocaleString("ko-kr")
 
-export const selectNode = node => document.querySelector(`${node}`)
+export const selectNode = node => document.querySelector(node)
 
 export const updateElement = (selector, value, type = "innerText") => {
   const element = document.querySelector(`${selector}`)
@@ -28,12 +28,13 @@ export let balance = 0
 export const increaseBalance = amount => (balance += amount)
 export const reduceBalance = amount => increaseBalance(amount * -1)
 export const resetBalance = () => (balance = 0)
+export const getBalance = () => balance
 
 export const insertMoney = amount => {
   if (isNaN(amount)) return
   increaseBalance(amount)
   updateElement(".insert-input", "", "value")
-  updateElement(".product-price-display", convertCurrencyFormat(balance))
+  updateElement(".product-price-display", formatNumberToKoreanLocale(balance))
   addLog("insert", amount)
 }
 
@@ -48,15 +49,15 @@ export const returnMoney = () => {
 export const switchLogType = (type, amount, productId) => {
   switch (type) {
     case "insert":
-      return `${convertCurrencyFormat(amount)}원을 투입했습니다.`
+      return `${formatNumberToKoreanLocale(amount)}원을 투입했습니다.`
     case "purchase":
       return `${
         products.find(product => product.id === productId).name
       }을(를) 구매했습니다.`
     case "return":
-      return `${convertCurrencyFormat(amount)}원을 반환합니다.`
+      return `${formatNumberToKoreanLocale(amount)}원을 반환합니다.`
     case "insufficient":
-      return `${convertCurrencyFormat(amount)}원이 부족합니다.`
+      return `${formatNumberToKoreanLocale(amount)}원이 부족합니다.`
   }
 }
 
@@ -79,7 +80,7 @@ export const purchaseProduct = (productId, displayedBalance) => {
     reduceBalance(product.price)
     updateElement(
       ".product-price-display",
-      convertCurrencyFormat(displayedBalance - product.price)
+      formatNumberToKoreanLocale(displayedBalance - product.price)
     )
     addLog("purchase", product.price, productId)
   } else {
@@ -96,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const productPrice = clone.querySelector(".product-price")
 
     productName.innerText = product.name
-    productPrice.innerText = convertCurrencyFormat(product.price)
+    productPrice.innerText = formatNumberToKoreanLocale(product.price)
 
     liElement.addEventListener("click", () =>
       purchaseProduct(product.id, balance)
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (balance === 0) {
         updateElement(
           ".product-price-display",
-          convertCurrencyFormat(product.price)
+          formatNumberToKoreanLocale(product.price)
         )
       }
     })

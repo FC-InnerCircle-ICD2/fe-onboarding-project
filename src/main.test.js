@@ -5,14 +5,15 @@ import {
   reduceBalance,
   resetBalance,
   balance,
-  convertCurrencyFormat,
+  formatNumberToKoreanLocale,
   selectNode,
   updateElement,
   switchLogType,
   insertMoney,
   returnMoney,
   purchaseProduct,
-  addLog
+  addLog,
+  getBalance
 } from "./main"
 import { products } from "./constants/products"
 
@@ -33,8 +34,10 @@ beforeEach(() => {
 })
 
 // ===== 단위 테스트 - 금액변동 테스트 =====
-test("잔액을 1000원 증가시킵니다", () => {
-  expect(increaseBalance(1000)).toBe(1000)
+test("increaseBalance에 입력한 만큼 잔액이 증가한다", () => {
+  expect(getBalance()).toBe(0)
+  increaseBalance(1000)
+  expect(getBalance()).toBe(1000)
 })
 
 test("잔액을 700원 감소시킵니다", () => {
@@ -64,8 +67,8 @@ test("금액이 600원 모자랄 때 생성되는 로그입니다", () => {
 })
 
 // ===== 단위 테스트 - DOM 변경 테스트 =====
-test("convertCurrencyFormat 함수가 숫자를 한국어 통화 형식으로 변환하는지 테스트", () => {
-  expect(convertCurrencyFormat(1234567)).toBe("1,234,567")
+test("formatNumberToKoreanLocale 함수가 숫자를 한국어 통화 형식으로 변환하는지 테스트", () => {
+  expect(formatNumberToKoreanLocale(1234567)).toBe("1,234,567")
 })
 
 test("selectNode 함수가 선택한 요소를 반환하는지 테스트", () => {
@@ -102,9 +105,8 @@ test("insertMoney 함수가 잔액을 올바르게 변경하고, 화면을 변�
   const insertInput = document.querySelector(".insert-input")
   expect(insertInput.value).toBe("")
 
-  // TODO: 1,000을 예상했는데 0이 반환됨
-  // const productPriceDisplay = document.querySelector(".product-price-display")
-  // expect(productPriceDisplay.textContent).toBe(amount.toLocaleString("ko-kr"))
+  const productPriceDisplay = document.querySelector(".product-price-display")
+  expect(productPriceDisplay.innerText).toBe(amount.toLocaleString("ko-kr"))
 
   const logLists = document.querySelector(".log-lists")
   expect(logLists.textContent.trim()).toBe("1,000원을 투입했습니다.")
@@ -122,9 +124,7 @@ test("returnMoney 함수가 잔액을 올바르게 변경하고, 화면을 변�
   expect(balance).toBe(0)
 
   const productPriceDisplay = document.querySelector(".product-price-display")
-  expect(productPriceDisplay.textContent.trim()).toBe(
-    balance.toLocaleString("ko-kr")
-  )
+  expect(productPriceDisplay.textContent).toBe(balance.toLocaleString("ko-kr"))
 })
 
 test("상품금액이 잔액보다 큰 경우 purchaseProduct 함수가 잔액을 올바르게 변경하고, 화면을 변경하는지 테스트합니다", () => {
@@ -139,11 +139,8 @@ test("상품금액이 잔액보다 큰 경우 purchaseProduct 함수가 잔액�
     amount - products.find(product => product.id === productId).price
   )
 
-  // TODO: 1,000을 예상했는데 0이 반환됨
-  // const productPriceDisplay = document.querySelector(".product-price-display")
-  // expect(productPriceDisplay.textContent.trim()).toBe(
-  //   balance.toLocaleString("ko-kr")
-  // )
+  const productPriceDisplay = document.querySelector(".product-price-display")
+  expect(productPriceDisplay.innerText).toBe(balance.toLocaleString("ko-kr"))
 
   const logLists = document.querySelector(".log-lists")
   expect(logLists.textContent.trim()).toBe("쿨라을(를) 구매했습니다.")
@@ -159,7 +156,6 @@ test("상품금액보다 잔액이 작은 경우 purchaseProduct 함수가 화�
 
   expect(balance).toBe(1000)
 
-  // TODO: 1,000을 예상했는데 0이 반환됨
   // const productPriceDisplay = document.querySelector(".product-price-display")
   // expect(productPriceDisplay.textContent.trim()).toBe(
   //   balance.toLocaleString("ko-kr")
