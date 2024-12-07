@@ -1,0 +1,101 @@
+.vending-machine {
+  display: flex;
+  gap: 2rem;
+}
+
+.machine-container {
+  flex: 2;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.control-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.display-panel {
+  background: #000;
+  color: #0f0;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.amount {
+  font-size: 2rem;
+  text-align: center;
+  font-family: monospace;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.product-button {
+  min-width: 100px;
+  aspect-ratio: 1;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.product-button:hover {
+  background-color: #4caf50;
+}
+
+.product-button:active {
+  background-color: #869387;
+}
+
+.log-panel {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-item {
+  margin-bottom: 0.25rem;
+  padding: 0.25rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.money-control {
+  display: flex;
+  gap: 5px;
+}
+
+.money-actions {
+  display: flex;
+}
+
+.money-actions button {
+  padding: 0.5em 1em;
+  min-width: 60px;
+}
+
+.money-actions button:hover {
+  background-color: #869387;
+}
+
+.money-actions button:active {
+  background-color: #a3b4a4;
+}
