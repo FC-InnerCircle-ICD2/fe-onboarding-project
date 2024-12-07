@@ -1,28 +1,22 @@
 import './style.css';
-import { elements } from './dom/index.js';
-import {
-  initializeProductGrid,
-  handleClick,
-  handleMouseLeave,
-} from './features/product/index.js';
-import {
-  handleMoneyInsert,
-  handleMoneyReturn,
-  handleInputValidation,
-} from './features/money/index.js';
+import { products } from './data/products.js';
+import createMoneyService from './services/moneyService.js';
+import createProductService from './services/productService.js';
+import createMoneyController from './controllers/moneyController.js';
+import createProductController from './controllers/productController.js';
 
-const initializeEventListeners = () => {
-  elements.productGrid.addEventListener('click', handleClick);
-  elements.productGrid.addEventListener('mouseleave', handleMouseLeave, true);
+const initializeApp = () => {
+  const moneyService = createMoneyService();
+  const productService = createProductService(products, moneyService);
 
-  elements.inputContainer.addEventListener('submit', handleMoneyInsert);
-  elements.returnButton.addEventListener('click', handleMoneyReturn);
-  elements.moneyInput.addEventListener('input', handleInputValidation);
+  const moneyController = createMoneyController(moneyService);
+  const productController = createProductController(
+    productService,
+    moneyService
+  );
+
+  moneyController.initialize();
+  productController.initialize();
 };
 
-const initialize = () => {
-  initializeProductGrid();
-  initializeEventListeners();
-};
-
-initialize();
+document.addEventListener('DOMContentLoaded', initializeApp);
