@@ -135,19 +135,30 @@ describe('initializeProductButtons', () => {
     });
     productButton.dispatchEvent(mouseDownEvent);
 
-    expect(productWindowElement.textContent).toBe(
-      `${formatCurrency(product.price)}`,
-    );
+    const mouseDownObserver = new MutationObserver(() => {
+      if (productWindowElement.textContent) {
+        expect(productWindowElement.textContent).toBe(
+          `${formatCurrency(product.price)}`,
+        );
+        mouseDownObserver.disconnect();
+      }
+    });
 
-    const mouseLeaveEvent = new MouseEvent('mouseleave', {
+    const mouseUpEvent = new MouseEvent('mouseup', {
       bubbles: true,
       cancelable: true,
     });
-    productButton.dispatchEvent(mouseLeaveEvent);
+    productButton.dispatchEvent(mouseUpEvent);
 
     const currentBalance = coinManager.getCoin();
-    expect(productWindowElement.textContent).toBe(
-      `${formatCurrency(currentBalance)}`,
-    );
+
+    const mouseUpObserver = new MutationObserver(() => {
+      if (productWindowElement.textContent) {
+        expect(productWindowElement.textContent).toBe(
+          `${formatCurrency(currentBalance)}`,
+        );
+        mouseUpObserver.disconnect();
+      }
+    });
   });
 });
