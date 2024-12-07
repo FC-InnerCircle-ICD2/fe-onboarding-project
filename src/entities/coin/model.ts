@@ -8,6 +8,8 @@ export type TCoinManager = {
   returnCoin: () => TCoin;
 };
 
+export const MAX_COIN_LIMIT = 1000000;
+
 export const createCoinManager = (): TCoinManager => {
   let balance: TCoin = 0;
 
