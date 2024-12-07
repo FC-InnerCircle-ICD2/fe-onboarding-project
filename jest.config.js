@@ -7,4 +7,5 @@ export default {
       '\\.(css|less)$': 'identity-obj-proxy'
     },
     testEnvironment: 'jsdom',
+    moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
   };
