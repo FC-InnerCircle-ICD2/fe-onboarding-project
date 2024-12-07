@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vending Machine</title>
+  </head>
+  <body>
+    <div id="app">
+      <main role="main">
+        <section class="product-panel">
+          <div class="product-window"></div>
+          <div class="product-buttons"></div>
+        </section>
+        <section class="coin-panel">
+          <form class="coin-form">
+            <input
+              type="number"
+              name="coin"
+              class="coin-input"
+              min="1"
+              required
+            />
+            <button type="submit" class="coin-insert-button">투입</button>
+            <button type="button" class="coin-return-button">반환</button>
+          </form>
+        </section>
+        <div class="log-window"></div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

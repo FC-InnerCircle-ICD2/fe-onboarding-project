@@ -1,0 +1,210 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 메인 레이아웃 */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1200px;
+  height: 80vh;
+  padding: 2rem;
+  margin: 0 auto;
+  background: #f8f9fa;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Product Panel */
+.product-panel {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-window {
+  height: 200px;
+  background: #f1f3f5;
+  border-radius: 0.5rem;
+  border: 1px solid #e9ecef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: 800;
+  transition: all 0.3s ease;
+}
+
+.product-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.product-button {
+  position: relative;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-button:hover {
+  transform: translateY(-2px);
+  border-color: #ffb5c5;
+  box-shadow: 0 4px 12px rgba(255, 182, 197, 0.15);
+}
+
+.product-button:active {
+  transform: translateY(0);
+  background: #fff5f7;
+}
+
+.product-button_name {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.product-button_price {
+  display: block;
+  font-size: 0.8rem;
+  color: #ff8da1;
+  font-weight: bold;
+}
+
+/* Coin Panel */
+.coin-panel {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-form {
+  display: flex;
+  gap: 1rem;
+}
+
+.coin-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+  background: #f8f9fa;
+  color: #495057;
+  font-weight: 500;
+}
+
+.coin-input:focus {
+  outline: none;
+  border: 0.25rem #ffb5c5 solid;
+  background: white;
+}
+
+.coin-insert-button,
+.coin-return-button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.coin-insert-button {
+  width: 100%;
+  background: #ffb5c5;
+  color: white;
+}
+
+.coin-insert-button:hover {
+  background: #ff8da1;
+  transform: translateY(-2px);
+}
+
+.coin-insert-button:active {
+  transform: translateY(0);
+}
+
+.coin-return-button {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.coin-return-button:hover {
+  background: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.coin-return-button:active {
+  transform: translateY(0);
+}
+
+/* Log Window */
+.log-window {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #495057;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 940px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .product-panel,
+  .coin-panel,
+  .log-window {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+  }
+
+  .product-panel {
+    margin-bottom: 1rem;
+  }
+
+  .coin-panel {
+    margin-bottom: 1rem;
+  }
+
+  .log-window {
+    height: 200px;
+  }
+}
