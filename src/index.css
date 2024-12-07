@@ -1,0 +1,130 @@
+/* ========= destyle ========= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+/* ========= 전체 영역 ========= */
+.vending-machine {
+  width: fit-content;
+  background-color: rgb(235, 235, 235);
+  text-align: center;
+  display: flex;
+  box-shadow: 10px 10px 0 10px #333; /* 반응형 시 없애야 */
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========= 좌측 상품부 ========= */
+.product-container {
+  padding: 32px 0 32px 32px;
+}
+
+.product-container img {
+  border-radius: 8px;
+}
+
+.product-price-display {
+  width: 300px;
+  height: 30px;
+  line-height: 30px;
+  background-color: white;
+  margin: 16px auto; /* 반응형 시 margin-top 없애야 */
+  border-radius: 8px;
+}
+
+.product-lists {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+  margin: 0 auto;
+}
+
+.product,
+.button {
+  border: none;
+  background-color: #ebebeb;
+  width: 90px;
+  height: 90px;
+  font-size: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 8px 8px 16px #c5c5c5, -8px -8px 16px #ffffff;
+  transition: all 0.5s ease;
+}
+
+.product:hover {
+  box-shadow: inset 2px 2px 4px #c5c5c5, inset -2px -2px 4px #ffffff;
+}
+
+.product:active,
+.button:active {
+  box-shadow: inset 8px 8px 16px #c5c5c5, inset -8px -8px 16px #ffffff;
+}
+
+.product-price {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ========= 우측 가격부 ========= */
+.amount-container {
+  width: fit-content;
+  padding: 32px 32px 32px 0;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 4px solid rgb(118, 118, 118); /* 반응형 시 없애야 */
+}
+
+.change-amount {
+  display: flex;
+  align-items: center;
+}
+
+.insert-input {
+  outline: none;
+  border: none;
+  height: 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.button {
+  width: 32px;
+  height: 30px;
+  display: inline;
+}
+
+.log {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.log-lists {
+  width: 240px; /* 반응형 시 300px로 조정 */
+  height: 200px;
+  margin-top: 16px;
+  background-color: white;
+  border-radius: 8px;
+  text-align: left;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.log:not(:last-child) {
+  margin-bottom: 10px;
+}

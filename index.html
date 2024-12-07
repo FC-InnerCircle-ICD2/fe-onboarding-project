@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지니의 자판기</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" type="text/css" href="src/index.css" />
+  </head>
+
+  <body>
+    <section class="vending-machine">
+      <div class="product-container">
+        <img
+          src="./products.png"
+          alt="vending-machine"
+          width="300"
+          height="400"
+        />
+        <p class="product-price-display">0</p>
+        <ul class="product-lists"></ul>
+        <template class="product-template">
+          <li class="product">
+            <div class="product-name"></div>
+            <div class="product-price"></div>
+          </li>
+        </template>
+      </div>
+
+      <div class="amount-container">
+        <div class="change-amount">
+          <form>
+            <input type="number" class="insert-input" min="1" />
+            <button type="button" class="button insert-money">투입</button>
+            <button type="button" class="button return-money">반환</button>
+          </form>
+        </div>
+        <ul class="log-lists"></ul>
+        <template class="log-template">
+          <li class="log ellipsis"></li>
+        </template>
+      </div>
+    </section>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
