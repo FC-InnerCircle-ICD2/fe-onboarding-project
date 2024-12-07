@@ -1,11 +1,24 @@
 import './style.css';
 import { PRODUCTS } from './data/products.js';
 
-/** 상태 관리를 위한 객체 */
-const state = {
-  currentMoney: 0,
-  displayAmount: 0,
-};
+/** 상태 관리를 위한 프록시 객체 */
+const state = new Proxy(
+  {
+    currentMoney: 0,
+    displayAmount: 0,
+  },
+  {
+    set(target, property, value) {
+      target[property] = value;
+
+      if (property === 'currentMoney' || property === 'displayAmount') {
+        elements.moneyDisplay.textContent = formatNumber(value);
+      }
+
+      return true;
+    },
+  }
+);
 
 /** DOM 요소 참조 */
 const elements = {
@@ -37,7 +50,6 @@ const scrollToBottom = (element) => {
 /** 화면에 표시되는 금액을 업데이트 */
 const updateDisplayAmount = (amount) => {
   state.displayAmount = amount;
-  elements.moneyDisplay.textContent = formatNumber(state.displayAmount);
 };
 
 /**
@@ -76,7 +88,7 @@ const handleProductPurchase = (product) => {
 const initializeProductGrid = () => {
   const template = document.querySelector('.product-template');
 
-  PRODUCTS.forEach((product) => {
+  for (const product of PRODUCTS) {
     const clone = template.content.cloneNode(true);
     const button = clone.querySelector('.product-button');
     const nameSpan = clone.querySelector('.product-name');
@@ -87,7 +99,7 @@ const initializeProductGrid = () => {
     priceSpan.textContent = `${formatNumber(product.price)}원`;
 
     elements.productGrid.appendChild(clone);
-  });
+  }
 };
 
 const getProductById = (productId) => {
@@ -97,7 +109,9 @@ const getProductById = (productId) => {
 const handleClick = ({ target }) => {
   const productButton = target.closest('.product-button');
   if (!productButton) return;
-  const product = getProductById(Number.parseInt(productButton.dataset.productId));
+  const product = getProductById(
+    Number.parseInt(productButton.dataset.productId)
+  );
   updateDisplayAmount(product.price);
   handleProductPurchase(product);
 };
@@ -127,7 +141,6 @@ const handleMoneyInsert = (e) => {
   }
 
   state.currentMoney += inputAmount;
-  updateDisplayAmount(state.currentMoney);
   addLog(`${formatNumber(inputAmount)}원이 투입되었습니다.`);
   elements.moneyInput.value = '';
 };
