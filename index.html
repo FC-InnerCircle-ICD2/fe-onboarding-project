@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>바닐라 JS 프로젝트</title>
+  </head>
+  <body>
+    <main
+      role="main"
+      aria-label="자판기 배치 컨테이너"
+      class="flex justify-center items-center h-screen flex-wrap"
+    >
+      <template id="vending-machine-template">
+        <section
+          class="flex gap-5 mx-auto max-w-[800px] items-center"
+          aria-label="자판기"
+        >
+          <section
+            class="bg-blue-50 px-5 py-7 rounded-lg basis-1/2 border border-black"
+          >
+            <div
+              aria-label="금액 표시판"
+              class="text-center text-2xl border border-black rounded-lg py-5 bg-white"
+            >
+              0
+            </div>
+            <div
+              class="product-button-list flex flex-wrap justify-center gap-3 mt-7"
+            ></div>
+          </section>
+          <section class="basis-1/2 flex flex-col gap-5 h-[370px]">
+            <div class="flex justify-between gap-2">
+              <input
+                aria-label="투입 금액"
+                type="text"
+                class="text-center text-2xl border border-black rounded-lg py-5"
+                value="0"
+              />
+              <button
+                aria-label="금액 투입 버튼"
+                class="grow bg-blue-300 px-3.5 py-4 rounded-lg border border-black shrink-0 active:scale-95 duration-200"
+              >
+                투입
+              </button>
+              <button
+                aria-label="잔액 반환 버튼"
+                class="grow bg-blue-300 px-3.5 py-4 rounded-lg border border-black shrink-0 active:scale-95 duration-200"
+              >
+                반환
+              </button>
+            </div>
+            <div
+              aria-label="로그 출력창"
+              class="border border-black rounded-lg p-3 bg-white overflow-y-auto h-full"
+            ></div>
+          </section>
+        </section>
+      </template>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
