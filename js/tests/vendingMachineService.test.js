@@ -10,7 +10,7 @@ describe("loadProducts ()", () => {
       })
     );
 
-    const result = await VendingMachineService.loadProducts("dummy-url");
+    const result = await VendingMachineService.loadProducts("test-url");
     expect(result).toEqual(mockResponse);
 
     // fetch 복원
@@ -21,7 +21,7 @@ describe("loadProducts ()", () => {
     const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     global.fetch = jest.fn(() => Promise.reject("Fetch error"));
 
-    const result = await VendingMachineService.loadProducts("dummy-url");
+    const result = await VendingMachineService.loadProducts("test-url");
     expect(result).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith("Error loading products:", "Fetch error");
 
