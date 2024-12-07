@@ -1,66 +1,66 @@
-/* 전체 레이아웃 */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 메인 레이아웃 */
 main {
-  width: 100vw;
-  height: 80vh;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
   max-width: 1200px;
-  margin: 2rem auto;
+  height: 80vh;
   padding: 2rem;
+  margin: 0 auto;
   background: #f8f9fa;
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  min-height: 80vh;
 }
 
-/* 공통 */
-button {
-  min-width: fit-content;
-  white-space: nowrap;
-}
-
-/* 제품 패널 - 좌측 2칸 차지 */
+/* Product Panel */
 .product-panel {
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
   grid-row: 1 / 3;
   background: white;
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .product-window {
   height: 200px;
   background: #f1f3f5;
   border-radius: 0.5rem;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
   border: 1px solid #e9ecef;
-
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3rem;
   font-weight: 800;
+  transition: all 0.3s ease;
 }
 
 .product-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 1rem;
 }
 
 .product-button {
   position: relative;
-  padding: 1.25rem;
+  padding: 0.75rem 1rem;
   background: white;
   border: 1px solid #dee2e6;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  overflow: hidden;
 }
 
 .product-button:hover {
@@ -88,9 +88,9 @@ button {
   font-weight: bold;
 }
 
-/* 코인 패널 - 우측 상단 1칸 */
+/* Coin Panel */
 .coin-panel {
-  grid-column: 3 / 5;
+  grid-column: 2 / 3;
   grid-row: 1 / 2;
   background: white;
   border-radius: 0.75rem;
@@ -104,7 +104,6 @@ button {
 
 .coin-form {
   display: flex;
-  /* align-items: center; */
   gap: 1rem;
 }
 
@@ -112,11 +111,10 @@ button {
   padding: 0.75rem 1rem;
   border: 1px solid #dee2e6;
   border-radius: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   transition: all 0.2s ease;
   background: #f8f9fa;
   color: #495057;
-  font-size: 1.5rem;
   font-weight: 500;
 }
 
@@ -135,6 +133,7 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .coin-insert-button {
@@ -166,95 +165,46 @@ button {
   transform: translateY(0);
 }
 
-/* 로그 창 - 우측 하단 1칸 */
+/* Log Window */
 .log-window {
-  grid-column: 3 / 5;
+  grid-column: 2 / 3;
   grid-row: 2 / 3;
   background: white;
   border-radius: 0.75rem;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
   font-size: 0.9rem;
   line-height: 1.5;
   color: #495057;
-  scroll-behavior: smooth;
-}
-
-.log-window_paragraph {
-  margin: 0;
-}
-
-.log-window::-webkit-scrollbar {
-  width: 6px;
-}
-
-.log-window::-webkit-scrollbar-track {
-  background: #f1f3f5;
-  border-radius: 3px;
-}
-
-.log-window::-webkit-scrollbar-thumb {
-  background: #dee2e6;
-  border-radius: 3px;
-}
-
-/* 애니메이션 */
-@keyframes buttonPop {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.product-button.clicked {
-  animation: buttonPop 0.3s ease;
 }
 
 /* 반응형 디자인 */
-@media (max-width: 768px) {
+@media (max-width: 940px) {
   main {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    margin: 1rem;
+    height: auto;
     padding: 1rem;
-    min-height: auto;
   }
 
   .product-panel,
   .coin-panel,
   .log-window {
     grid-column: 1;
+    grid-row: auto;
+    width: 100%;
   }
 
   .product-panel {
-    grid-row: 1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .coin-panel {
-    grid-row: 2;
-    margin-bottom: 1.5rem;
-    grid-template-columns: 2fr 1fr 1fr;
+    margin-bottom: 1rem;
   }
 
   .log-window {
-    grid-row: 3;
     height: 200px;
-  }
-}
-
-@media (max-width: 500px) {
-  .product-buttons {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .coin-panel {
-    grid-template-columns: 1fr;
   }
 }
