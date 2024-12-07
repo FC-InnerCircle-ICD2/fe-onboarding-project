@@ -42,15 +42,20 @@ export default class MoneyInput extends Component {
     const selectionStart = inputElement.selectionStart;
     const originalValue = inputElement.value;
 
-    // 입력된 값에서 숫자가 아닌 문자 제거
-    const rawValue = inputElement.value.replace(/[^\d]/g, '');
+    // 입력된 값에서 숫자가 아닌 문자 제거 (선행 0 포함)
+    const rawValue = inputElement.value
+      .replace(/[^\d]/g, '')
+      .replace(/^0+/, '');
+
+    // 0 입력 시 특별 처리
+    const processedValue = rawValue === '' ? '0' : rawValue;
 
     // 포맷팅된 값으로 input 업데이트
-    const formattedValue = formatNumber(Number(rawValue));
+    const formattedValue = formatNumber(Number(processedValue));
     inputElement.value = formattedValue;
 
     // 실제 raw 값을 data-raw-value 속성에 저장
-    inputElement.setAttribute('data-raw-value', rawValue);
+    inputElement.setAttribute('data-raw-value', processedValue);
 
     // 커서 위치 조정 로직
     const cursorAdjustment = this.calculateCursorPosition(
@@ -62,16 +67,25 @@ export default class MoneyInput extends Component {
     // 새 커서 위치 설정
     inputElement.setSelectionRange(cursorAdjustment, cursorAdjustment);
 
-    // 부모 컴포넌트에 상태 변경 알림 (필수)
-    // this.props.onInputChange?.(rawValue);
+    // 부모 컴포넌트에 상태 변경 알림
+    // TODO: 추후 prop 변경 시 커서 위치 복원 로직 추가
+    // this.props.onInputChange?.(processedValue);
   }
-
   // 커서 위치 계산 메서드
   calculateCursorPosition(originalValue, formattedValue, originalCursorPos) {
-    // 원본 문자열에서 커서 위치 이전의 숫자만 추출
+    // 원본 문자열에서 커서 위치 이전의 숫자만 추출 (선행 0 제거)
     const beforeCursor = originalValue
       .slice(0, originalCursorPos)
-      .replace(/[^\d]/g, '');
+      .replace(/[^\d]/g, '')
+      .replace(/^0+/, '');
+
+    // 특별 케이스: 초기 0 입력 시
+    if (
+      beforeCursor === '' &&
+      originalValue.slice(0, originalCursorPos).includes('0')
+    ) {
+      return 0;
+    }
 
     // 포맷팅된 값에서 해당 숫자의 위치 찾기
     let newCursorPos = 0;
@@ -82,7 +96,7 @@ export default class MoneyInput extends Component {
         digitCount++;
 
         // 현재 숫자가 beforeCursor의 길이와 같아지면 현재 위치 저장
-        if (digitCount === beforeCursor.length) {
+        if (digitCount === (beforeCursor.length || 1)) {
           newCursorPos = i + 1;
           break;
         }
