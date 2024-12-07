@@ -73,4 +73,17 @@ describe('insertCoin', () => {
 
     expect(logParagraphElements.length).toBe(0);
   });
+
+  it('1,000,001원 투입하면 false를 반환하고, 최대 투입 금액 초과 로그가 남는다.', () => {
+    const response = insertCoin(1000001, coinManager, logService);
+
+    expect(response.ok).toBe(false);
+
+    logParagraphElements =
+      logWindowElement.querySelectorAll<HTMLParagraphElement>(
+        '.log-window_paragraph',
+      );
+
+    expect(logParagraphElements.length).toBe(1);
+  });
 });
