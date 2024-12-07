@@ -3,7 +3,7 @@ export const formatNumberToKoreanLocale = number =>
 
 export const selectNode = node => document.querySelector(node)
 
-export const updateElement = (selector, value, type = "innerText") => {
+export const updateElementContent = (selector, value, type = "innerText") => {
   const element = selectNode(selector)
   switch (type) {
     case "innerText":

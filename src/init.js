@@ -1,7 +1,7 @@
 import { products } from "./constants/products.js"
 import {
   selectNode,
-  updateElement,
+  updateElementContent,
   formatNumberToKoreanLocale
 } from "./common.js"
 import { insertMoney, returnMoney, getBalance } from "./balance.js"
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     liElement.addEventListener("mousedown", () => {
       if (getBalance() === 0) {
-        updateElement(
+        updateElementContent(
           ".product-price-display",
           formatNumberToKoreanLocale(product.price)
         )
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     liElement.addEventListener("mouseup", () => {
-      if (getBalance() === 0) updateElement(".product-price-display", 0)
+      if (getBalance() === 0) updateElementContent(".product-price-display", 0)
     })
 
     selectNode(".product-lists").appendChild(clone)

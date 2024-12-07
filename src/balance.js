@@ -1,4 +1,4 @@
-import { updateElement, formatNumberToKoreanLocale } from "./common"
+import { updateElementContent, formatNumberToKoreanLocale } from "./common"
 import { addLog } from "./log"
 
 let balance = 0
@@ -11,8 +11,8 @@ export const getBalance = () => balance
 export const insertMoney = amount => {
   if (isNaN(amount)) return
   increaseBalance(amount)
-  updateElement(".insert-input", "", "value")
-  updateElement(
+  updateElementContent(".insert-input", "", "value")
+  updateElementContent(
     ".product-price-display",
     formatNumberToKoreanLocale(getBalance())
   )
@@ -23,5 +23,5 @@ export const returnMoney = () => {
   if (getBalance() === 0) return
   addLog("return", getBalance())
   resetBalance()
-  updateElement(".product-price-display", 0)
+  updateElementContent(".product-price-display", 0)
 }

@@ -1,5 +1,5 @@
 import { reduceBalance } from "./balance.js"
-import { formatNumberToKoreanLocale, updateElement } from "./common.js"
+import { formatNumberToKoreanLocale, updateElementContent } from "./common.js"
 import { addLog } from "./log.js"
 import { products } from "./constants/products.js"
 
@@ -10,7 +10,7 @@ export const purchaseProduct = (productId, displayedBalance) => {
 
   if (displayedBalance >= product.price) {
     reduceBalance(product.price)
-    updateElement(
+    updateElementContent(
       ".product-price-display",
       formatNumberToKoreanLocale(displayedBalance - product.price)
     )
