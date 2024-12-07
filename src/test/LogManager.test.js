@@ -1,5 +1,5 @@
 import { LOG_ARIA_LABELS } from "../constants/vendingMachine";
-import LogManager from "./LogManager";
+import LogManager from "../managers/LogManager";
 
 describe("LogManager", () => {
   /** @type {HTMLDivElement} */
