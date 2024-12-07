@@ -70,7 +70,7 @@ export const initializeProductButtons = ({
     updateDisplay(window, formatCurrency(product.price));
   });
 
-  buttons.addEventListener('mouseleave', () => {
+  buttons.addEventListener('mouseup', () => {
     const currentBalance = coinManager.getCoin();
     updateDisplay(window, formatCurrency(currentBalance));
   });
