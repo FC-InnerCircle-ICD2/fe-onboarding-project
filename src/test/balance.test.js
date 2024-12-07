@@ -3,7 +3,8 @@ import {
   increaseBalance,
   reduceBalance,
   resetBalance,
-  getBalance
+  getBalance,
+  insertMoney
 } from "../balance"
 
 describe("잔액 변동 테스트", () => {
