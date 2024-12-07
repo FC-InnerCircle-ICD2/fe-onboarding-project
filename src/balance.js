@@ -12,13 +12,16 @@ export const insertMoney = amount => {
   if (isNaN(amount)) return
   increaseBalance(amount)
   updateElement(".insert-input", "", "value")
-  updateElement(".product-price-display", formatNumberToKoreanLocale(balance))
+  updateElement(
+    ".product-price-display",
+    formatNumberToKoreanLocale(getBalance())
+  )
   addLog("insert", amount)
 }
 
 export const returnMoney = () => {
-  if (balance === 0) return
-  addLog("return", balance)
+  if (getBalance() === 0) return
+  addLog("return", getBalance())
   resetBalance()
   updateElement(".product-price-display", 0)
 }

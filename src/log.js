@@ -20,9 +20,12 @@ export const switchLogType = (type, amount, productId) => {
 
 export const addLog = (type, amount, productId) => {
   const clone = selectNode(".log-template").content.cloneNode(true)
+
   const logList = clone.querySelector(".log")
   logList.textContent = switchLogType(type, amount, productId)
+
   const logLists = selectNode(".log-lists")
   logLists.appendChild(clone)
+
   logLists.scrollTop = logLists.scrollHeight
 }
