@@ -61,8 +61,8 @@ describe('insertCoin', () => {
     expect(logParagraphElements.length).toBe(1);
   });
 
-  it('0원 투입하면 false를 반환하고, 로그는 남지 않는다.', () => {
-    const response = insertCoin(0, coinManager, logService);
+  it('0원을 투입하면 false를 반환하고, 로그는 남지 않는다.', () => {
+    const response = insertCoin('0', coinManager, logService);
 
     expect(response.ok).toBe(false);
 

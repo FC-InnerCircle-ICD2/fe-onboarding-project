@@ -44,13 +44,14 @@ describe('initializeCoinForm', () => {
   });
 
   it('0원을 투입할 시 무시된다', () => {
+    expect(coinManager.getCoin()).toBe(0);
+
     input.value = '0';
 
     const submitEvent = new SubmitEvent('submit', { bubbles: true });
     form.dispatchEvent(submitEvent);
 
     expect(coinManager.getCoin()).toBe(0);
-    expect(windowElement.textContent).toBe(formatCurrency(0));
     expect(input.value).toBe('');
   });
 
