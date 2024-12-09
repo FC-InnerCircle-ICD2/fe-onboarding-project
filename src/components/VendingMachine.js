@@ -49,6 +49,14 @@ class VendingMachine {
         onProductMouseUp: () => {
           this.#updateBalanceDisplay();
         },
+        onProductKeyDown: (price) => {
+          if (!this.#currentBalanceManager.canAfford(price)) {
+            this.#updateBalanceDisplay(price);
+          }
+        },
+        onProductKeyUp: () => {
+          this.#updateBalanceDisplay();
+        },
       }
     );
   }

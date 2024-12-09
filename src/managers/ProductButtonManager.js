@@ -74,6 +74,19 @@ class ProductButtonManager {
     this.#productButtonListEl.addEventListener("mouseup", () => {
       this.#handlers.onProductMouseUp();
     });
+
+    this.#productButtonListEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        const productPrice = parseInt(e.target.getAttribute("data-price"));
+        this.#handlers.onProductKeyDown(productPrice);
+      }
+    });
+
+    this.#productButtonListEl.addEventListener("keyup", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        this.#handlers.onProductKeyUp();
+      }
+    });
   }
 
   init() {
