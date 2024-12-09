@@ -5,17 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const main = document.querySelector("main");
   const template = document.querySelector("#vending-machine-template");
 
-  // 자판기 틀 복제
-  for (let i = 1; i <= 3; i++) {
-    const vendingMachine = template.content.cloneNode(true);
-    const vendingMachineContainer =
-      vendingMachine.querySelector(`[aria-label="자판기"]`);
-    vendingMachineContainer.id = `machine-${i}`;
-    main.appendChild(vendingMachine);
-  }
-
   // 자판기 상품 진열
-  const vendingMachine1 = new VendingMachine("machine-1", [
+  const vendingMachine1 = new VendingMachine([
     { name: "콜라", price: 1500 },
     { name: "사이다", price: 1500 },
     { name: "환타", price: 1500 },
@@ -26,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "이온음료", price: 1800 },
     { name: "탄산수", price: 1300 },
   ]);
-  const vendingMachine2 = new VendingMachine("machine-2", [
+  const vendingMachine2 = new VendingMachine([
     { name: "아메리카노", price: 2500 },
     { name: "카페라떼", price: 3000 },
     { name: "카푸치노", price: 3000 },
@@ -37,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "티", price: 2500 },
     { name: "아이스티", price: 2500 },
   ]);
-  const vendingMachine3 = new VendingMachine("machine-3", [
+  const vendingMachine3 = new VendingMachine([
     { name: "로봇장난감", price: 5000 },
     { name: "미니카", price: 4000 },
     { name: "퍼즐", price: 3500 },

@@ -22,14 +22,18 @@ class VendingMachine {
   #productButtonManager;
 
   /**
-   * @param {string} machineId - 자판기 DOM 요소의 ID
    * @param {Product[]} products - 상품 목록
    */
-  constructor(machineId, products) {
-    this.#machineEl = document.querySelector(`#${machineId}`);
+  constructor(products) {
+    const template = document.querySelector("#vending-machine-template");
+    const clonedContent = template.content.cloneNode(true);
+    document.querySelector("main").appendChild(clonedContent);
+    this.#machineEl = document.querySelector("main").lastElementChild;
+
     this.#insertedMoneyInputEl = this.#machineEl.querySelector(
       `[aria-label="${BALANCE_ARIA_LABELS.BALANCE_INPUT}"]`
     );
+
     this.#currentBalanceManager = new CurrentBalanceManager();
     this.#logManager = new LogManager(this.#machineEl);
     this.#productButtonManager = new ProductButtonManager(
